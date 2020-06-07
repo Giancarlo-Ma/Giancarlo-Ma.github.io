@@ -103,7 +103,7 @@
       <h1 class="site-title">Giancarlo's Blog</h1>
       <span class="logo-line-after"><i></i></span>
     </a>
-      <p class="site-subtitle" itemprop="description">Code Life</p>
+      <p class="site-subtitle" itemprop="description">Code && Peaceful Life</p>
   </div>
 
   <div class="site-nav-right">
@@ -160,7 +160,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
       <meta itemprop="name" content="Guohang Ma">
-      <meta itemprop="description" content="developer blog">
+      <meta itemprop="description" content="📚⏰🎶🎸🏊🏽‍♂️🏃🏽‍🍦🍌🍓🌳🗽Love all things...">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -301,7 +301,11 @@
 
           </div>
           
-    <div class="comments" id="gitalk-container"></div>
+    
+  <div class="comments">
+    <div id="lv-container" data-id="city" data-uid="MTAyMC81MDQwMS8yNjg5MQ=="></div>
+  </div>
+  
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -357,7 +361,7 @@
     <img class="site-author-image" itemprop="image" alt="Guohang Ma"
       src="/images/avatar.jpg">
   <p class="site-author-name" itemprop="name">Guohang Ma</p>
-  <div class="site-description" itemprop="description">developer blog</div>
+  <div class="site-description" itemprop="description">📚⏰🎶🎸🏊🏽‍♂️🏃🏽‍🍦🍌🍓🌳🗽Love all things...</div>
 </div>
 <div class="site-state-wrap motion-element">
   <nav class="site-state">
@@ -553,23 +557,19 @@
 
   
 
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
-
 <script>
-NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
-  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
-    var gitalk = new Gitalk({
-      clientID    : '2b6e284e656b715f5a3f',
-      clientSecret: 'f34034a370b3c9c3470613f4dba511026a81eaf3',
-      repo        : 'giancarlo-ma.github.io# Repository name to store issues',
-      owner       : 'giancarlo-ma',
-      admin       : ['giancarlo-ma'],
-      id          : 'ff31afd1f9858e4f2b8a93cb04d75516',
-        language: '',
-      distractionFreeMode: true
-    });
-    gitalk.render('gitalk-container');
-  }, window.Gitalk);
+NexT.utils.loadComments(document.querySelector('#lv-container'), () => {
+  window.livereOptions = {
+    refer: location.pathname.replace(CONFIG.root, '').replace('index.html', '')
+  };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
 });
 </script>
 
