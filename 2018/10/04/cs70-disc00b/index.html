@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="ContrapositionProve the statement “if $a+b&lt;c+d$, then $a&lt;c$ or $b&lt;d$”. The implication we are trying to prove is $(a+b&lt;c+d)\Rightarrow((a&lt;c)\land(b&lt;d))$, so the contrapositive is $((">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cs70-disc00b">
+<meta property="og:url" content="http://yoursite.com/2018/10/04/cs70-disc00b/index.html">
+<meta property="og:site_name" content="Giancarlo&#39;s Blog">
+<meta property="og:description" content="ContrapositionProve the statement “if $a+b&lt;c+d$, then $a&lt;c$ or $b&lt;d$”. The implication we are trying to prove is $(a+b&lt;c+d)\Rightarrow((a&lt;c)\land(b&lt;d))$, so the contrapositive is $((">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2018-10-04T03:51:37.000Z">
+<meta property="article:modified_time" content="2020-06-07T02:09:33.220Z">
+<meta property="article:author" content="Guohang Ma">
+<meta property="article:tag" content="math">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2018/10/04/cs70-disc00b/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>cs70-disc00b | Giancarlo's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Giancarlo's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Code Life</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/04/cs70-disc00b/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Guohang Ma">
+      <meta itemprop="description" content="developer blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Giancarlo's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          cs70-disc00b
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-10-04 11:51:37" itemprop="dateCreated datePublished" datetime="2018-10-04T11:51:37+08:00">2018-10-04</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-06-07 10:09:33" itemprop="dateModified" datetime="2020-06-07T10:09:33+08:00">2020-06-07</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CS70/" itemprop="url" rel="index"><span itemprop="name">CS70</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Contraposition"><a href="#Contraposition" class="headerlink" title="Contraposition"></a>Contraposition</h1><p>Prove the statement “if $a+b&lt;c+d$, then $a&lt;c$ or $b&lt;d$”.</p>
+<p>The implication we are trying to prove is $(a+b&lt;c+d)\Rightarrow((a&lt;c)\land(b&lt;d))$, so the contrapositive is $((a\ge c)\land(b\ge d)) \Rightarrow (a+b \ge c+d)$. The proof is straightforward, since we have both that $a\ge c$ and $b\ge d$,we can just add these two inequalities together, giving us $a+b\ge c+d$, which is exactly what we want to prove.</p>
+<a id="more"></a>
+<h1 id="Perfect-Square"><a href="#Perfect-Square" class="headerlink" title="Perfect Square"></a>Perfect Square</h1><p>A <em>perfect square</em> is an integer $n$ of the form $n=m^2$ for some integer m. Prove that every odd perfect square is of the form $8k+1$ for some integer $k$.</p>
+<p>We will proceed with a direct proof.Let $n=m^2$ for some integer m. Since n is odd, then m is also odd, i.e., of the form $m=2l+1$ for some integer $l$.Then $m^2=4l^2+1+4l=4l(l+1)+1$. Since one of $l$ and $l+1$ must be even, $l(l+1)$ is of the form $2k$ and $n=m^2=8k+1$.</p>
+<h1 id="Number-of-Friends"><a href="#Number-of-Friends" class="headerlink" title="Number of Friends"></a>Number of Friends</h1><p>Prove that if there are $n\ge 2$ people at a party, then at least 2 of them have the same number of friends at the party.<br>(Hint: <em>The Pigeonhole Princle</em> states that if $n$ items are placed in $m$ containers, where $n&gt;m$, at least one container must contain more than one item. You may use this without proof.)</p>
+<p>There are two thoughts of this problem. First, we will prove this using contradiction. Suppose the contrary is that everyone has a different number of friends at the party.Since the number of friends that each person can hava ranges from 0 to $n-1$, we conclude that for every $i \in {0,1,…,n-1}$, there is exactly one person who has exactly $i$ friends at the party. In paticular, there is one person who has $n-1$ fiends(i.e. friends with everyone) and there is one person who has $0$ friends(i.e. friends with no one), which is contradiction. Second, we can think of this question using pigeonhole principle. Here we have $n$ n possible containers. Each container denotes the number of friends one person can have, so the container can be labeled 0,1,…,$n - 1$. The objects assigned to these containers are the people at the party. However, container 0, $n-1$ can not be occupied at the same time, this means we are assigning $n$ people to at most $n-1$ containers, and by pigeonhole princile, at least one of the $n-1$ containers has to have two or more objects i.e. at least two people have to have the same number of friends.</p>
+<h1 id="Fermat’s-Contradiction"><a href="#Fermat’s-Contradiction" class="headerlink" title="Fermat’s Contradiction"></a>Fermat’s Contradiction</h1><p>Prove that $2^{1/n}$ is not rational for any integer $n\ge 3$.(Hint: Use Fermat’s Last Theorem)</p>
+<p>We will proceed with contradiction. Assuming that $2^{1/n}$ is rational for ant integer $n\ge 3$. Then we have $2^{1/n}=\frac p q$, which p and q are all positive integers. Thus, $2q^n=p^n$, and this implies<br>$$q^n+q^n=p^n$$<br>which is a contradiction to the Fermat’s Last Therom.(No positive number $a$, $b$ and $c$ satisfy the equation $a^n+b^n=c^n$ for any integer value of $n$ greater than 2).</p>
+<h1 id="Prime-Form"><a href="#Prime-Form" class="headerlink" title="Prime Form"></a>Prime Form</h1><p>Prove that every prime number $m&gt;3$ is either of the form $6k+1$ or $6k-1$ for some integer $k$.</p>
+<p>We proceed using proof by cases. We know that any integer can be expressed as $6k+i$, where $i\in {0, 1, 2, 3, 4, 5}$. So we have the following 6 cases:</p>
+<ol>
+<li>$m=6k$, which can’t be true because m can’t be a prime.(has other factors other than one and itself)</li>
+<li>$m=6k+1$, this could be prime.</li>
+<li>$m=6k+2$, this can not be prime since $m=2(3k+1)$.</li>
+<li>$m=6k+3$, this can not be prime since $m=3(2k+1)$.</li>
+<li>$m=6k+4$, this can not be prime since $m=2(3k+2)$.</li>
+<li>$m=6k+5$, this could be prime and $m=6(k+1)-1$.</li>
+</ol>
+<p>Therefore, if $m$ is prime number, it must either have form $6k+1$ or $6k-1$.</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/math/" rel="tag"># math</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/10/03/cs70-disc00a/" rel="prev" title="CS70-disc00a">
+      <i class="fa fa-chevron-left"></i> CS70-disc00a
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/10/04/cs70-homework00/" rel="next" title="cs70-homework00">
+      cs70-homework00 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Contraposition"><span class="nav-number">1.</span> <span class="nav-text">Contraposition</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Perfect-Square"><span class="nav-number">2.</span> <span class="nav-text">Perfect Square</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Number-of-Friends"><span class="nav-number">3.</span> <span class="nav-text">Number of Friends</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Fermat’s-Contradiction"><span class="nav-number">4.</span> <span class="nav-text">Fermat’s Contradiction</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Prime-Form"><span class="nav-number">5.</span> <span class="nav-text">Prime Form</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Guohang Ma</p>
+  <div class="site-description" itemprop="description">developer blog</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">136</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">38</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Guohang Ma</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

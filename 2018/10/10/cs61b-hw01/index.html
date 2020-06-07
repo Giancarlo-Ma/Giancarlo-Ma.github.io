@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="IntroductionIn this homework, you will learn how to write and use packages, as well as get some hands-on practice with interfaces and abstract classes. We’ll also get an opportunity to implement a sim">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cs61b-hw01">
+<meta property="og:url" content="http://yoursite.com/2018/10/10/cs61b-hw01/index.html">
+<meta property="og:site_name" content="Giancarlo&#39;s Blog">
+<meta property="og:description" content="IntroductionIn this homework, you will learn how to write and use packages, as well as get some hands-on practice with interfaces and abstract classes. We’ll also get an opportunity to implement a sim">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://yoursite.com/2018/10/10/cs61b-hw01/buffer.png">
+<meta property="og:image" content="http://yoursite.com/2018/10/10/cs61b-hw01/buffer1.png">
+<meta property="og:image" content="http://yoursite.com/2018/10/10/cs61b-hw01/buffer2.png">
+<meta property="og:image" content="http://yoursite.com/2018/10/10/cs61b-hw01/buffer3.png">
+<meta property="og:image" content="http://yoursite.com/2018/10/10/cs61b-hw01/buffer4.png">
+<meta property="og:image" content="http://yoursite.com/2018/10/10/cs61b-hw01/karplus-strong.png">
+<meta property="article:published_time" content="2018-10-10T07:33:27.000Z">
+<meta property="article:modified_time" content="2020-06-07T02:09:33.220Z">
+<meta property="article:author" content="Guohang Ma">
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="data structure">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2018/10/10/cs61b-hw01/buffer.png">
+
+<link rel="canonical" href="http://yoursite.com/2018/10/10/cs61b-hw01/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>cs61b-hw01 | Giancarlo's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Giancarlo's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Code Life</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/10/cs61b-hw01/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Guohang Ma">
+      <meta itemprop="description" content="developer blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Giancarlo's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          cs61b-hw01
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-10-10 15:33:27" itemprop="dateCreated datePublished" datetime="2018-10-10T15:33:27+08:00">2018-10-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-06-07 10:09:33" itemprop="dateModified" datetime="2020-06-07T10:09:33+08:00">2020-06-07</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CS61B/" itemprop="url" rel="index"><span itemprop="name">CS61B</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>In this homework, you will learn how to write and use packages, as well as get some hands-on practice with interfaces and abstract classes. We’ll also get an opportunity to implement a simple data structure as well as an algorithm that’s easy to implement using that data structure. Finally, we’ll add support for iteration and exceptions (which we’ll cover on Friday) to our data structure.</p>
+<a id="more"></a>
+
+<p>As mentioned in class, a package is a namespace that organizes a set of related classes and interfaces. Conceptually, you can think of packages as being similar to different folders on your computer. When you are building a large system, it is a good idea to organize it into different packages.</p>
+<p>For this assignment, we’ll create a synthesizer package intended for use by programs that want to simulate the sound of instruments.</p>
+<p>The synthesizer package has four components:</p>
+<p><code>BoundedQueue</code>, an interface which declares all the methods that must be implemented by any class that implements BoundedQueue.<br><code>AbstractBoundedQueue</code>, an abstract class which implements BoundedQueue, capturing the redundancies between methods in BoundedQueue.<br><code>ArrayRingBuffer</code>, a class which extends AbstractBoundedQueue and uses an array as the actual implementation of the BoundedQueue.<br><code>GuitarString</code>, which uses an ArrayRingBuffer<Double> to implement the Karplus-Strong algorithm to synthesize a guitar string sound.<br>We’ve provided you with skeleton code for <code>ArrayRingBuffer</code> and <code>GuitarString</code>, but you’ll need to implement the other two classes from scratch. In this HW, we’ll work our way down the hierarchy from most abstract to most concrete.</p>
+<p>Note: while it’d probably be better design to make only the <code>GuitarString</code> class public (since people using synthesizers don’t really care about <code>AbstractBoundedQueues</code>), we’ll be leaving all of our classes public for this HW for testing convenience.</p>
+<h1 id="Task-1-BoundedQueue"><a href="#Task-1-BoundedQueue" class="headerlink" title="Task 1: BoundedQueue"></a>Task 1: BoundedQueue</h1><h2 id="Review-What-is-an-Interface-Why-would-you-want-one"><a href="#Review-What-is-an-Interface-Why-would-you-want-one" class="headerlink" title="Review: What is an Interface? Why would you want one?"></a>Review: What is an Interface? Why would you want one?</h2><p>As discussed in class, an interface is a formal contract between a class and the outside world. If your class claims to implement an interface, then all methods defined by that interface must appear in your class (or somewhere in your superclass) before the class will successfully compile. This is a way of enforcing promised behavior. All methods that you declare or define are automatically public and abstract (even if you omit the public keyword).</p>
+<h2 id="Your-Task"><a href="#Your-Task" class="headerlink" title="Your Task"></a>Your Task</h2><p>We will start by defining a <code>BoundedQueue</code> interface. The <code>BoundedQueue</code> is similar to our <code>Deque</code> from Project 1, but with a more limited API. Specifically, items can only be enqueued at the back of the queue, and can only be dequeued from the front of the queue. Unlike our <code>Deque</code>, the <code>BoundedDeque</code> has a fixed capacity, and nothing is allowed to enqueue if the queue is full.</p>
+<p>Create a file <code>BoundedQueue.java</code> in the synthesizer folder. You can do this easily in IntelliJ by right-clicking on the synthesizer folder in the project structure sidebar and click New -&gt; Java Class. Be sure to set “Kind” to “Interface”.</p>
+<p>Your <code>BoundedQueue</code> interface should contain the following methods:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">capacity</span><span class="params">()</span></span>;     <span class="comment">// return size of the buffer</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fillCount</span><span class="params">()</span></span>;    <span class="comment">// return number of items currently in the buffer</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">enqueue</span><span class="params">(T x)</span></span>;  <span class="comment">// add item x to the end</span></span><br><span class="line"><span class="function">T <span class="title">dequeue</span><span class="params">()</span></span>;        <span class="comment">// delete and return item from the front</span></span><br><span class="line"><span class="function">T <span class="title">peek</span><span class="params">()</span></span>;           <span class="comment">// return (but do not delete) item from the front</span></span><br></pre></td></tr></table></figure>
+<p>You should also create default methods <code>isEmpty()</code> and <code>isFull()</code> that return the appropriate answer if the <code>BoundedQueue</code> is empty or full.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">default</span> <span class="keyword">boolean</span> <span class="title">isEmpty</span><span class="params">()</span>       <span class="comment">// is the buffer empty (fillCount equals zero)?</span></span></span><br><span class="line"><span class="function"><span class="keyword">default</span> <span class="keyword">boolean</span> <span class="title">isFull</span><span class="params">()</span>        <span class="comment">// is the buffer full (fillCount is same as capacity)?</span></span></span><br></pre></td></tr></table></figure>
+<p>For example, given an empty BoundedQueue<Double> of capacity 4, the state of the queue after each operation is shown below:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">isEmpty()       <span class="comment">//                       (returns true)</span></span><br><span class="line">enqueue(<span class="number">9.3</span>)    <span class="comment">// 9.3</span></span><br><span class="line">enqueue(<span class="number">15.1</span>)   <span class="comment">// 9.3  15.1</span></span><br><span class="line">enqueue(<span class="number">31.2</span>)   <span class="comment">// 9.3  15.1  31.2</span></span><br><span class="line">isFull()        <span class="comment">// 9.3  15.1  31.2       (returns false)</span></span><br><span class="line">enqueue(-<span class="number">3.1</span>)   <span class="comment">// 9.3  15.1  31.2  -3.1</span></span><br><span class="line">isFull()        <span class="comment">// 9.3  15.1  31.2  -3.1 (returns true)</span></span><br><span class="line">dequeue()       <span class="comment">// 15.1 31.2  -3.1       (returns 9.3)</span></span><br><span class="line">peek()          <span class="comment">// 15.1 31.2  -3.1       (returns 15.1)</span></span><br></pre></td></tr></table></figure>
+<p>Of course, your <code>BoundedQueue.java</code> file won’t actually do anything (since it’s an interface), but it will define the contract that any <code>BoundedQueue</code> must follow.</p>
+<p>Make sure to decare this interface as part of the synthesizer package. The syntax for declaring yourself to be part of a package is <code>package &lt;packagename&gt;</code>;. For example, if you are part of the animal package, the top of your file should have a package animal; line. Your package name should just be <code>synthesizer</code>, nothing else. (If you created the file using IntelliJ, this should have already been done for you.)</p>
+<p>Before moving on, ensure that there are no compilation errors in <code>BoundedQueue</code>.</p>
+<p>If you’re stuck, see the <code>List61B</code> interface for an example of an interface declaration with generics.</p>
+<h1 id="Task-2-AbstractBoundedQueue"><a href="#Task-2-AbstractBoundedQueue" class="headerlink" title="Task 2: AbstractBoundedQueue"></a>Task 2: AbstractBoundedQueue</h1><h2 id="Review-What-is-an-Abstract-Class-Why-would-you-want-one"><a href="#Review-What-is-an-Abstract-Class-Why-would-you-want-one" class="headerlink" title="Review: What is an Abstract Class? Why would you want one?"></a>Review: What is an Abstract Class? Why would you want one?</h2><p>Methods and classes can be declared as abstract using the abstract keyword. Abstract classes cannot be instantiated, but they can be subclassed using the <code>extends</code> keyword. Unlike interfaces, abstract classes can provide implementation inheritance for features other than public methods, including instance variables.</p>
+<p>Classes that implement interfaces will inherit all of the methods and variables from that interface. If an implementing class fails to implement any abstract methods inherited from an interface, then that class must be declared abstract, as in:<br><code>public abstract class AbstractBoundedQueue</code><br>As an aside, it is also possible to declare additional abstract methods. To do so, the method must be defined with the abstract keyword and without an implementation (without braces, and followed by a semicolon), like this:<br>`abstract void moveTo(double deltaX, double deltaY);``<br>We won’t explicitly define any non-inherited methods as abstract in HW1, but it’s a thing you might find useful someday.</p>
+<h2 id="Your-Task-1"><a href="#Your-Task-1" class="headerlink" title="Your Task"></a>Your Task</h2><p>Create a new abstract class in a .java file called <code>AbstractBoundedQueue.java</code> that implements <code>BoundedQueue</code>. Your <code>AbstractBoundedQueue</code> class should have the following methods and fields (field is just another word for instance variable):</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protected</span> <span class="keyword">int</span> fillCount;</span><br><span class="line"><span class="keyword">protected</span> <span class="keyword">int</span> capacity;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">capacity</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">fillCount</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isEmpty</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isFull</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> T <span class="title">peek</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> T <span class="title">dequeue</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">enqueue</span><span class="params">(T x)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>Note that <code>isEmpty</code>, <code>isFull</code>, <code>peek</code>, <code>dequeue</code>, <code>enqueue</code>, are inherited from BoundedQueue, so you should not to declare these explicitly in your AbstractBoundedQueue.java file. The mysterious <code>protected</code> keyword above is something we’ll talk about in lecture on 2/21. It just means that only subclasses of <code>AbstractBoundedQueue</code> and classes in the same package as <code>AbstractBoundedQueue</code> can access this variable.</p>
+<p>The purpose of <code>AbstractBoundedQueue</code> will be to simply provide a protected <code>fillCount</code> and <code>capacity</code> variable that all subclasses will inherit, as well as so called “getter” methods <code>capacity()</code> and <code>fillCount()</code> that return <code>capacity</code> and <code>fillCount</code>, respectively. This saves a tiny amount of work for future implementations like <code>ArrayRingBuffer.java</code>(see next section).</p>
+<h2 id="Side-Note-When-to-use-an-Interface-Versus-an-Abstract-Class"><a href="#Side-Note-When-to-use-an-Interface-Versus-an-Abstract-Class" class="headerlink" title="Side Note: When to use an Interface Versus an Abstract Class"></a>Side Note: When to use an Interface Versus an Abstract Class</h2><p>In practice, in can be a little unclear when to use an interface and when to use an abstract class. One mostly accurate metaphor that might help is that you can think of an interface as defining a “can-do” or an “is-a” relationship, whereas an abstract class should be a stricter “is-a” relationship. The difference can be subtle, and you can often use one instead of the other.</p>
+<p>In practice, large Java libraries often have a hierarchy of interfaces, which are extended by abstract classes that provided default implementations for some methods, and which are in turn ultimately implemented by concrete classes. A good example is the Collection interface: It extends Iterable (which is its superinterface), and is implemented by many subinterfaces (i.e. List, Set, Map), which in turn have their own abstract implementations (AbstractList, AbstractSet AbstractMap). However, for smaller programs, the hierarchy is often stubbier, sometimes starting with an abstract class. For example, we could have just started with AbstractBoundedQueue at the top of the hierarchy and skipped having a BoundedQueue interface altogether.</p>
+<h1 id="Task-3-ArrayRingBuffer"><a href="#Task-3-ArrayRingBuffer" class="headerlink" title="Task 3: ArrayRingBuffer"></a>Task 3: ArrayRingBuffer</h1><p>The <code>ArrayRingBuffer</code> class will do all the real work by extending <code>AbstractBoundedQueue</code>. That means we can happily inherit <code>capacity()</code>, <code>fillCount()</code>, <code>isEmpty()</code>, and <code>isFull()</code> without having to override these, but we’ll need to override all of the the abstract methods. In this part, you’ll fill out <code>ArrayRingBuffer.java</code>. You’ll need to rename the file from <code>ArrayRingBuffer.java.skeleton</code> to <code>ArrayRingBuffer.java</code>.</p>
+<p>A naive array implementation of a BoundedQueue would store the newest item at position 0, the second newest item in position 1, and so forth. This is an inefficient approach, as we see in the example below, where the comments show entries 0, 1, 2, and 3 of the array respectively. We assume that the array is initially all nulls.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">BoundedQueue x = <span class="keyword">new</span> NaiveArrayBoundedQueue(<span class="number">4</span>);</span><br><span class="line">x.enqueue(<span class="number">33.1</span>) <span class="comment">// 33.1 null null  null</span></span><br><span class="line">x.enqueue(<span class="number">44.8</span>) <span class="comment">// 33.1 44.8 null  null</span></span><br><span class="line">x.enqueue(<span class="number">62.3</span>) <span class="comment">// 33.1 44.8 62.3  null</span></span><br><span class="line">x.enqueue(-<span class="number">3.4</span>) <span class="comment">// 33.1 44.8 62.3 -3.4</span></span><br><span class="line">x.dequeue()     <span class="comment">// 44.8 62.3 -3.4  null (returns 33.1)</span></span><br></pre></td></tr></table></figure>
+<p>Note that in this setup, the call to <code>dequeue</code> is very slow as it requires moving every single item to the left. For larger arrays this would result in unacceptable performance.</p>
+<p>The ArrayRingBuffer will improve this runtime substantially by using the ‘ring buffer’ data structure, similar to the circular array from Project 1A. A ring buffer first starts empty and of some predefined length. For example, this is a 7-element buffer:</p>
+<img src="/2018/10/10/cs61b-hw01/buffer.png" class="">
+
+<p>Assume that a 1 is written into the middle of the buffer (the exact starting location does not matter in a ring buffer):</p>
+<img src="/2018/10/10/cs61b-hw01/buffer1.png" class="">
+
+<p>Then assume that two more elements are added — 2 and 3 — which get appended after the 1. Here, it is important that the 2 and 3 are placed in the exact order and places shown:</p>
+<img src="/2018/10/10/cs61b-hw01/buffer2.png" class="">
+
+<p>If two elements are then removed from the buffer, the oldest two values inside the buffer are removed. The two elements removed in this case are 1 and 2, leaving the buffer with just a 3:</p>
+<img src="/2018/10/10/cs61b-hw01/buffer3.png" class="">
+
+<p>If we then enqueue 4, 5, 6, 7, 8, and 9, the ring buffer is now as shown below:</p>
+<img src="/2018/10/10/cs61b-hw01/buffer4.png" class="">
+
+<p>Note that the 6 was enqueued at the leftmost entry of the array (i.e. the buffer wraps around, like a ring). At this point, the ring buffer is full, and if another enqueue() is performed, then an Exception will occur. You will manually throw this Exception. See the section labeled Iteration and Exceptions at the end of this HW for more.</p>
+<p>We recommend you maintain one integer instance variable <code>first</code> that stores the index of the least recently inserted item; maintain a second integer instance variable <code>last</code> that stores the index one beyond the most recently inserted item. To insert an item, put it at index <code>last</code> and increment <code>last</code>. To remove an item, take it from index <code>first</code> and increment <code>first</code>. When either index equals capacity, make it wrap-around by changing the index to 0. Our skeleton file provides starter code along these lines. You’re welcome to do something else if you’d like, since these variables are private and thus our tester will not be able to see them anyway.</p>
+<p>In the last section of this homework, we’ll implement our <code>ArrayRingBuffer</code> to throw a run-time exception if the client attempts to <code>enqueue()</code> into a full buffer or call <code>dequeue()</code> or <code>peek()</code> on an empty buffer. We’ll be covering exceptions on Monday, so hold off until then (or read ahead in HFJ or online).</p>
+<p>Once you’ve fleshed out the TODOs, make sure <code>ArrayRingBuffer</code> compiles before moving on. Optionally, you can add tests to the <code>TestArrayRingBuffer</code> class (either before or after your write <code>ArrayRingBuffer</code>). <code>TestArrayRingBuffer.java</code> will not be graded.</p>
+<p>For homeworks and labs (but not projects), you’re welcome to share test code. Feel free to share your tests for this homework on Piazza.</p>
+<h1 id="Task-4-GuitarString"><a href="#Task-4-GuitarString" class="headerlink" title="Task 4: GuitarString"></a>Task 4: GuitarString</h1><p>Finally, we want to flesh out <code>GuitarString</code>, which uses an <code>ArrayRingBuffer</code> to replicate the sound of a plucked string. We’ll be using the Karplus-Strong algorithm, which is quite easy to implement with a BoundedQueue.</p>
+<p>The Karplus-Algorithm is simply the following three steps:</p>
+<ol>
+<li>Replace every item in a BoundedQueue with random noise (double values between -0.5 and 0.5).</li>
+<li>Remove the front double in the BoundedQueue and average it with the next double in the BQ (hint: use dequeue() and peek()) multiplied by an energy decay factor of 0.996.</li>
+<li>Play the double that you dequeued in step 2. Go back to step 2 (repeating forever).<br>Or visually, if the BoundedQueue is as shown on the top, we’d dequeue the 0.2, combine it with the 0.4 to form 0.2988, enqueue the 0.2988, and play the 0.2.</li>
+</ol>
+<img src="/2018/10/10/cs61b-hw01/karplus-strong.png" class="">
+
+<p>You can play a double value with the <code>StdAudio.play</code> method. For example <code>StdAudio.play(0.333)</code> will tell the diaphragm of your speaker to extend itself to 1/3rd of its total reach, <code>StdAudio.play(-0.9)</code> will tell it to stretch its little heart backwards almost as far as it can reach. Movement of the speaker diaphragm displaces air, and if you displace air in nice patterns, these disruptions will be intepreted by your consciousness as pleasing thanks to billions of years of evolution. See this page for more. If you simply do <code>StdAudio.play(0.9)</code> and never play anything again, the diaphragm shown in the image would just be sitting still 9/10ths of the way forwards.</p>
+<p>Rename <code>GuitarString.java.skeleton</code> to <code>GuitarString.java</code>. Complete <code>GuitarString.java</code> so that it implements steps 1 and 2 of the Karplus-Strong algorithm. Step 3 will be done by the client of the <code>GuitarString</code> class.</p>
+<p>Make sure to import javalib into your project, as usual, otherwise <code>StdAudio</code> won’t work.</p>
+<p>For example, the provided <code>TestGuitarString</code> class provides a sample test <code>testPluckTheAString</code> that attempts to play an A-note on a guitar string. You should hear an A-note when you run this test. If you don’t, you should try the <code>testTic</code> method and debug from there. Consider adding a <code>print</code> or <code>toString</code> method to <code>GuitarString.java</code> that will help you see what’s going on between tics.</p>
+<h1 id="Just-For-Fun-TTFAF"><a href="#Just-For-Fun-TTFAF" class="headerlink" title="Just For Fun: TTFAF"></a>Just For Fun: TTFAF</h1><p>Once you’re relatively comfortable that GuitarString should be working, rename the rest of the <code>.java.skeleton</code> files to <code>.java</code> and try running <code>TTFAF</code>. Make sure your sound is on!</p>
+<p>You can read the <code>GuitarPlayer</code> and <code>TTFAF</code> classes to figure out how they work. <code>TTFAF</code> in particular includes (as commented-out code) an example of how to use it another way.</p>
+<h2 id="GuitarHeroLite"><a href="#GuitarHeroLite" class="headerlink" title="GuitarHeroLite"></a>GuitarHeroLite</h2><p>You should now also be able to use the<code>GuitarHero</code> class. Running it will provide an interface, allowing the user (you!) to interactively play sounds using the <code>synthesizer</code> package’s <code>GuitarString</code> class.</p>
+<p>Consider writing a program GuitarHero that is similar to GuitarHeroLite, but supports a total of 37 notes on the chromatic scale from 110Hz to 880Hz. Use the following 37 keys to represent the keyboard, from lowest note to highest note:</p>
+<p><code>String keyboard = &quot;q2we4r5ty7u8i9op-[=zxdcfvgbnjmk,.;/&#39; &quot;;</code></p>
+<p>This keyboard arrangement imitates a piano keyboard: The “white keys” are on the qwerty and zxcv rows and the “black keys” on the 12345 and asdf rows of the keyboard.</p>
+<p>The ith character of the string keyboard corresponds to a frequency of $440\cdot 2^{(i -24)/12}$, so that the character q is 110Hz, ‘i’ is 220Hz, ‘v’ is 440Hz, and ‘ ‘ is 880Hz. Don’t even think of including 37 individual GuitarString variables or a 37-way if statement! Instead, create an array of 37 GuitarString objects and use <code>keyboard.indexOf(key)</code> to figure out which key was typed. Make sure your program does not crash if a key is pressed that does not correspond to one of your 37 notes.</p>
+<p>This part of the assignment is not graded.</p>
+<h1 id="Even-More-Fun"><a href="#Even-More-Fun" class="headerlink" title="Even More Fun"></a>Even More Fun</h1><ul>
+<li>Harp strings: Flipping the sign of the new value before enqueueing it in tic() will change the sound from guitar-like to harp-like. You may want to play with the decay factors to improve the realism, and adjust the buffer sizes by a factor of two since the natural resonance frequency is cut in half by the tic() change.</li>
+<li>Drums: Flipping the sign of a new value with probability 0.5 before enqueueing it in tic() will produce a drum sound. A decay factor of 1.0 (no decay) will yield a better sound, and you will need to adjust the set of frequencies used.</li>
+<li>Guitars play each note on one of 6 physical strings. To simulate this you can divide your GuitarString instances into 6 groups, and when a string is plucked, zero out all other strings in that group.</li>
+<li>Pianos come with a damper pedal which can be used to make the strings stationary. You can implement this by, on iterations where a certain key (such as Shift) is held down, changing the decay factor.</li>
+<li>While we have used equal temperament, the ear finds it more pleasing when musical intervals follow the small fractions in the just intonation system. For example, when a musician uses a brass instrument to play a perfect fifth harmonically, the ratio of frequencies is 3/2 = 1.5 rather than 27/12 ∼ 1.498. Write a program where each successive pair of notes has just intonation.<br>This part of the assignment is not graded.</li>
+</ul>
+<h1 id="Why-It-Works"><a href="#Why-It-Works" class="headerlink" title="Why It Works"></a>Why It Works</h1><p>The two primary components that make the Karplus-Strong algorithm work are the ring buffer feedback mechanism and the averaging operation.</p>
+<ul>
+<li>The ring buffer feedback mechanism. The ring buffer models the medium (a string tied down at both ends) in which the energy travels back and forth. The length of the ring buffer determines the fundamental frequency of the resulting sound. Sonically, the feedback mechanism reinforces only the fundamental frequency and its harmonics (frequencies at integer multiples of the fundamental). The energy decay factor (.996 in this case) models the slight dissipation in energy as the wave makes a round trip through the string.</li>
+<li>The averaging operation. The averaging operation serves as a gentle low-pass filter (which removes higher frequencies while allowing lower frequencies to pass, hence the name). Because it is in the path of the feedback, this has the effect of gradually attenuating the higher harmonics while keeping the lower ones, which corresponds closely with how a plucked guitar string sounds.</li>
+</ul>
+<h1 id="Task-5-Iteration-and-Exceptions"><a href="#Task-5-Iteration-and-Exceptions" class="headerlink" title="Task 5: Iteration and Exceptions"></a>Task 5: Iteration and Exceptions</h1><p>As an exercise in making your data structures more industrial strength, we’ll add the ability to iterate through a BoundedQueue and also ensure that it throws exceptions when given invalid inputs. We’ll cover these topics on Friday 2/16.</p>
+<h2 id="BoundedQueue"><a href="#BoundedQueue" class="headerlink" title="BoundedQueue"></a>BoundedQueue</h2><p>First, modify your <code>BoundedQueue&lt;T&gt;</code> interface so that it <code>extends Iterable&lt;T&gt;</code> and add the required abstract method to the interface. You’ll need to import <code>java.util.Iterator</code>.</p>
+<h2 id="AbstractBoundedQueue"><a href="#AbstractBoundedQueue" class="headerlink" title="AbstractBoundedQueue"></a>AbstractBoundedQueue</h2><p>Consider your AbstractBoundedQueue. You don’t need to change anything in this class to support iteration. Make sure you understand why.</p>
+<h2 id="ArrayRingBuffer"><a href="#ArrayRingBuffer" class="headerlink" title="ArrayRingBuffer"></a>ArrayRingBuffer</h2><p>Now finally add the required <code>iterator()</code> method to <code>ArrayRingBuffer</code>. You’ll need to define a private class that implements the <code>Iterator</code> interface. See lecture 14 for an example..</p>
+<h2 id="Exceptions"><a href="#Exceptions" class="headerlink" title="Exceptions"></a>Exceptions</h2><p>Now modify <code>ArrayRingBuffer</code> so that it throws a RuntimeException with the String “Ring Buffer Overflow” when a user attempts to enqueue into a full <code>ArrayRingBuffer</code>, and “Ring Buffer Underflow” when a user attempts to deque an empty <code>ArrayRingBuffer</code>.</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/java/" rel="tag"># java</a>
+              <a href="/tags/data-structure/" rel="tag"># data structure</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/10/10/cs61b-examprep06/" rel="prev" title="cs61b-examprep06">
+      <i class="fa fa-chevron-left"></i> cs61b-examprep06
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/10/11/cs61c-disc02/" rel="next" title="cs61c-disc02">
+      cs61c-disc02 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Task-1-BoundedQueue"><span class="nav-number">2.</span> <span class="nav-text">Task 1: BoundedQueue</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Review-What-is-an-Interface-Why-would-you-want-one"><span class="nav-number">2.1.</span> <span class="nav-text">Review: What is an Interface? Why would you want one?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Your-Task"><span class="nav-number">2.2.</span> <span class="nav-text">Your Task</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Task-2-AbstractBoundedQueue"><span class="nav-number">3.</span> <span class="nav-text">Task 2: AbstractBoundedQueue</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Review-What-is-an-Abstract-Class-Why-would-you-want-one"><span class="nav-number">3.1.</span> <span class="nav-text">Review: What is an Abstract Class? Why would you want one?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Your-Task-1"><span class="nav-number">3.2.</span> <span class="nav-text">Your Task</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Side-Note-When-to-use-an-Interface-Versus-an-Abstract-Class"><span class="nav-number">3.3.</span> <span class="nav-text">Side Note: When to use an Interface Versus an Abstract Class</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Task-3-ArrayRingBuffer"><span class="nav-number">4.</span> <span class="nav-text">Task 3: ArrayRingBuffer</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Task-4-GuitarString"><span class="nav-number">5.</span> <span class="nav-text">Task 4: GuitarString</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Just-For-Fun-TTFAF"><span class="nav-number">6.</span> <span class="nav-text">Just For Fun: TTFAF</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#GuitarHeroLite"><span class="nav-number">6.1.</span> <span class="nav-text">GuitarHeroLite</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Even-More-Fun"><span class="nav-number">7.</span> <span class="nav-text">Even More Fun</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Why-It-Works"><span class="nav-number">8.</span> <span class="nav-text">Why It Works</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Task-5-Iteration-and-Exceptions"><span class="nav-number">9.</span> <span class="nav-text">Task 5: Iteration and Exceptions</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#BoundedQueue"><span class="nav-number">9.1.</span> <span class="nav-text">BoundedQueue</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AbstractBoundedQueue"><span class="nav-number">9.2.</span> <span class="nav-text">AbstractBoundedQueue</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ArrayRingBuffer"><span class="nav-number">9.3.</span> <span class="nav-text">ArrayRingBuffer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Exceptions"><span class="nav-number">9.4.</span> <span class="nav-text">Exceptions</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Guohang Ma</p>
+  <div class="site-description" itemprop="description">developer blog</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">136</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">38</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Guohang Ma</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

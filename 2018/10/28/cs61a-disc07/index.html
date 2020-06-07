@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Order of growthQuestionsWhat is the order of growth for the following functions? 12345def sum_of_factorial(n):    if n &#x3D;&#x3D; 0:        return 1    else:        return factorial(n) + sum_of_factorial(n -">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cs61a-disc07">
+<meta property="og:url" content="http://yoursite.com/2018/10/28/cs61a-disc07/index.html">
+<meta property="og:site_name" content="Giancarlo&#39;s Blog">
+<meta property="og:description" content="Order of growthQuestionsWhat is the order of growth for the following functions? 12345def sum_of_factorial(n):    if n &#x3D;&#x3D; 0:        return 1    else:        return factorial(n) + sum_of_factorial(n -">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2018-10-28T07:22:35.000Z">
+<meta property="article:modified_time" content="2020-06-07T02:09:33.330Z">
+<meta property="article:author" content="Guohang Ma">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="SICP">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2018/10/28/cs61a-disc07/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>cs61a-disc07 | Giancarlo's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Giancarlo's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Code Life</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/28/cs61a-disc07/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Guohang Ma">
+      <meta itemprop="description" content="developer blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Giancarlo's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          cs61a-disc07
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-10-28 15:22:35" itemprop="dateCreated datePublished" datetime="2018-10-28T15:22:35+08:00">2018-10-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-06-07 10:09:33" itemprop="dateModified" datetime="2020-06-07T10:09:33+08:00">2020-06-07</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CS61A/" itemprop="url" rel="index"><span itemprop="name">CS61A</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Order-of-growth"><a href="#Order-of-growth" class="headerlink" title="Order of growth"></a>Order of growth</h1><h2 id="Questions"><a href="#Questions" class="headerlink" title="Questions"></a>Questions</h2><p>What is the order of growth for the following functions?</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sum_of_factorial</span><span class="params">(n)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> n == <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> factorial(n) + sum_of_factorial(n - <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>The order of growth is $\Theta(n^2)$</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">bonk</span><span class="params">(n)</span>:</span></span><br><span class="line">    total = <span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> n &gt;= <span class="number">2</span>:</span><br><span class="line">        total += n</span><br><span class="line">        n = n / <span class="number">2</span></span><br><span class="line">    <span class="keyword">return</span> total</span><br></pre></td></tr></table></figure>
+<p>The order of growth is $\Theta(log(n))$</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">mod_7</span><span class="params">(n)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> n % <span class="number">7</span> == <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span> + mod_7(n - <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<p>This order of growth is $\Theta(1)$</p>
+<h1 id="Linked-List"><a href="#Linked-List" class="headerlink" title="Linked List"></a>Linked List</h1><h2 id="Questions-1"><a href="#Questions-1" class="headerlink" title="Questions"></a>Questions</h2><p>Write a function that takes in a Python list of linked lists and multiplies them<br>element-wise. It should return a new linked list.<br>If not all of the Link objects are of equal length, return a linked list whose length is<br>that of the shortest linked list given. You may assume the Link objects are shallow<br>linked lists, and that lst of lnks contains at least one linked list.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">multiply_lnks</span><span class="params">(lst_of_lnks)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; a = Link(2, Link(3, Link(5)))</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; b = Link(6, Link(4, Link(2)))</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; c = Link(4, Link(1, Link(0, Link(2))))</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; p = multiply_lnks([a, b, c])</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; p.first</span></span><br><span class="line"><span class="string">    48</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; p.rest.first</span></span><br><span class="line"><span class="string">    12</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; p.rest.rest.rest</span></span><br><span class="line"><span class="string">    ()</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    product = <span class="number">1</span></span><br><span class="line">    <span class="keyword">for</span> lst <span class="keyword">in</span> lst_of_lnks:</span><br><span class="line">        <span class="keyword">if</span> lst <span class="keyword">is</span> Link.empty:</span><br><span class="line">            <span class="keyword">return</span> Link.empty</span><br><span class="line">        product *= lst.first</span><br><span class="line">    lst_rest = [lst.rest <span class="keyword">for</span> lst <span class="keyword">in</span> lst_of_lnks]</span><br><span class="line">    <span class="keyword">return</span> Link(product, multiply_lnks(lst_rest))</span><br></pre></td></tr></table></figure>
+<p><span style="color:red">For our base case, if we detect that any of the lists in the list of Links is empty, we can return the empty linked list as we’re not going to multiply anything.</span><br><span style="color:red">Otherwise, we compute the product of all the firsts in our list of Links. Then, the subproblem we use here is the rest of all the linked lists in our list of Links.<br><span style="color:red">Remember that the result of calling <code>multiply_lnks</code> will be a linked list! We’ll use the product we’ve built so far as the first item in the returned Link, and then the result of the recursive call as the rest of that Link.</span><br><span style="color:red">Iterative solution:</span></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">multiply_lnks</span><span class="params">(lst_of_lnks)</span>:</span></span><br><span class="line">    <span class="keyword">import</span> operator</span><br><span class="line">    <span class="keyword">from</span> functools <span class="keyword">import</span> reduce</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">prod</span><span class="params">(factors)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> reduce(operator.mul, factors, <span class="number">1</span>)</span><br><span class="line">    head = Link.empty</span><br><span class="line">    tail = head</span><br><span class="line">    <span class="keyword">while</span> Link.empty <span class="keyword">not</span> <span class="keyword">in</span> lst_of_lnks:</span><br><span class="line">        all_prod = prod([l.first <span class="keyword">for</span> l <span class="keyword">in</span> lst_of_lnks])</span><br><span class="line">    <span class="keyword">if</span> head <span class="keyword">is</span> Link.empty:</span><br><span class="line">        head = Link(all_prod)</span><br><span class="line">        tail = head</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        tail.rest = Link(all_prod)</span><br><span class="line">        tail = tail.rest</span><br><span class="line">    lst_of_lnks = [l.rest <span class="keyword">for</span> l <span class="keyword">in</span> lst_of_lnks]</span><br><span class="line">    <span class="keyword">return</span> head</span><br></pre></td></tr></table></figure>
+<p><span style="color:red">The iterative solution is a bit more involved than the recursive solution. Instead of building the list “backwards” as in the recursive solution (because of the order that the recursive calls result in, the last item in our list will be finished first), we’ll build the resulting linked list as we go along.</span><br><span style="color:red">We use head and tail to track the front and end of the new linked list we’re creating.</span><br><span style="color:red">Our stopping condition for the loop is if any of the Links in our list of Links runs out of items.</span><br><span style="color:red">Finally, there’s some special handling for the first item. We need to update both head and tail in that case. Otherwise, we just append to the end of our list using tail, and update tail</span></p>
+<p>Write a function that takes a sorted linked list of integers and mutates it so that<br>all duplicates are removed.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">remove_duplicates</span><span class="params">(lnk)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; lnk = Link(1, Link(1, Link(1, Link(1, Link(5)))))</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; remove_duplicates(lnk)</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; lnk</span></span><br><span class="line"><span class="string">    Link(1, Link(5))</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="keyword">if</span> lnk == Link.empty <span class="keyword">or</span> lnk.rest == Link.empty:</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">if</span> lnk.first == lnk.rest.first:</span><br><span class="line">        lnk.rest = lnk.rest.rest</span><br><span class="line">        remove_duplicates(lnk)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        remove_duplicates(lnk.rest)</span><br></pre></td></tr></table></figure>
+<p><span style="color:red">For a list of one or no items, there are no duplicates to remove.</span></p>
+<p>Now consider two possible cases:</p>
+<ul>
+<li>If there is a duplicate of the first item, we will find that the first and second items in the list will have the same values (that is, <code>lnk.first == lnk.rest.first</code>).<br>We can confidently state this because we were told that the input linked list is in sorted order, so duplicates are adjacent to each other. We’ll remove the second item from the list.<br>Finally, it’s tempting to recurse on the remainder of the list (<code>lnk.rest</code>), but remember that there could still be more duplicates of the first item in the rest of the list! So we have to recurse on <code>lnk</code> instead. Remember that we have removed an item from the list, so the list is one element smaller than before.<br>Normally, recursing on the same list wouldn’t be a valid subproblem.</li>
+<li>Otherwise, there is no duplicate of the first item. We can safely recurse on the remainder of the list.<br><span style="color:red">Iterative solution</span><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> lst <span class="keyword">is</span> <span class="keyword">not</span> Link.empty <span class="keyword">or</span> lst.rest <span class="keyword">is</span> <span class="keyword">not</span> Link.empty:</span><br><span class="line">    <span class="keyword">if</span> lst.first == lst.rest.first:</span><br><span class="line">        lst.rest = lst.rest.rest</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        lst = lst.rest</span><br></pre></td></tr></table></figure>
+<h1 id="Midterm-Review"><a href="#Midterm-Review" class="headerlink" title="Midterm Review"></a>Midterm Review</h1></li>
+</ul>
+<p>3.1 Write a function that takes a list and returns a new list that keeps only the evenindexed elements of lst and multiplies them by their corresponding index.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">even_weighted</span><span class="params">(lst)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; x = [1, 2, 3, 4, 5, 6]</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; even_weighted(x)</span></span><br><span class="line"><span class="string">    [0, 6, 20]</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="keyword">return</span> [i * lst[i] <span class="keyword">for</span> i <span class="keyword">in</span> range(len(lst)) <span class="keyword">if</span> i % <span class="number">2</span> == <span class="number">0</span>]</span><br><span class="line">    <span class="comment"># return [i * lst[i] for i in range(0, len(lst), 2)]</span></span><br><span class="line">    <span class="comment"># Or use for loop to construct a list.</span></span><br></pre></td></tr></table></figure>
+<p>3.2 The <strong>quicksort</strong> sorting algorithm is an efficient and commonly used algorithm to order the elements of a list. We choose one element of the list to be the <strong>pivot</strong> element and partition the remaining elements into two lists: one of elements less than the pivot and one of elements greater than the pivot. We recursively sort the two lists, which gives us a sorted list of all the elements less than the pivot and all the elements greater than the pivot, which we can then combine with the pivot for<br>a completely sorted list.<br>First, implement the <code>quicksort_list</code> function. Choose the first element of the list as the pivot. You may assume that all elements are distinct.</p>
+<p><em>Note: in computer science, “sorting” refers to placing elements in order from least to greatest, not putting things in categories</em></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">quicksort_list</span><span class="params">(lst)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; quicksort_list([3, 1, 4])</span></span><br><span class="line"><span class="string">    [1, 3, 4]</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> lst <span class="keyword">or</span> len(lst) == <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">return</span> lst</span><br><span class="line">    pivot = lst[<span class="number">0</span>]</span><br><span class="line">    less = [i <span class="keyword">for</span> i <span class="keyword">in</span> lst[<span class="number">1</span>:] <span class="keyword">if</span> i &lt; pivot]</span><br><span class="line">    greater = [i <span class="keyword">for</span> i <span class="keyword">in</span> lst[<span class="number">1</span>:] <span class="keyword">if</span> i &gt; pivot]</span><br><span class="line">    <span class="keyword">return</span> quicksort_list(less) + [pivot] + quicksort_list(greater)</span><br></pre></td></tr></table></figure>
+<p>3.3 Write a function that takes in a list and returns the maximum product that can be formed using nonconsecutive elements of the list. The input list will contain only numbers greater than or equal to 1.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">max_product</span><span class="params">(lst)</span>:</span></span><br><span class="line">    <span class="string">"""Return the maximum product that can be formed using lst without using any consecutive numbers</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; max_product([10,3,1,9,2]) # 10 * 9</span></span><br><span class="line"><span class="string">    90</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; max_product([5,10,5,10,5]) # 5 * 5 * 5</span></span><br><span class="line"><span class="string">    125</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; max_product([])</span></span><br><span class="line"><span class="string">    1</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> lst:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">    <span class="keyword">elif</span> len(lst) == <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">return</span> lst[<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        max(max_product(lst[<span class="number">1</span>:]), lst[<span class="number">0</span>] * max_product(lst[<span class="number">2</span>: ]))</span><br></pre></td></tr></table></figure>
+<p><span style="color:red">At each step, we choose if we want to include the current number in our product<br>or not:</span></p>
+<ul>
+<li>If we include the current number, we cannot use the adjacent number.</li>
+<li>If we don’t use the current number, we try the adjacent number (and obviously ignore the current number).<br>The recursive calls represent these two alternate realities. Finally, we pick the one that gives us the largest product.</span></li>
+</ul>
+<p>3.4 Complete <code>redundant_map</code>, which takes a tree <code>t</code> and a function <code>f</code>, and applies <code>f</code> to each node ($2^d$) times, where d is the depth of the node. The root has a depth of 0. It should mutate the existing tree rather than creating a new tree.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">redundant_map</span><span class="params">(t, f)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; double = lambda x: x*2</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; tree = Tree(1, [Tree(1), Tree(2, [Tree(1, [Tree(1)])])])</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; redundant_map(tree, double)</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; print_levels(tree)</span></span><br><span class="line"><span class="string">    [2] # 1 * 2 ˆ (1) ; Apply double one time</span></span><br><span class="line"><span class="string">    [4, 8] # 1 * 2 ˆ (2), 2 * 2 ˆ (2) ; Apply double two times</span></span><br><span class="line"><span class="string">    [16] # 1 * 2 ˆ (2 ˆ 2) ; Apply double four times</span></span><br><span class="line"><span class="string">    [256] # 1 * 2 ˆ (2 ˆ 3) ; Apply double eight times</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    t.label =f(t.label)</span><br><span class="line">    new_f = <span class="keyword">lambda</span> x: f(f(x))</span><br><span class="line">    <span class="keyword">for</span> b <span class="keyword">in</span> t.branches:</span><br><span class="line">        redundant_map(b, new_f)</span><br></pre></td></tr></table></figure>
+<p><span style="color:red">Every time we recurse, we transform our map function into one that is one level<br>deeper in terms of calls to input function f. To see why this will achieve the result we want, let’s look at what happens to some input function f.</span><br>• The first call to redundant_map will call f once.<br>• This means on the second call to redundant_map, we pass in a function g that<br>causes the original f to be called two times.<br>• On the third call to redundant_map, we pass in a function h that causes g to<br>be called two times. Remember that g calls original f twice, so h will end up<br>calling original f four times.<br>Therefore, each level will have double the calls to f as the previous level, which<br>matches the requirements.</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/python/" rel="tag"># python</a>
+              <a href="/tags/SICP/" rel="tag"># SICP</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/10/24/cs61a-lab07/" rel="prev" title="cs61a-lab07">
+      <i class="fa fa-chevron-left"></i> cs61a-lab07
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/10/29/cs61a-guerrilla04/" rel="next" title="cs61a-guerrilla04">
+      cs61a-guerrilla04 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Order-of-growth"><span class="nav-number">1.</span> <span class="nav-text">Order of growth</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Questions"><span class="nav-number">1.1.</span> <span class="nav-text">Questions</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Linked-List"><span class="nav-number">2.</span> <span class="nav-text">Linked List</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Questions-1"><span class="nav-number">2.1.</span> <span class="nav-text">Questions</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Midterm-Review"><span class="nav-number">3.</span> <span class="nav-text">Midterm Review</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Guohang Ma</p>
+  <div class="site-description" itemprop="description">developer blog</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">136</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">38</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Guohang Ma</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

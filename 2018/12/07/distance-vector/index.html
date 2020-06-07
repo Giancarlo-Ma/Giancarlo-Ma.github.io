@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="距离矢量算法 迭代式：算法持续进行直至无信息需要在邻居间交换 分布式：每个节点收到邻居传送过来的路由信息，计算后再分发计算结果给邻居 异步：不需要所有的节点同时操作 自终止：算法不需要终止信号，知道什么时候应该终止">
+<meta property="og:type" content="article">
+<meta property="og:title" content="distance-vector">
+<meta property="og:url" content="http://yoursite.com/2018/12/07/distance-vector/index.html">
+<meta property="og:site_name" content="Giancarlo&#39;s Blog">
+<meta property="og:description" content="距离矢量算法 迭代式：算法持续进行直至无信息需要在邻居间交换 分布式：每个节点收到邻居传送过来的路由信息，计算后再分发计算结果给邻居 异步：不需要所有的节点同时操作 自终止：算法不需要终止信号，知道什么时候应该终止">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2018-12-07T04:41:08.000Z">
+<meta property="article:modified_time" content="2020-06-07T02:09:33.810Z">
+<meta property="article:author" content="Guohang Ma">
+<meta property="article:tag" content="路由算法">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2018/12/07/distance-vector/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>distance-vector | Giancarlo's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Giancarlo's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Code Life</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/07/distance-vector/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Guohang Ma">
+      <meta itemprop="description" content="developer blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Giancarlo's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          distance-vector
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-12-07 12:41:08" itemprop="dateCreated datePublished" datetime="2018-12-07T12:41:08+08:00">2018-12-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-06-07 10:09:33" itemprop="dateModified" datetime="2020-06-07T10:09:33+08:00">2020-06-07</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" itemprop="url" rel="index"><span itemprop="name">计算机网络</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="距离矢量算法"><a href="#距离矢量算法" class="headerlink" title="距离矢量算法"></a>距离矢量算法</h1><ul>
+<li>迭代式：算法持续进行直至无信息需要在邻居间交换</li>
+<li>分布式：每个节点收到邻居传送过来的路由信息，计算后再分发计算结果给邻居</li>
+<li>异步：不需要所有的节点同时操作</li>
+<li>自终止：算法不需要终止信号，知道什么时候应该终止</li>
+</ul>
+<a id="more"></a>
+
+<h2 id="算法过程"><a href="#算法过程" class="headerlink" title="算法过程"></a>算法过程</h2><p>我们表示从a到b的代价为$c_ab$，然后通过相邻节点之间的路由信息交换，根据Bellman-Ford方程，我们有<br>$$d_xy=minv(c_xv+d_vy)$$<br>显而易见，对于与x相邻的任何节点v，若$d_vy$是v到y的最短代价，那么x到y的最短代价就是与x相邻的所有节点里面$c_xv+d_vy$最小的那个，这也是这个方程影射出的含义。</p>
+<p>对于x节点来说，需要维护如下信息：</p>
+<ul>
+<li>x节点到每个相邻节点v的代价，记为$c_xv$</li>
+<li>x节点自身的距离向量，可以是一个到图中所有节点的估计代价数组</li>
+<li>x每个邻居节点v的距离向量。</li>
+</ul>
+<p>只要根据Bellman-Ford方程不断计算自身的距离向量，并将产生更新后的结果不断分发到相邻节点，经过若干次迭代之后，x到图中所有节点的估计代价就会收敛于实际的代价。</p>
+<h2 id="算法伪代码"><a href="#算法伪代码" class="headerlink" title="算法伪代码"></a>算法伪代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">Initialization:</span><br><span class="line">    for all destinations y in N:</span><br><span class="line">        D(x, y) &#x3D; c(x,y) if y is not a neighbor then c(x,y) &#x3D; ∞</span><br><span class="line">    for each neighbor w:</span><br><span class="line">        D(w, y) &#x3D; ? for all destinations y in N</span><br><span class="line">    for each neighbor w:</span><br><span class="line">        send distance vector D(x, y) &#x3D; [D(x, y) : y in N] to w</span><br><span class="line">loop:</span><br><span class="line">    wait (until I see a link cost change to some neighbor w or until I receive a distance vector from some neighbor w)</span><br><span class="line"></span><br><span class="line">    for each y in N:</span><br><span class="line">        D(x, y) &#x3D; minv(c(x, v) + D(v, y))</span><br><span class="line"></span><br><span class="line">    if D(x, y) changed for any destination y</span><br><span class="line">        send sitance vector D(x, y) &#x3D; [D(x, y) : y in N] to all neighbors</span><br><span class="line">forever</span><br></pre></td></tr></table></figure>
+
+<h2 id="项目实现"><a href="#项目实现" class="headerlink" title="项目实现"></a>项目实现</h2><h3 id="计算转发表"><a href="#计算转发表" class="headerlink" title="计算转发表"></a>计算转发表</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">update_forwarding_table</span><span class="params">(self)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> port, peer_table <span class="keyword">in</span> self.peer_tables.items():</span><br><span class="line">        <span class="keyword">for</span> host, entry <span class="keyword">in</span> peer_table.items():</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> host <span class="keyword">in</span> self.forwarding_table:</span><br><span class="line">                self.forwarding_table[host] = ForwardingTableEntry(host, port, self.link_latency[port] + entry.latency)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">if</span> self.forwarding_table[host].latency &gt; self.link_latency[port] + entry.latency:</span><br><span class="line">                    self.forwarding_table[host] = ForwardingTableEntry(host, port, self.link_latency[port] + entry.latency)</span><br></pre></td></tr></table></figure>
+<p>遍历所有相邻节点，如果某个终点主机不存在我们的转发表中，简单添加一个条目，否则，需要将旧的转发代价与新的转发代价作比较，如果新的小，就更新我们的转发表中的条目。</p>
+<h3 id="转发数据包"><a href="#转发数据包" class="headerlink" title="转发数据包"></a>转发数据包</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">handle_data_packet</span><span class="params">(self, packet, in_port)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        Called when a data packet arrives at this router.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        You may want to forward the packet, drop the packet, etc. here.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        :param packet: the packet that arrived.</span></span><br><span class="line"><span class="string">        :param in_port: the port from which the packet arrived.</span></span><br><span class="line"><span class="string">        :return: nothing.</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="comment"># <span class="doctag">TODO:</span> fill this in!</span></span><br><span class="line">        <span class="keyword">if</span> packet.dst <span class="keyword">in</span> self.forwarding_table <span class="keyword">and</span> self.forwarding_table[packet.dst].latency &lt; INFINITY <span class="keyword">and</span> self.forwarding_table[packet.dst].port != in_port:</span><br><span class="line">            self.send(packet, self.forwarding_table[packet.dst].port)</span><br></pre></td></tr></table></figure>
+<p>首先需要确定packet的dst在我们的转发表中才有可能转发，然后转发表中到dst的latency不能大于INFINITY，而且转发表的出端口不能与入端口相同。只有同时满足这些条件，我们才调用send方法向合适的端口转发该包。</p>
+<h3 id="通知路由（advertise-route）"><a href="#通知路由（advertise-route）" class="headerlink" title="通知路由（advertise route）"></a>通知路由（advertise route）</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">handle_link_up</span><span class="params">(self, port, latency)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        Called by the framework when a link attached to this router goes up.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        :param port: the port that the link is attached to.</span></span><br><span class="line"><span class="string">        :param latency: the link latency.</span></span><br><span class="line"><span class="string">        :returns: nothing.</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        self.link_latency[port] = latency</span><br><span class="line">        self.peer_tables[port] = PeerTable()</span><br><span class="line"></span><br><span class="line">        <span class="comment"># <span class="doctag">TODO:</span> fill in the rest!</span></span><br><span class="line">        <span class="keyword">for</span> host, entry <span class="keyword">in</span> self.forwarding_table.items():</span><br><span class="line">            packet = basics.RoutePacket(host, entry.latency)</span><br><span class="line">            self.send(packet, port)</span><br></pre></td></tr></table></figure>
+
+<p>转发表中的每一个路由信息都发送给新加入的链路的另一端。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">send_routes</span><span class="params">(self, force=False)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        Send route advertisements for all routes in the forwarding table.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        :param force: if True, advertises ALL routes in the forwarding table;</span></span><br><span class="line"><span class="string">                      otherwise, advertises only those routes that have</span></span><br><span class="line"><span class="string">                      changed since the last advertisement.</span></span><br><span class="line"><span class="string">        :return: nothing.</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="comment"># <span class="doctag">TODO:</span> fill this in!</span></span><br><span class="line">        <span class="keyword">if</span> force == <span class="literal">True</span>:</span><br><span class="line">            <span class="keyword">for</span> port <span class="keyword">in</span> self.peer_tables:</span><br><span class="line">                <span class="keyword">for</span> host, entry <span class="keyword">in</span> self.forwarding_table.items():</span><br><span class="line">                    <span class="keyword">if</span> entry.port != port:</span><br><span class="line">                        <span class="keyword">if</span> entry.latency &gt;= INFINITY:</span><br><span class="line">                            route_packet = basics.RoutePacket(host, INFINITY)</span><br><span class="line">                        <span class="keyword">else</span>:</span><br><span class="line">                            route_packet = basics.RoutePacket(host, entry.latency)</span><br><span class="line">                        self.send(route_packet, port)</span><br></pre></td></tr></table></figure>
+<p>split horizon检测，如果一个转发表的entry的出端口刚好和要advertise的端口相同，我们就跳过这一个，因为这条路由信息来自该端口，就不要把这条信息回发给该端口。另外就是当转发的latency大于等于INFINITY时，我们发送的路由信息的latency要标记为INFINITY</p>
+<h3 id="添加静态路由"><a href="#添加静态路由" class="headerlink" title="添加静态路由"></a>添加静态路由</h3><p>与路由器直接相连的主机，需要添加一条永不过期的静态路由。做法是通过更新路由器的peer_tables里面该端口的peer_table，添加一个entry，表明这个主机到自己本身的latency为0，并且过期时间为FOREVER，然后我们更新转发表，并在更新转发表之后将全部路由信息重新发送至各个相连端口（通过send_routes方法)。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add_static_route</span><span class="params">(self, host, port)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        Adds a static route to a host directly connected to this router.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        Called automatically by the framework whenever a host is connected</span></span><br><span class="line"><span class="string">        to this router.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        :param host: the host.</span></span><br><span class="line"><span class="string">        :param port: the port that the host is attached to.</span></span><br><span class="line"><span class="string">        :returns: nothing.</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="comment"># `port` should have been added to `peer_tables` by `handle_link_up`</span></span><br><span class="line">        <span class="comment"># when the link came up.</span></span><br><span class="line">        <span class="keyword">assert</span> port <span class="keyword">in</span> self.peer_tables, <span class="string">"Link is not up?"</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># <span class="doctag">TODO:</span> fill this in!</span></span><br><span class="line">        self.peer_tables[port][host] = PeerTableEntry(host, <span class="number">0</span>, PeerTableEntry.FOREVER)</span><br><span class="line">        self.update_forwarding_table()</span><br><span class="line">        self.send_routes()</span><br></pre></td></tr></table></figure>
+<h3 id="处理路由通知-handle-route-advertisement"><a href="#处理路由通知-handle-route-advertisement" class="headerlink" title="处理路由通知(handle route advertisement)"></a>处理路由通知(handle route advertisement)</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">handle_route_advertisement</span><span class="params">(self, dst, port, route_latency)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        Called when the router receives a route advertisement from a neighbor.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        :param dst: the destination of the advertised route.</span></span><br><span class="line"><span class="string">        :param port: the port that the advertisement came from.</span></span><br><span class="line"><span class="string">        :param route_latency: latency from the neighbor to the destination.</span></span><br><span class="line"><span class="string">        :return: nothing.</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="comment"># <span class="doctag">TODO:</span> fill this in!</span></span><br><span class="line">        self.peer_tables[port][dst] = PeerTableEntry(dst, route_latency, api.current_time()+ROUTE_TTL)</span><br><span class="line">        self.update_forwarding_table()</span><br><span class="line">        self.send_routes()</span><br></pre></td></tr></table></figure>
+<p>首先更新peer_tables里面的相关信息，然后因为peer_tables的改变，我们通过update_forwarding_table方法重新计算转发表，并分发新的路由信息给各个端口。</p>
+<h3 id="移除路由"><a href="#移除路由" class="headerlink" title="移除路由"></a>移除路由</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">handle_link_down</span><span class="params">(self, port)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        Called by the framework when a link attached to this router does down.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        :param port: the port number used by the link.</span></span><br><span class="line"><span class="string">        :returns: nothing.</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="comment"># <span class="doctag">TODO:</span> fill this in!</span></span><br><span class="line">        <span class="keyword">for</span> host, entry <span class="keyword">in</span> self.forwarding_table.items():</span><br><span class="line">            <span class="keyword">if</span> entry.port == port:</span><br><span class="line">                <span class="keyword">del</span> self.forwarding_table[host]</span><br><span class="line">        <span class="keyword">del</span> self.peer_tables[port]</span><br><span class="line">        <span class="keyword">del</span> self.link_latency[port]</span><br><span class="line">        self.update_forwarding_table()</span><br><span class="line">        self.send_routes()</span><br></pre></td></tr></table></figure>
+<p>当与路由器连接的某段链路被移除后，首先要移除转发表中所有从该端口转发的条目；然后要移除peer_tables从该端口获取的路由信息，链路延迟也要删除这个端口的条目，由于改变了peer_tables，所以我们重新计算转发表并将改变后的路由信息分发给各个端口。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">expire_routes</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        Clears out expired routes from peer tables; updates forwarding table</span></span><br><span class="line"><span class="string">        accordingly.</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="comment"># <span class="doctag">TODO:</span> fill this in!</span></span><br><span class="line">        <span class="keyword">for</span> port, table <span class="keyword">in</span> self.peer_tables.items():</span><br><span class="line">            <span class="keyword">for</span> dst, entry <span class="keyword">in</span> table.items():</span><br><span class="line">                <span class="keyword">if</span> api.current_time() &gt; entry.expire_time:</span><br><span class="line">                    table.pop(dst)</span><br><span class="line">        self.update_forwarding_table()</span><br></pre></td></tr></table></figure>
+<p>对于当前时间已经大于过期时间，就删除相应条目，处理完peer_tables过后，要对转发表重新计算。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E8%B7%AF%E7%94%B1%E7%AE%97%E6%B3%95/" rel="tag"># 路由算法</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/12/02/string-sort/" rel="prev" title="string-sort">
+      <i class="fa fa-chevron-left"></i> string-sort
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/12/11/routing/" rel="next" title="routing">
+      routing <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#距离矢量算法"><span class="nav-number">1.</span> <span class="nav-text">距离矢量算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#算法过程"><span class="nav-number">1.1.</span> <span class="nav-text">算法过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#算法伪代码"><span class="nav-number">1.2.</span> <span class="nav-text">算法伪代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#项目实现"><span class="nav-number">1.3.</span> <span class="nav-text">项目实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#计算转发表"><span class="nav-number">1.3.1.</span> <span class="nav-text">计算转发表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#转发数据包"><span class="nav-number">1.3.2.</span> <span class="nav-text">转发数据包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通知路由（advertise-route）"><span class="nav-number">1.3.3.</span> <span class="nav-text">通知路由（advertise route）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加静态路由"><span class="nav-number">1.3.4.</span> <span class="nav-text">添加静态路由</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#处理路由通知-handle-route-advertisement"><span class="nav-number">1.3.5.</span> <span class="nav-text">处理路由通知(handle route advertisement)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#移除路由"><span class="nav-number">1.3.6.</span> <span class="nav-text">移除路由</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Guohang Ma</p>
+  <div class="site-description" itemprop="description">developer blog</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">136</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">38</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Guohang Ma</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

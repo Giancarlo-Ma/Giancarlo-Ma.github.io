@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="高阶函数我们首先来看两个范围和程序的例子： 123456let total &#x3D; 0, count &#x3D; 1;while (count &lt;&#x3D; 10) &amp;#123;  total +&#x3D; count;  count +&#x3D; 1;&amp;#125;console.log(total);  1console.log(sum(range(1, 10))); 显而易见，第二种策略更加清晰且不易出错。因为我们将程序设">
+<meta property="og:type" content="article">
+<meta property="og:title" content="EJ5">
+<meta property="og:url" content="http://yoursite.com/2018/12/25/EJ5/index.html">
+<meta property="og:site_name" content="Giancarlo&#39;s Blog">
+<meta property="og:description" content="高阶函数我们首先来看两个范围和程序的例子： 123456let total &#x3D; 0, count &#x3D; 1;while (count &lt;&#x3D; 10) &amp;#123;  total +&#x3D; count;  count +&#x3D; 1;&amp;#125;console.log(total);  1console.log(sum(range(1, 10))); 显而易见，第二种策略更加清晰且不易出错。因为我们将程序设">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2018-12-25T09:12:18.000Z">
+<meta property="article:modified_time" content="2020-06-07T02:21:43.450Z">
+<meta property="article:author" content="Guohang Ma">
+<meta property="article:tag" content="technology software development blog">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2018/12/25/EJ5/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>EJ5 | Giancarlo's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Giancarlo's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Code Life</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/25/EJ5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Guohang Ma">
+      <meta itemprop="description" content="developer blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Giancarlo's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          EJ5
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-12-25 17:12:18" itemprop="dateCreated datePublished" datetime="2018-12-25T17:12:18+08:00">2018-12-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-06-07 10:21:43" itemprop="dateModified" datetime="2020-06-07T10:21:43+08:00">2020-06-07</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Eloquent-JavaScript/" itemprop="url" rel="index"><span itemprop="name">Eloquent JavaScript</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="高阶函数"><a href="#高阶函数" class="headerlink" title="高阶函数"></a>高阶函数</h1><p>我们首先来看两个范围和程序的例子：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> total = <span class="number">0</span>, count = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">while</span> (count &lt;= <span class="number">10</span>) &#123;</span><br><span class="line">  total += count;</span><br><span class="line">  count += <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(total);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(sum(range(<span class="number">1</span>, <span class="number">10</span>)));</span><br></pre></td></tr></table></figure>
+<p>显而易见，第二种策略更加清晰且不易出错。因为我们将程序设计在一个词汇表框架中，对一个范围内的数字求和无关循环和计数器，而是关于范围(range)以及和(sum)函数。</p>
+<p>虽然sum和range内部也会包含循环，计数器等，但他们比将整个程序写在一起，表达了更简单的概念。</p>
+<a id="more"></a>
+
+<h2 id="抽象"><a href="#抽象" class="headerlink" title="抽象"></a>抽象</h2><p>在编程中，这种类型的词汇表叫做abstraction(抽象)。抽象隐藏程序实现的细节，赋予我们一种在更高层次考虑问题的能力。</p>
+<h2 id="抽象重复"><a href="#抽象重复" class="headerlink" title="抽象重复"></a>抽象重复</h2><p>普通函数也是一种构建抽象的好方法，但是有时远远不够。</p>
+<p>重复做一件事对于一个程序来说是很常见的。可以写个for循环，比如：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以做如下改进：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">repeatLog</span>(<span class="params">n</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(i);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>但我们要想有除打印以外的行为时，这种方法就不奏效了。于是我们想把行为抽象成函数，由于JS中函数也是值，所以是可行的。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">repeat</span>(<span class="params">n, action</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; n; i++) </span><br><span class="line">    action(i);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> labels = [];</span><br><span class="line">repeat(<span class="number">5</span>, i =&gt; &#123;</span><br><span class="line">  labels.push(<span class="string">`Unit <span class="subst">$&#123;i + <span class="number">1</span>&#125;</span>`</span>);</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">console</span>.log(labels);</span><br><span class="line"><span class="comment">// -&gt; ["Unit 1", "Unit 2", "Unit 3", "Unit 4", "Unit 5"]</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="高阶函数-1"><a href="#高阶函数-1" class="headerlink" title="高阶函数"></a>高阶函数</h2><p>接收函数作为参数，或者返回函数的函数叫做高阶函数（high order function）。高阶函数不仅允许我们抽象值，更实现了对行为的抽象。如，我们可以有创造新函数的函数。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">greaterThan</span>(<span class="params">n</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="params">m</span> =&gt;</span> m &gt; n;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> greaterThan10 = greaterThan(<span class="number">10</span>);</span><br><span class="line"><span class="built_in">console</span>.log(greaterThan10(<span class="number">11</span>));</span><br><span class="line"><span class="comment">// -&gt; true</span></span><br></pre></td></tr></table></figure>
+
+<p>我们也可以实现改变别的函数的函数：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">noisy</span>(<span class="params">f</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function">(<span class="params">...args</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"calling with"</span>, args);</span><br><span class="line">    <span class="keyword">let</span> result = f(...args);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"called with"</span>, args, <span class="string">", returned"</span>, result);</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line">noisy(<span class="built_in">Math</span>.min)(<span class="number">3</span>, <span class="number">2</span>, <span class="number">1</span>);</span><br><span class="line"><span class="comment">// → calling with [3, 2, 1]</span></span><br><span class="line"><span class="comment">// → called with [3, 2, 1] , returned 1</span></span><br></pre></td></tr></table></figure>
+
+<p>我们甚至可以提供新的控制流：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">unless</span>(<span class="params">test, then</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (!test) then();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">repeat(<span class="number">3</span>, n =&gt; &#123;</span><br><span class="line">  unless(n % <span class="number">2</span> == <span class="number">1</span>, () =&gt; &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(n, <span class="string">"is even"</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// → 0 is even</span></span><br><span class="line"><span class="comment">// → 2 is even</span></span><br></pre></td></tr></table></figure>
+
+<p>数组有个<code>forEach</code>方法，有点像是高阶函数的<code>for/of</code>版本。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">"A"</span>, <span class="string">"B"</span>].forEach(<span class="function"><span class="params">l</span> =&gt;</span> <span class="built_in">console</span>.log(l));</span><br><span class="line"><span class="comment">// -&gt; A</span></span><br><span class="line"><span class="comment">// -&gt; B</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="script数据集"><a href="#script数据集" class="headerlink" title="script数据集"></a>script数据集</h2><p>高阶函数擅长用于数据处理领域。我们本章使用关于script的数据集。</p>
+<p>回忆第一章的Unicode码，Unicode为每种语言中的字符都分配一个数字。它们中的大多数都关联到一个特定的script。</p>
+<p>数据集包含140种Unicode中定义的script。绑定<code>SCRIPTS</code>包含一份对象数组，每一个对象描述了一个script。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  name: <span class="string">"Coptic"</span>,</span><br><span class="line">  ranges: [[<span class="number">994</span>, <span class="number">1008</span>], [<span class="number">11392</span>, <span class="number">11508</span>], [<span class="number">11513</span>, <span class="number">11520</span>]],</span><br><span class="line">  direction: <span class="string">"ltr"</span>,</span><br><span class="line">  year: <span class="number">-200</span>,</span><br><span class="line">  living: <span class="literal">false</span>,</span><br><span class="line">  link: <span class="string">"https://en.wikipedia.org/wiki/Coptic_alphabet"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>每个对象包含Unicode为其分配的数字范围，起源时间，是否仍在使用中，和一个更多信息的链接。方向可以是”ltr”(left to right),”rtl”,”ttb”(top to bottom)。ranges是左闭右开区间。</p>
+<h2 id="过滤数组"><a href="#过滤数组" class="headerlink" title="过滤数组"></a>过滤数组</h2><p>为了找到还在使用的script，下面的函数是有用的。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">filter</span>(<span class="params">array, test</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> passed = [];</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">let</span> element <span class="keyword">of</span> array) &#123;</span><br><span class="line">    <span class="keyword">if</span>(test(element)) &#123;</span><br><span class="line">      passed.push(element);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> passed;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(filter(SCRIPTS, script =&gt; script.living))</span><br></pre></td></tr></table></figure>
+
+<p>filter是一个pure函数，不修改给定的数组。返回过滤过后的新数组。</p>
+<p>像<code>forEach</code>一样，<code>filter</code>是一个标准的数组方法。例子只是展示了它的内部实现。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(SCRIPTS.filter(<span class="function"><span class="params">s</span> =&gt;</span> s.direction == <span class="string">"ttb"</span>));</span><br><span class="line"><span class="comment">// → [&#123;name: "Mongolian", …&#125;, …]</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="用map转换"><a href="#用map转换" class="headerlink" title="用map转换"></a>用map转换</h2><p>我们现在有一个对象数组，但我们想要一个名字数组。</p>
+<p>map方法通过将函数应用到每个数组元素上，并且返回一个新构建的数组。数组长度不变，但内容已从函数返回值做了相应的映射。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">map</span>(<span class="params">array, transform</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> mapped = [];</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">let</span> element <span class="keyword">of</span> array) &#123;</span><br><span class="line">    mapped.push(transform(element));</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> mapped;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> rtlScripts = SCRIPTS.filter(<span class="function"><span class="params">s</span> =&gt;</span> s.direction == <span class="string">'rtl'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(map(rtlScripts, s =&gt; s.name));</span><br><span class="line"><span class="comment">// → ["Adlam", "Arabic", "Imperial Aramaic", …]</span></span><br></pre></td></tr></table></figure>
+<p>像<code>forEach</code>和<code>filter</code>一样，<code>map</code>也是标准的数组方法。</p>
+<h2 id="用reduce汇总"><a href="#用reduce汇总" class="headerlink" title="用reduce汇总"></a>用reduce汇总</h2><p>另一种关于数组的常规的操作时从数组元素上计算单个值。我们反复出现的例子，对一些数字求和，就是这样的实例。另一个例子是找到拥有最多字符的书写体。</p>
+<p>代表这种模式的操作是<code>reduce</code>，有时也被叫做<code>fold</code>。通过处理当前数组中的值并把它和current value组合，当处理数字和时，开始于0，对于每个元素，将其加到和中。</p>
+<p>reduce接收三个参数，除了数组，还有一个组合函数，以及一个初始值。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">reduce</span>(<span class="params">array, combine, start</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> current = start;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">let</span> element <span class="keyword">of</span> array) &#123;</span><br><span class="line">    current = combine(current, element);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> current;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(reduce([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>], (a, b) =&gt; a + b, <span class="number">0</span>));</span><br><span class="line"><span class="comment">// -&gt; 10</span></span><br></pre></td></tr></table></figure>
+<p>标准的JS数组reduce方法，还有一个便利的地方。如果给定数组包含至少一个元素，允许不给定start元素，默认会将第一个元素当作start，并从第二个元素开始reduce。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>].reduce(<span class="function">(<span class="params">a, b</span>) =&gt;</span> a + b));</span><br><span class="line"><span class="comment">// -&gt; 10</span></span><br></pre></td></tr></table></figure>
+<p>为了使用reduce方法找到含有最多字符的script，我们需要这样编写代码。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">characterCount</span>(<span class="params">script</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> script.ranges.reduce((count, [<span class="keyword">from</span>, to] =&gt; count + (to - <span class="keyword">from</span>), <span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(SCRIPTS.reduce(<span class="function">(<span class="params">a, b</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> characterCount(a) &lt; characterCount(b) ? b : a;</span><br><span class="line">&#125;));</span><br><span class="line"><span class="comment">// -&gt; &#123;name: "Han", ...&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="可组合性"><a href="#可组合性" class="headerlink" title="可组合性"></a>可组合性</h2><p>考虑下不用高阶函数我们怎么书写前面的程序。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> biggest = <span class="literal">null</span>;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> script <span class="keyword">of</span> SCRIPTS) &#123;</span><br><span class="line">  <span class="keyword">if</span>(biggest == <span class="literal">null</span> || characterCount(biggest) &lt; characterCount(script)) &#123;</span><br><span class="line">    biggest = script;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(biggest);</span><br><span class="line"><span class="comment">// -&gt; &#123;name: "Han", ...&#125;</span></span><br></pre></td></tr></table></figure>
+<p>这依然是可读的。</p>
+<p>当你需要compose操作的时候，高阶函数就会显示出它的光芒。作为一个例子，让我们对于活和死的书写体，找到他们的平均起源年龄。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">average</span>(<span class="params">array</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> array.reduce(<span class="function">(<span class="params">a, b</span>) =&gt;</span> a + b) / array.length;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Math</span>.round(average(SCRIPTS.filter(<span class="function"><span class="params">x</span> =&gt;</span> x.living).map(<span class="function"><span class="params">x</span> =&gt;</span> x.year)));</span><br><span class="line"><span class="comment">// -&gt; 1188</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Math</span>.round(average(SCRIPTS.filter(<span class="function"><span class="params">x</span> =&gt;</span> !x.living).map(<span class="function"><span class="params">x</span> =&gt;</span> x.year))));</span><br><span class="line"><span class="comment">// -&gt; 188</span></span><br></pre></td></tr></table></figure>
+<p>将上述过程看作管线化操作，首先过滤出living的script，然后从对象中取出year，然后做平均，然后做round。</p>
+<p>也可以写一个大循环。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> total = <span class="number">0</span>, count = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> script <span class="keyword">of</span> SCRIPTS) &#123;</span><br><span class="line">  <span class="keyword">if</span>(script.living) &#123;</span><br><span class="line">    total += script.year;</span><br><span class="line">    count += <span class="number">1</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Math</span>.round(total / count));</span><br></pre></td></tr></table></figure>
+<p>但是可读性不好，而且也不容易抽象出average函数。</p>
+<p>就计算机实际所做的事情而言，这两种方法不大相同。第一种方法通过filter和map构建数组。第二种方法只计算一些数字，做更少的事情。通常可以支付的起易读程序的代码，但是处理大数组的时候，第二种方法在速度上的提升是值得我们考虑的。</p>
+<h2 id="字符串和字符代码"><a href="#字符串和字符代码" class="headerlink" title="字符串和字符代码"></a>字符串和字符代码</h2><p>数据集的一种用途是找到文本使用的script。</p>
+<p>每个script包含一个range数组，所以给定一个字符代码，我们可以使用一个函数找到对应的script（如果存在的话）。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">characterScript</span>(<span class="params">code</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">let</span> script <span class="keyword">of</span> SCRIPTS) &#123;</span><br><span class="line">    <span class="keyword">if</span>(script.ranges.some(<span class="function">(<span class="params">[<span class="keyword">from</span>, to]</span>) =&gt;</span> &#123; <span class="keyword">return</span> code &gt;= <span class="keyword">from</span> &amp;&amp; code &lt; to;</span><br><span class="line">    &#125;)) &#123;</span><br><span class="line">      <span class="keyword">return</span> script;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(characterScript(<span class="number">121</span>));</span><br><span class="line"><span class="comment">// -&gt; &#123;name: "Latin", ...&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>some是另外一个高阶函数，只要数组中一个元素符合条件，就返回true。</p>
+<p>但我们怎么获得字符串中的character code呢？</p>
+<p>第一章中提到JS字符串编码为16bit数字序列。这些被叫做code units。我们可以很容易的书写程序假装code units和字符是同一个东西。如果你的语言不使用two-unit字符，那是没问题的。但是如果使用汉字字符，这样的程序就会出现问题。幸运的是，随着emoji的出现，所有人开始使用two-unit字符，处理这样的问题就被均摊了。</p>
+<p>不幸的是，JS中字符串的操作，如获取字符串的length属性以及通过中括号获取特定位置字符，只处理code units。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Two emoji characters, horse and shoe</span></span><br><span class="line"><span class="keyword">let</span> horseShoe = <span class="string">"🐴👟"</span>;</span><br><span class="line"><span class="built_in">console</span>.log(horseShoe.length);</span><br><span class="line"><span class="comment">// → 4</span></span><br><span class="line"><span class="built_in">console</span>.log(horseShoe[<span class="number">0</span>]);</span><br><span class="line"><span class="comment">// → (Invalid half-character)</span></span><br><span class="line"><span class="built_in">console</span>.log(horseShoe.charCodeAt(<span class="number">0</span>));</span><br><span class="line"><span class="comment">// → 55357 (Code of the half-character)</span></span><br><span class="line"><span class="built_in">console</span>.log(horseShoe.codePointAt(<span class="number">0</span>));</span><br><span class="line"><span class="comment">// → 128052 (Actual code for horse emoji)</span></span><br></pre></td></tr></table></figure>
+<p>JS的<code>charCodeAt</code>方法给一个code unit而不是一个完整的character code。<code>codePointAt</code>方法，给定完整的Unicode字符。所以我们使用<code>codePointAt</code>方法获取字符串中的字符。但是<code>codePointAt</code>方法的参数仍然是一个code units的索引。所以为了遍历到所有的字符串中的字符，我们仍然要解决判断字符占据一个还是两个code units的问题。</p>
+<p>在之前的章节，我们提到<code>for/of</code>循环也能被用于字符串。像<code>codePointAt</code>一样，这种类型的循环是在人们意识到UTF16所带来的问题时诞生的。当使用这种方法遍历字符串时，得到的是真实的字符，而不是code units。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> roseDragon = <span class="string">"🌹🐉"</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> char <span class="keyword">of</span> roseDragon) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(char);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// → 🌹</span></span><br><span class="line"><span class="comment">// → 🐉</span></span><br></pre></td></tr></table></figure>
+<p>如果你有一个字符（可能是一个或两个code units），可以用<code>codePointAt</code>方法获取它的code。</p>
+<h2 id="识别文本"><a href="#识别文本" class="headerlink" title="识别文本"></a>识别文本</h2><p>我们有一个<code>characterScript</code>函数以及正确遍历字符串的方法。下一步就是计算属于每个script的字符数量。下面的counting抽象将会有用。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">countBy</span>(<span class="params">items, groupName</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> counts = [];</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">let</span> item <span class="keyword">of</span> items) &#123;</span><br><span class="line">    <span class="keyword">let</span> name = groupName(item);</span><br><span class="line">    <span class="keyword">let</span> known = counts.findIndex(<span class="function"><span class="params">c</span> =&gt;</span> c.name == name);</span><br><span class="line">    <span class="keyword">if</span>(known == <span class="number">-1</span>) &#123;</span><br><span class="line">      counts.push(&#123;name, <span class="attr">count</span>: <span class="number">1</span>&#125;);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      counts[known].count++;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> counts;</span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(countBy([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>], n =&gt; n &gt; <span class="number">2</span>));</span><br><span class="line"><span class="comment">// → [&#123;name: false, count: 2&#125;, &#123;name: true, count: 3&#125;]</span></span><br></pre></td></tr></table></figure>
+<p><code>countBy</code>函数接受一个collection参数（可用for/of遍历），以及一个函数用于计算给定元素的group name。返回一个对象数组，每一个数组元素对应一组以及该组的元素数量。</p>
+<p>其中用到了<code>findIndex</code>数组方法，这个方法有点类似于<code>indexOf</code>，不同的是，该方法返回第一次让参数中的方法返回true的数组元素，如果没有满足条件的元素，返回-1。</p>
+<p>使用<code>countBy</code>方法，我们可以写一个函数告诉我们一段文本中使用的script。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">textScripts</span>(<span class="params">text</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 获得数据集中可以识别的script</span></span><br><span class="line">  <span class="keyword">let</span> scripts = countBy(text, char =&gt; &#123;</span><br><span class="line">    <span class="keyword">let</span> script = characterScript(char.codePointAt(<span class="number">0</span>));</span><br><span class="line">    <span class="keyword">return</span> script ? script.name : <span class="string">"none"</span>;</span><br><span class="line">  &#125;).filter(<span class="function">(<span class="params">&#123;name&#125;</span>) =&gt;</span> name != <span class="string">"none"</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 计算script总数，避免文本中全部都是不在数据集中的script</span></span><br><span class="line">  <span class="keyword">let</span> total = scripts.reduce(<span class="function">(<span class="params">n, &#123;count&#125;</span>) =&gt;</span> n + count, <span class="number">0</span>);</span><br><span class="line">  <span class="keyword">if</span>(total == <span class="number">0</span>) <span class="keyword">return</span> <span class="string">"No scripts found"</span>;</span><br><span class="line">  <span class="comment">// 映射为字符串</span></span><br><span class="line">  <span class="keyword">return</span> scripts.map(<span class="function">(<span class="params">&#123;name, count&#125;</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">`<span class="subst">$&#123;<span class="built_in">Math</span>.round(count * <span class="number">100</span> <span class="regexp">/ total)&#125;% $&#123;name&#125;`</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="regexp">  &#125;).join(", "); </span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="regexp">&#125;</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="regexp">console.log(textScripts('英国的狗说"woof", 俄罗斯的狗说"тяв"'));</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="regexp">/</span><span class="regexp">/ → 61% Han, 22% Latin, 17% Cyrillic</span></span></span></span><br></pre></td></tr></table></figure>
+<p>函数收i按根据字符的名字计数，这一步使用了<code>characterScript</code>函数，并在如果字符不是任何script时用字符串”none”做了回退处理。filter可以过滤掉结果数组中name为”none”的数组元素，因为我们不想考虑那些元素。</p>
+<p>为了计算百分比，我们需要计算字符的总数。如果没有有效字符被找到，那么返回一个特定的字符串。否则，用map方法形成一个个人类易读的字符串，然后用join方法拼接起来。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>JS中可以传递函数值给其他的函数是特别有用的。可以提供一个缺口，而调用这些传进来的函数获得的值，可以填上这个缺口。</p>
+<p>数组提供了一系列的高阶方法。可以用<code>forEach</code>方法遍历数组中的元素。<code>filter</code>方法过滤元素，只留下函数返回值为true的元素。将数组中的元素通过一个函数转换用<code>map</code>方法。可以用<code>reduce</code>方法将数组中的所有元素组合成为一个值。<code>some</code>方法测试是否数组中有任何一个元素满足测试函数的条件。<code>findIndex</code>找到第一个匹配预测函数特征的元素位置。</p>
+<h2 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h2><h3 id="flattening"><a href="#flattening" class="headerlink" title="flattening"></a>flattening</h3><p>用<code>reduce</code>方法组合<code>concat</code>方法flatten一个二维数组，使其拥有原数组的所有元素。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arrays = [[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], [<span class="number">4</span>, <span class="number">5</span>], [<span class="number">6</span>]];</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(arrays.reduce(<span class="function">(<span class="params">arr, cur</span>) =&gt;</span> arr.concat(cur)));</span><br><span class="line"><span class="comment">// → [1, 2, 3, 4, 5, 6]</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="own-loop"><a href="#own-loop" class="headerlink" title="own loop"></a>own loop</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">loop</span>(<span class="params">initial, test, update, body</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">let</span> i = initial; test(i); i = update(i)) &#123;</span><br><span class="line">    body(i);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">loop(<span class="number">3</span>, n =&gt; n &gt; <span class="number">0</span>, n =&gt; n - <span class="number">1</span>, <span class="built_in">console</span>.log);</span><br><span class="line"><span class="comment">// -&gt; 3</span></span><br><span class="line"><span class="comment">// -&gt; 2</span></span><br><span class="line"><span class="comment">// -&gt; 1</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="everything"><a href="#everything" class="headerlink" title="everything"></a>everything</h3><p>类似于<code>some</code>方法，数组也有一个<code>every</code>方法。在数组中所有元素都满足预测函数的时候返回<code>true</code>。换一种说法，<code>some</code>有点类似于<code>||</code>操作符作用到数组上。而<code>every</code>类似于<code>&amp;&amp;</code>操作符。</p>
+<p><code>every</code>方法接收两个参数，一个数组和一个预测函数作为参数。写两个版本的<code>every</code>方法。一个用循环，一个用<code>some</code>方法。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">every</span>(<span class="params">array, test</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">let</span> element <span class="keyword">of</span> array) &#123;</span><br><span class="line">    <span class="keyword">if</span>(!test(element)) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">every</span>(<span class="params">array, test</span>) </span>&#123;</span><br><span class="line">  !array.some(<span class="function"><span class="params">element</span> =&gt;</span> !test(element))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="dominant-writing-direction"><a href="#dominant-writing-direction" class="headerlink" title="dominant writing direction"></a>dominant writing direction</h3><p>计算一串文本中主要的文字书写方向，由script对象的direction属性给出，可以是”ltr””rtl””ttb”。</p>
+<p><code>characterScript</code>和<code>countBy</code>方法可能是有用的。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">dominantDirection</span>(<span class="params">text</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// Your code here.</span></span><br><span class="line">  <span class="keyword">let</span> counts = countBy(text, char =&gt; &#123;</span><br><span class="line">    <span class="keyword">let</span> script = characterScript(char.codePointAt(<span class="number">0</span>));</span><br><span class="line">    <span class="keyword">return</span> script ? script.direction : <span class="string">"none"</span>;</span><br><span class="line">  &#125;).filter(<span class="function">(<span class="params">&#123;name&#125;</span>) =&gt;</span> name != <span class="string">"none"</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span>(counts.length == <span class="number">0</span>) <span class="keyword">return</span> <span class="string">'ltr'</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> counts.reduce(<span class="function">(<span class="params">a, b</span>) =&gt;</span> a.count &gt; b.count ? a : b).name;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(dominantDirection(<span class="string">"Hello!"</span>));</span><br><span class="line"><span class="comment">// → ltr</span></span><br><span class="line"><span class="built_in">console</span>.log(dominantDirection(<span class="string">"Hey, مساء الخير"</span>));</span><br><span class="line"><span class="comment">// → rtl</span></span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/12/23/leetcode-300/" rel="prev" title="leetcode-300">
+      <i class="fa fa-chevron-left"></i> leetcode-300
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/12/26/EJ6/" rel="next" title="EJ6">
+      EJ6 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#高阶函数"><span class="nav-number">1.</span> <span class="nav-text">高阶函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#抽象"><span class="nav-number">1.1.</span> <span class="nav-text">抽象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#抽象重复"><span class="nav-number">1.2.</span> <span class="nav-text">抽象重复</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#高阶函数-1"><span class="nav-number">1.3.</span> <span class="nav-text">高阶函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#script数据集"><span class="nav-number">1.4.</span> <span class="nav-text">script数据集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#过滤数组"><span class="nav-number">1.5.</span> <span class="nav-text">过滤数组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用map转换"><span class="nav-number">1.6.</span> <span class="nav-text">用map转换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用reduce汇总"><span class="nav-number">1.7.</span> <span class="nav-text">用reduce汇总</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可组合性"><span class="nav-number">1.8.</span> <span class="nav-text">可组合性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字符串和字符代码"><span class="nav-number">1.9.</span> <span class="nav-text">字符串和字符代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#识别文本"><span class="nav-number">1.10.</span> <span class="nav-text">识别文本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">1.11.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#练习"><span class="nav-number">1.12.</span> <span class="nav-text">练习</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#flattening"><span class="nav-number">1.12.1.</span> <span class="nav-text">flattening</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#own-loop"><span class="nav-number">1.12.2.</span> <span class="nav-text">own loop</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#everything"><span class="nav-number">1.12.3.</span> <span class="nav-text">everything</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dominant-writing-direction"><span class="nav-number">1.12.4.</span> <span class="nav-text">dominant writing direction</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Guohang Ma</p>
+  <div class="site-description" itemprop="description">developer blog</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">136</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">38</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Guohang Ma</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

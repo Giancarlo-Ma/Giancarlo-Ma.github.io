@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="这一章主要学习DOM事件相关知识  基本概念：DOM事件级别 DOM事件模型 DOM事件流 描述DOM事件捕获的具体流程 Event对象的常见应用 自定义事件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DOM">
+<meta property="og:url" content="http://yoursite.com/2018/01/12/DOM%E4%BA%8B%E4%BB%B6/index.html">
+<meta property="og:site_name" content="Giancarlo&#39;s Blog">
+<meta property="og:description" content="这一章主要学习DOM事件相关知识  基本概念：DOM事件级别 DOM事件模型 DOM事件流 描述DOM事件捕获的具体流程 Event对象的常见应用 自定义事件">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2018-01-12T12:46:25.000Z">
+<meta property="article:modified_time" content="2020-06-07T02:09:32.670Z">
+<meta property="article:author" content="Guohang Ma">
+<meta property="article:tag" content="JavaScript">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2018/01/12/DOM%E4%BA%8B%E4%BB%B6/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>DOM | Giancarlo's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Giancarlo's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Code Life</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/12/DOM%E4%BA%8B%E4%BB%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Guohang Ma">
+      <meta itemprop="description" content="developer blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Giancarlo's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          DOM
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-01-12 20:46:25" itemprop="dateCreated datePublished" datetime="2018-01-12T20:46:25+08:00">2018-01-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-06-07 10:09:32" itemprop="dateModified" datetime="2020-06-07T10:09:32+08:00">2020-06-07</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>这一章主要学习DOM事件相关知识</p>
+<ul>
+<li>基本概念：DOM事件级别</li>
+<li>DOM事件模型</li>
+<li>DOM事件流</li>
+<li>描述DOM事件捕获的具体流程</li>
+<li>Event对象的常见应用</li>
+<li>自定义事件</li>
+</ul>
+<a id="more"></a>
+
+<hr>
+<h3 id="DOM节点"><a href="#DOM节点" class="headerlink" title="DOM节点"></a>DOM节点</h3><p>整个文档都是由不同的节点组成的，共有12种不同的节点类型，通过nodeType可以查看节点的类型，但我们经常使用的只有四种。元素为1，文本为3，注释为8，文档（document）为9。（空白折行会产生文本节点。）</p>
+<h2 id="节点名称通过nodeName属性获取，"><a href="#节点名称通过nodeName属性获取，" class="headerlink" title="节点名称通过nodeName属性获取，"></a>节点名称通过nodeName属性获取，</h2><h3 id="DOM事件的级别"><a href="#DOM事件的级别" class="headerlink" title="DOM事件的级别"></a>DOM事件的级别</h3><ul>
+<li><p>DOM0：element.onclick=function(){}</p>
+</li>
+<li><p>DOM2: element.addEventListener(‘click’,function(){},false)</p>
+<p>第三个参数表明是在捕获阶段还是冒泡阶段触发，如果是false也就是默认情况下是在冒泡阶段触发，如果是true就是在捕获阶段触发。</p>
+</li>
+<li><p>DOM3: element.addEventListener(‘keyup’,function(){},false)</p>
+<p>  主要是新增了一些鼠标键盘事件</p>
+</li>
+</ul>
+<hr>
+<h3 id="事件模型"><a href="#事件模型" class="headerlink" title="事件模型"></a>事件模型</h3><ul>
+<li><p>事件捕获：自上而下</p>
+</li>
+<li><p>事件冒泡：自下而上</p>
+</li>
+</ul>
+<hr>
+<h3 id="事件流"><a href="#事件流" class="headerlink" title="事件流"></a>事件流</h3><p>事件是如何传播到页面的？首先事件通过捕获到达目标元素，目标元素再上传到window对象。</p>
+<hr>
+<h3 id="DOM捕获的流程"><a href="#DOM捕获的流程" class="headerlink" title="DOM捕获的流程"></a>DOM捕获的流程</h3><p>(document.body可以获取body元素，但是html元素要通过document.documentElement)<br>window -&gt; document -&gt; html -&gt; body…-&gt;目标元素</p>
+<p>冒泡流程刚好相反</p>
+<hr>
+<h3 id="Event对象"><a href="#Event对象" class="headerlink" title="Event对象"></a>Event对象</h3><ul>
+<li><p>event.preventDefault()<br>阻止默认行为</p>
+</li>
+<li><p>event.stopPropagation()<br>阻止冒泡，子元素绑定的事件会冒泡到父元素，有的时候我们不需要这种效果，就需要阻止冒泡。</p>
+</li>
+<li><p>event.stopImmediatePropagation()<br>在一个元素上绑定两个事件响应函数的时候，可以避免另一个事件的响应</p>
+</li>
+<li><p>event.currentTarget</p>
+<p>是指注册了事件监听器的对象，是target的父级对象，比如我们点击的时候，父级元素注册了事件监听器，在事件冒泡的过程中，currentTarget就可能是父级注册了事件监听器的那个元素。</p>
+</li>
+<li><p>event.target</p>
+<p>多个子元素的事件绑定到父级元素上，即为事件代理，通过target获取当前点击的子元素</p>
+</li>
+</ul>
+<hr>
+<h3 id="DOM操作"><a href="#DOM操作" class="headerlink" title="DOM操作"></a>DOM操作</h3><ul>
+<li>css样式：元素.style.cssName = cssValue;</li>
+<li>获取元素：document.getElementById(id)、document.getElementsByTagName(tagName);</li>
+<li>添加自定义属性：setAttribute(name,value);</li>
+<li>获取自定义属性：getAttribute(name);</li>
+<li>获取标准属性：元素打点调用;</li>
+</ul>
+<hr>
+<h3 id="自定义事件（模拟事件）"><a href="#自定义事件（模拟事件）" class="headerlink" title="自定义事件（模拟事件）"></a>自定义事件（模拟事件）</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> eve = <span class="keyword">new</span> Event(<span class="string">'custom'</span>);</span><br><span class="line">ev.addEventListener(<span class="string">'custom'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'custom'</span>);</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// 派发事件</span></span><br><span class="line">ev.dispatchEvent(eve);</span><br></pre></td></tr></table></figure>
+
+<p>CustomEvent对象还可以指定参数</p>
+<hr>
+<hr>
+<p>2018 年 1月 12日</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/01/11/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93%E6%9C%BA%E5%88%B6/" rel="prev" title="浏览器渲染机制">
+      <i class="fa fa-chevron-left"></i> 浏览器渲染机制
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/05/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%89%A9%E7%90%86%E5%B1%82/" rel="next" title="计算机网络物理层">
+      计算机网络物理层 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#DOM节点"><span class="nav-number">1.</span> <span class="nav-text">DOM节点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#节点名称通过nodeName属性获取，"><span class="nav-number"></span> <span class="nav-text">节点名称通过nodeName属性获取，</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#DOM事件的级别"><span class="nav-number">1.</span> <span class="nav-text">DOM事件的级别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#事件模型"><span class="nav-number">2.</span> <span class="nav-text">事件模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#事件流"><span class="nav-number">3.</span> <span class="nav-text">事件流</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DOM捕获的流程"><span class="nav-number">4.</span> <span class="nav-text">DOM捕获的流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Event对象"><span class="nav-number">5.</span> <span class="nav-text">Event对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DOM操作"><span class="nav-number">6.</span> <span class="nav-text">DOM操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自定义事件（模拟事件）"><span class="nav-number">7.</span> <span class="nav-text">自定义事件（模拟事件）</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Guohang Ma</p>
+  <div class="site-description" itemprop="description">developer blog</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">136</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">38</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Guohang Ma</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

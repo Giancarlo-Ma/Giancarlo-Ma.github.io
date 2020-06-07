@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="IntroductionIn this lab, you will learn about Unit Testing, JUnit, the 61B style checker, and we’ll also get a bit more debugging experience. What is JUnit?JUnit is a Unit Testing Framework for Java.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cs61b-lab03">
+<meta property="og:url" content="http://yoursite.com/2018/09/05/cs61b-lab03/index.html">
+<meta property="og:site_name" content="Giancarlo&#39;s Blog">
+<meta property="og:description" content="IntroductionIn this lab, you will learn about Unit Testing, JUnit, the 61B style checker, and we’ll also get a bit more debugging experience. What is JUnit?JUnit is a Unit Testing Framework for Java.">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2018-09-05T12:05:10.000Z">
+<meta property="article:modified_time" content="2020-06-07T02:09:33.340Z">
+<meta property="article:author" content="Guohang Ma">
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="data structure">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2018/09/05/cs61b-lab03/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>cs61b-lab03 | Giancarlo's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Giancarlo's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Code Life</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/05/cs61b-lab03/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Guohang Ma">
+      <meta itemprop="description" content="developer blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Giancarlo's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          cs61b-lab03
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-09-05 20:05:10" itemprop="dateCreated datePublished" datetime="2018-09-05T20:05:10+08:00">2018-09-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-06-07 10:09:33" itemprop="dateModified" datetime="2020-06-07T10:09:33+08:00">2020-06-07</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CS61B/" itemprop="url" rel="index"><span itemprop="name">CS61B</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>In this lab, you will learn about Unit Testing, JUnit, the 61B style checker, and we’ll also get a bit more debugging experience.</p>
+<h2 id="What-is-JUnit"><a href="#What-is-JUnit" class="headerlink" title="What is JUnit?"></a>What is JUnit?</h2><p>JUnit is a Unit Testing Framework for Java.</p>
+<a id="more"></a>
+
+<h2 id="What-is-Unit-Testing"><a href="#What-is-Unit-Testing" class="headerlink" title="What is Unit Testing?"></a>What is Unit Testing?</h2><p>Unit Testing is a great way to rigorously test each method of your code and ultimately ensure that you have a working project.</p>
+<p>The “Unit” part of Unit Testing comes from the idea that you can break your program down into units, or the smallest testable part of an application. Therefore, Unit Testing enforces good code structure (each method should only do “One Thing”), and allows you to consider all of the edge cases for each method and test for them individually.</p>
+<p>In this class, you will be using JUnit to create and run tests on your code to ensure its correctness. And when JUnit tests fail, you will have an excellent starting point for debugging. Furthermore, if you have some terrible bug that is hard to fix, you can use git to revert back to a state when your code was working properly according to the JUnit tests.</p>
+<h2 id="JUnit-Syntax"><a href="#JUnit-Syntax" class="headerlink" title="JUnit Syntax"></a>JUnit Syntax</h2><p>JUnit tests are written in Java, similar to what you wrote in Project 1A with LinkedListDequeTest. However, the JUnit library implements all the boring stuff like printing error messages, making test writing much simpler.</p>
+<p>To see an example JUnit test, navigate to the Arithmetic directory and open ArithmeticTest.java in your favorite text editor (don’t open IntelliJ just yet).</p>
+<p>The first thing you’ll notice are the imports at the top. These imports are what give you easy access to the JUnit methods and functionality that you’ll need to run JUnit tests. For more information, see the Testing lecture video.</p>
+<p>Next, you’ll see that there are two methods in ArithmeticTest.java: testProduct and testSum. These methods follow this format:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testMethod</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    assertEquals(&lt;expected&gt;, &lt;actual&gt;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>assertEquals is a common method used in JUnit tests. It tests whether a variable’s actual value is equivalent to its expected value.</p>
+<p>When you create JUnit test files, you should precede each test method with a @Test annotation, and can have one or more assertEquals or assertTrue methods (provided by the JUnit library). ** All tests must be non-static. ** This may seem weird since your tests don’t use instance variables and you probably won’t instantiate the class. However, this is how the designers of JUnit decided tests should be written, so we’ll go with it.</p>
+<p>From this point forwards in 61B, we will officially be working in IntelliJ. If you want to run your code from the terminal, refer to this supplemental guide. While you’re welcome to do this, the staff will not provide official support for command line compilation and execution.</p>
+<h1 id="Running-JUnit-Tests-in-IntelliJ-or-another-IDE"><a href="#Running-JUnit-Tests-in-IntelliJ-or-another-IDE" class="headerlink" title="Running JUnit Tests in IntelliJ (or another IDE)"></a>Running JUnit Tests in IntelliJ (or another IDE)</h1><p>Open up IntelliJ and import your lab 3 folder that came with the skeleton. Repeat the steps from Lab 2 Setup, Project Setup and don’t forget to import the javalib libraries!</p>
+<p>Open up lab3/Arithmetic/ArithmeticTest.java in IntelliJ. Move your cursor to the main method of ArithmeticTest and click the Run… option under the Run menu at the top of IntelliJ.</p>
+<p>Run Options</p>
+<p>After clicking “Run…”, you should see at least two options that will look something like the list below. The number of items in your list may vary.</p>
+<p>Run Options</p>
+<p>The two most important options in your list will be the one that says only “ArithmeticTest” next to the red and green arrows (next to the 2. in the image above), and the one that says only “ArithmeticTest” next to the white and blue boxes (next to the 1. in the image above).</p>
+<p>If you use the version with red/green arrows, then IntelliJ will render the results of the tests. If you use the version with the white/blue boxes, the renderer that Josh put together will run instead. Which you prefer is a matter of personal preference. For the rest of the course we will refer to these as the “default renderer” and the “jh61b renderer”, respectively.</p>
+<p>For now, run the default renderer, and you should see something like:</p>
+<p>Run Options</p>
+<p>This is saying that the test on line 25 of ArithmeticTest.java failed. The test expected 5 + 6 to be 11, but the Arithmetic class claims 5 + 6 is 30. You’ll see that even though testSum includes many assert statements, only one failure is shown.</p>
+<p>This is because JUnit tests are short-circuiting – as soon as one of the asserts in a method fails, it will output the failure and move on to the next test.</p>
+<p>Try clicking on the ArithmeticTest.java:25 in the window at the bottom of the screen and IntelliJ will take you straight to the failed test. This can come in handy when running your own tests on later projects.</p>
+<p>Next, try running the code with the jh61b renderer. It doesn’t look as nice as the default renderer, and doesn’t allow you to click straight to code. In earlier versions of this course, we had students run tests from the command line, which required me to write our own custom renderer. In this new cyber-future where we use IntelliJ, this renderer is no longer necessary. However, you might find that you prefer it.</p>
+<p>Run Options</p>
+<p>For those of you who prefer the jh61b renderer, you can modify your JUnit test file so that it only shows the results of failed tests (instead of all tests). To do this, simply change the mode argument from “all” in the main method to “failed”.</p>
+<p>If you just want to use the renderer that you already selected, you can bypass having to pick between the two renderers in any of the following four ways:</p>
+<p>Right-click and then selecting ‘Run’.<br>Use the top item in the Run menu at the top of the IntelliJ screen.<br>Click the green arrow (or debugging symbol) in the top right.<br>Use the appropriate keyboard shortcut.<br>All four of these are equivalent. If you decide you want to switch renderers, you’ll need to use the “Run…” option instead.</p>
+<p>Now fix the bug, either by inspecting Arithmetic.java and finding the bug, or using the IntelliJ debugger to step through the code until you reach the bug.</p>
+<p>After fixing the bug, rerun the test, and if you’re using the default renderer, you should get a nice glorious green bar. Enjoy the rush.</p>
+<h1 id="Intlists"><a href="#Intlists" class="headerlink" title="Intlists"></a>Intlists</h1><p>Now a real-CS61B application of JUnit tests: IntLists.</p>
+<p>As with last week’s lab, we’re going to take advantage of the ‘of’ method of the IntList class, which makes creating IntLists (and writing IntList tests) much easier. For example, consider:</p>
+<p>IntList myList = IntList.of(0, 1, 2, 3);<br>Which will create the IntList 0 -&gt; 1 -&gt; 2 -&gt; 3 -&gt; null.</p>
+<h2 id="Test-a-Reverse-Method"><a href="#Test-a-Reverse-Method" class="headerlink" title="Test a Reverse Method"></a>Test a Reverse Method</h2><p>Copy your IntList.java that you created for lab2 into the lab3/IntList folder. In this section, our goal will be to write the reverse method from this week’s discussion worksheet.</p>
+<p>We’ll showcase the idea of “test-driven development” for this exercise, where we write a unit test even before we write the new method.</p>
+<p>Add a new test to IntListTest.java that tests the .reverse() method, which you can assume has the following definition:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Returns the reverse of the given IntList.</span></span><br><span class="line"><span class="comment"> * This method is destructive. If given null</span></span><br><span class="line"><span class="comment"> * as an input, returns null.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> IntList <span class="title">reverse</span><span class="params">(IntList A)</span></span></span><br></pre></td></tr></table></figure>
+<p>Don’t add a reverse method to IntList yet. We’re going to write a test BEFORE we write reverse.</p>
+<p>Your test should test at least the following three situations:</p>
+<ul>
+<li>That the function returns a reversed list.</li>
+<li>That the function is destructive, i.e. when it is done running, the list pointed to by A has been tampered with. You can use assertNotEquals. This is sort of a silly test.</li>
+<li>That the method handles a null input properly.<br>You’ll notice that as you’re typing your code that the IntList.reverse is highlighted in red, and mousing over should say “Cannot resolve method reverse” or similar. This is because we haven’t added a reverse method yet. We’ll do this in the next section. Don’t write reverse yet!</li>
+</ul>
+<p>Once you’ve written your test, compare your results to your neighbor in lab and discuss. Make sure you’ve both written tests for at least all three situations above.</p>
+<p>If you’re working from the command line instead of IntelliJ (not recommended): Try compiling IntListTest.java, and you should get a compiler error along the lines of:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">IntListTest.java:72: error: cannot find symbol</span><br><span class="line"></span><br><span class="line">  symbol:   method reverse</span><br></pre></td></tr></table></figure>
+<p>This error is a great thing! It means that the compiler is actually finding our test.</p>
+<h2 id="Writing-a-Reverse-Method"><a href="#Writing-a-Reverse-Method" class="headerlink" title="Writing a Reverse Method"></a>Writing a Reverse Method</h2><p>Now create a dummy version of the reverse method into IntList.java that simply returns null. Your only goal here is to get IntList.java to compile. Don’t fill in the code for the actual reverse method yet, just make it return null</p>
+<p>If you’re running IntListTest from the command line, you’ll want to add a main method before proceeding. See ArithmeticTest.java for an example. Since you should be using IntelliJ, this isn’t necessary unless you want to use the jh61b renderer instead of the default renderer.</p>
+<p>Try running the test, and it test should fail. This is great! We’ve now reached the “red” phase of the Test-Driven Development (TDD) cycle described in class.</p>
+<p>Write a reverse method, and rerun the tests until it passes. If you’re stuck (this is a tricky problem with a very clever solution), see the week 3 discussion solutions. Note that a correct reverse is not required for full credit on this week’s lab (it’s an ungraded test in the AG), so if you’re really stuck and need to work on project 1A, do that first, and then come back and complete this exercise after you’ve finished project 1A.</p>
+<p>Protip: If you want to have your tests timeout after a certain amount of time (to prevent infinite loops), you can declare your test like this:</p>
+<p>@Test(timeout = 1000)<br>The given parameter specifies the maximum time in milliseconds.</p>
+<p>Some people find the rush of TDD addictive. You basically set up a little game for yourself to solve. Some people hate it. Your mileage may vary. Whether you personally enjoy the TDD flow or not, writing tests will be one of the most important skills you learn here at Berkeley, and getting “test-infected” will save you and your future colleagues an enormous amount of time and misery.</p>
+<h1 id="A-Debugging-Mystery"><a href="#A-Debugging-Mystery" class="headerlink" title="A Debugging Mystery"></a>A Debugging Mystery</h1><p>Another important skill to learn is how to exhaustively debug. When done properly, debugging should allow you to rapidly narrow down where a bug might be located, even when you are debugging code you don’t fully understand.</p>
+<p>Your company, Flik Enterprises, has released a fine software library called Flik.java that is able to determine whether two Integers are the same or not.</p>
+<p>You receive an email from someone named “Horrible Steve” who describes a problem they’re having with your library:</p>
+<p>“Dear Flik Enterprises,</p>
+<p>Your library is very bad. See the attached code. It should print out 500<br>but actually it’s printing out 128.</p>
+<p>(attachment: HorribleSteve.java)”<br>Using any combination of the following techniques, figure out whether the bug is in Horrible Steve’s code or in Flik enterprise’s library:</p>
+<p>Writing JUnit tests for the Flik library.<br>Using the IntelliJ debugger, especially conditional breakpoints.<br>Using print statements.<br>Refactoring Horrible Steve’s code. Refactoring means changing the syntax without changing the functionality. This may be hard to do since HS’s code uses lots of weird stuff.<br>HorribleSteve.java and Flik.java both use syntax we haven’t covered in class. We do not expect you to fix the bug or even understand why it’s happening once you have found it. Instead, your job is simply to find the bug.</p>
+<p>Tip: JUnit provides methods assertTrue(boolean) and assertTrue(String, boolean) that you might find helpful.</p>
+<p>Try to come up with a short explanation of the bug! Check in with your TA to see if your answer is right (not for a grade).</p>
+<h1 id="Running-the-61B-Style-Checker"><a href="#Running-the-61B-Style-Checker" class="headerlink" title="Running the 61B Style Checker"></a>Running the 61B Style Checker</h1><p>We will be using the CS 61B IntelliJ Plugin to check for style. Try it out on IntList.java in your IntList folder. You should see that there are at least two style errors (the two we put in, plus whatever you may have introduced yourself). Resolve these errors. If you’re ever stuck on style issues, consult the official 61B style guide.</p>
+<p>When you pass the style check, the output should look like:</p>
+<p>Running style checker on 1 file(s)…<br>Style checker completed with 0 errors</p>
+<h1 id="Deque-Unit-Tests"><a href="#Deque-Unit-Tests" class="headerlink" title="Deque Unit Tests"></a>Deque Unit Tests</h1><p>In project 1B (to be released 2/3), you’ll be required to write JUnit tests for your Deque classes. If you have extra time in lab, start writing some tests for LinkedListDeque and ArrayDeque as a warmup.</p>
+<h1 id="Some-question"><a href="#Some-question" class="headerlink" title="Some question?"></a>Some question?</h1><ul>
+<li>In reverse’s implement, how can I make the change of parameter A reflect to the outside A;</li>
+<li>When comparing two boxing Integer A and B, if A and B between -128 and +127, we can correctly compare the two Integers, but when the number is beyond +127, the result can not be right, <a href="https://stackoverflow.com/questions/1700081/why-is-128-128-false-but-127-127-is-true-when-comparing-integer-wrappers-in-ja" target="_blank" rel="noopener">stackoverflow post</a></li>
+<li>Style checker is verbose, so I DON’T use them.</li>
+<li>conditional breakpoint: right click the red dot, then set the condition when the breakpoint suspend.</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/java/" rel="tag"># java</a>
+              <a href="/tags/data-structure/" rel="tag"># data structure</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/09/05/cs61b-examprep04/" rel="prev" title="cs61b-examprep04">
+      <i class="fa fa-chevron-left"></i> cs61b-examprep04
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/09/05/cs61a-proj02/" rel="next" title="cs61a-proj02">
+      cs61a-proj02 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#What-is-JUnit"><span class="nav-number">1.1.</span> <span class="nav-text">What is JUnit?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#What-is-Unit-Testing"><span class="nav-number">1.2.</span> <span class="nav-text">What is Unit Testing?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JUnit-Syntax"><span class="nav-number">1.3.</span> <span class="nav-text">JUnit Syntax</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Running-JUnit-Tests-in-IntelliJ-or-another-IDE"><span class="nav-number">2.</span> <span class="nav-text">Running JUnit Tests in IntelliJ (or another IDE)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Intlists"><span class="nav-number">3.</span> <span class="nav-text">Intlists</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Test-a-Reverse-Method"><span class="nav-number">3.1.</span> <span class="nav-text">Test a Reverse Method</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Writing-a-Reverse-Method"><span class="nav-number">3.2.</span> <span class="nav-text">Writing a Reverse Method</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#A-Debugging-Mystery"><span class="nav-number">4.</span> <span class="nav-text">A Debugging Mystery</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Running-the-61B-Style-Checker"><span class="nav-number">5.</span> <span class="nav-text">Running the 61B Style Checker</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Deque-Unit-Tests"><span class="nav-number">6.</span> <span class="nav-text">Deque Unit Tests</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Some-question"><span class="nav-number">7.</span> <span class="nav-text">Some question?</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Guohang Ma</p>
+  <div class="site-description" itemprop="description">developer blog</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">136</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">38</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Guohang Ma</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

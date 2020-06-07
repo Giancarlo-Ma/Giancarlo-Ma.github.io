@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="BUGs和ERRORs程序中的缺陷叫做bugs。如果一个程序是思想结晶的，可以将bug大致分为由困惑的想法导致的和由当将想法转换为代码时引入的错误。前者通常比后者更难诊断和修复。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="EJ8">
+<meta property="og:url" content="http://yoursite.com/2019/01/04/EJ8/index.html">
+<meta property="og:site_name" content="Giancarlo&#39;s Blog">
+<meta property="og:description" content="BUGs和ERRORs程序中的缺陷叫做bugs。如果一个程序是思想结晶的，可以将bug大致分为由困惑的想法导致的和由当将想法转换为代码时引入的错误。前者通常比后者更难诊断和修复。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2019-01-04T03:44:04.000Z">
+<meta property="article:modified_time" content="2020-06-07T02:09:32.690Z">
+<meta property="article:author" content="Guohang Ma">
+<meta property="article:tag" content="technology software development blog">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2019/01/04/EJ8/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>EJ8 | Giancarlo's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Giancarlo's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Code Life</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/04/EJ8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Guohang Ma">
+      <meta itemprop="description" content="developer blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Giancarlo's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          EJ8
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-01-04 11:44:04" itemprop="dateCreated datePublished" datetime="2019-01-04T11:44:04+08:00">2019-01-04</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-06-07 10:09:32" itemprop="dateModified" datetime="2020-06-07T10:09:32+08:00">2020-06-07</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Eloquent-JavaScript/" itemprop="url" rel="index"><span itemprop="name">Eloquent JavaScript</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="BUGs和ERRORs"><a href="#BUGs和ERRORs" class="headerlink" title="BUGs和ERRORs"></a>BUGs和ERRORs</h1><p>程序中的缺陷叫做bugs。如果一个程序是思想结晶的，可以将bug大致分为由困惑的想法导致的和由当将想法转换为代码时引入的错误。前者通常比后者更难诊断和修复。</p>
+<a id="more"></a>
+
+<h2 id="语言"><a href="#语言" class="headerlink" title="语言"></a>语言</h2><p>如果计算机知道足够多的信息关于我们要做的事情，那么许多错误可以自动被计算机指出。但是JS的松散性是一个障碍。它绑定和属性的概念是很模糊的以致于在运行程序之前几乎不会捕捉到拼写错误。即便是这样，它不带抱怨的允许你做一些明确无意义的事情，比如计算<code>true * &quot;monkey&quot;</code>。</p>
+<p>不过还是有一些JS抱怨的东西。写一个不遵循JS语法的程序将使得计算机立刻做出抱怨。其他如调用一个非程序或者在underfined的值上查找一个属性，当程序尝试去执行行为的时候会导致一个报错。</p>
+<p>但是通常情况下，你的无意义的计仅仅产生<code>NaN</code>或者一个<code>underfined</code>值，程序还是会继续快乐地进行，确信它自己正在做有意义的事情。这个伪值可能经过几个函数之后，错误才会出现。他可能不会触发错误，而只是静悄悄地使得程序输出是错误的。找到这样问题的源头有点困难。</p>
+<p>寻找bugs的过程叫做<em>dubugging</em></p>
+<h2 id="严格模式"><a href="#严格模式" class="headerlink" title="严格模式"></a>严格模式</h2><p>JS通过开启严格模式可以变得更严格。通过在文件或者函数体顶部放一个<code>use strict</code>实现。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">canYouSpotTheProblem</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"><span class="meta">  "use strict"</span>;</span><br><span class="line">  <span class="keyword">for</span> (counter = <span class="number">0</span>; counter &lt; <span class="number">10</span>; counter++) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"Happy happy"</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">canYouSpotTheProblem();</span><br><span class="line"><span class="comment">// → ReferenceError: counter is not defined</span></span><br></pre></td></tr></table></figure>
+
+<p>一般地，当忘记了在绑定前加一个<code>let</code>，如同例子中的<code>counter</code>这样，JS静默的创造一个全局绑定。相反地，严格模式下会报错。这是很有用的。即便这样，如果例子中的绑定一个有一个全局绑定的时候这种方法是无效的。在那种情况下，循环将悄悄覆盖绑定的值。</p>
+<p>在严格模式下，另一个变化是当函数没有被当作方法调用时，函数中的<code>this</code>绑定为<code>underfined</code>。当在严格模式外做这样的调用时，<code>this</code>指的是全局作用域。所以如果在严格模式下意外地错误地调用一个方法或者构造器，一旦尝试从<code>this</code>中读取什么的时候将立刻产生一个错误，而不是写入全局作用域。</p>
+<p>例如，考虑下面的代码，没有使用<code>new</code>关键字调用构造器函数，所以这个<code>this</code>将不会指代新创建的对象。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name</span>) </span>&#123; <span class="keyword">this</span>.name = name; &#125;</span><br><span class="line"><span class="keyword">let</span> ferdinand = Person(<span class="string">"Ferdinand"</span>); <span class="comment">// oops</span></span><br><span class="line"><span class="built_in">console</span>.log(name);</span><br><span class="line"><span class="comment">// → Ferdinand</span></span><br></pre></td></tr></table></figure>
+<p>所以这个对构造器<code>Person</code>的伪调用成功了，但是返回了一个<code>undefined</code>值并且创造了一个全局绑定<code>name</code>。在严格模式下，结果是不同的。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">"use strict"</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name</span>) </span>&#123; <span class="keyword">this</span>.name = name; &#125;</span><br><span class="line"><span class="keyword">let</span> ferdinand = Person(<span class="string">"Ferdinand"</span>); <span class="comment">// forgot new</span></span><br><span class="line"><span class="comment">// → TypeError: Cannot set property 'name' of undefined</span></span><br></pre></td></tr></table></figure>
+<p>我们被立刻告知有什么东西出错了，这是很有用的。</p>
+<p>幸运的是，以<code>class</code>标记创造的构造器如果不用<code>new</code>调用将总是会抱怨，使得即便不是在严格模式下这也不成问题。</p>
+<p>严格模式可以做更多的事情。它不允许给定一个函数多个同名的参数并完全移除了一些有问题的语言特性（如<code>with</code>语句）</p>
+<p>简言之，将<code>use strict</code>放在程序顶部无伤大雅并且帮助你发现问题。</p>
+<h2 id="类型"><a href="#类型" class="headerlink" title="类型"></a>类型</h2><p>一些语言在运行程序之前想要直到所有的绑定和表达式的类型。当一个类型以一种不一致的方式使用的时候将会立刻告诉你。JS只在实际运行程序的时候才考虑类型，并且即使在运行实际程序时，也经常尝试隐式转换值到它期望的类型，所以这没有多大帮助。</p>
+<p>然而，类型提供了一个讨论程序的有用的框架。许多错误来自于对函数接收和输出的值的类型的困惑。如果将这些信息写下，可能就不那么容易困惑。</p>
+<p>你可以在前面章节的<code>goalOrientedRobot</code>函数前添加下面的注释来描述它的类型。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// (VillageState, Array) → &#123;direction: string, memory: Array&#125;</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">goalOrientedRobot</span>(<span class="params">state, memory</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>有许多不同的规范用类型注解JS的程序。</p>
+<p>关于类型的一件事情是，它们需要引入自己的复杂度以便能够描述足够有用的代码。你认为返回数组中随即元素的<code>randomPick</code>函数的参数和返回值类型应该是什么呢？你需要引入一个类型变量<code>T</code>，可以代表任何类型，所以可以给<code>randomPick</code>一个类似于<code>([T]) -&gt; T</code>的类型（从Ts数组到T的函数）。</p>
+<p>当程序的类型已知的时候，计算机为你检查类型是可能的，在程序运行之前指出错误。有许多JS方言添加了类型到语言中并且检查它们。最受欢迎的是TS，如果你对添加更多严格感兴趣，我推荐你尝试一下。</p>
+<p>这本书中，我们将继续使用原生，危险，无类型的JS代码。</p>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><p>如果语言不能够在帮助我们发现错误上做很多事情，我们将不得不以很艰难的方式找到它们：通过运行程序然后观察是否做正确的事情。</p>
+<p>重复地手工操作这个真的是一个坏主意。不仅很讨厌，而且每次改变程序的时候都要测试所有事情实在是很低效。</p>
+<p>计算机擅长做重复的任务，并且测试是一个理想的重复的任务。自动化测试是编写一个程序测试另外一个程序的过程。书写测试需要比手动测试做更多的更多的工作，但是一旦完成，就收获了超能力：只需要几秒钟就可以确认在测试所针对的情况里，你的程序是否表现得正常。当打破什么东西的时候，你将会立刻注意到，而不是在之后的某个时间里，随机的碰见这个问题。</p>
+<p>测试通常采用小的标记程序的方式验证代码的某些方面。例如，一组针对<code>toUpperCase</code>的测试可能看起来是这样的：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params">label, body</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (!body()) <span class="built_in">console</span>.log(<span class="string">`Failed: <span class="subst">$&#123;label&#125;</span>`</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">test(<span class="string">"convert Latin text to uppercase"</span>, () =&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="string">"hello"</span>.toUpperCase() == <span class="string">"HELLO"</span>;</span><br><span class="line">&#125;);</span><br><span class="line">test(<span class="string">"convert Greek text to uppercase"</span>, () =&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="string">"Χαίρετε"</span>.toUpperCase() == <span class="string">"ΧΑΊΡΕΤΕ"</span>;</span><br><span class="line">&#125;);</span><br><span class="line">test(<span class="string">"don't convert case-less characters"</span>, () =&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="string">"مرحبا"</span>.toUpperCase() == <span class="string">"مرحبا"</span>;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>书写类似这样的测试可能产生重复的尴尬的代码。幸运的是，存在帮助你构建和运行测试集的软件，这种软件通过提供一种合适的语言（以函数和方法形式）去表达测试并且当测试失败的时候输出提示性的信息。这些通常被叫做测试运行器（<em>test runner</em>)。</p>
+<p>一些代码相比于其他代码更容易测试。通常来说，代码交互的外部对象越多，建立测试的上下文就越困难。前面章节的编程风格，使用了自包含的持久的值而不是变化的对象，比较容易去测试。</p>
+<h2 id="Debugging"><a href="#Debugging" class="headerlink" title="Debugging"></a>Debugging</h2><p>一旦由于程序表现异常或者产生错误，你发现你的程序产生了问题，下一步就是找到问题在哪里。</p>
+<p>有时很显然。错误信息将会指出程序特定的一行，并且如果查看错误描述和对应行的代码，你通常可以发现问题。</p>
+<p>但是不总是这样。有时触发问题的原因仅仅是在某处产生的奇怪的值被以一种不合法的方式使用了。</p>
+<p>下面的例子程序，通过重复取得最后一位然后划分这个数字去除最后一位，将一个整数转换为一个给定基数的字符串。但是这个奇怪的输出表明有个bug。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">numberToString</span>(<span class="params">n, base = <span class="number">10</span></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> result = <span class="string">""</span>, sign = <span class="string">""</span>;</span><br><span class="line">  <span class="keyword">if</span> (n &lt; <span class="number">0</span>) &#123;</span><br><span class="line">    sign = <span class="string">"-"</span>;</span><br><span class="line">    n = -n;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">do</span> &#123;</span><br><span class="line">    result = <span class="built_in">String</span>(n % base) + result;</span><br><span class="line">    n /= base;</span><br><span class="line">  &#125; <span class="keyword">while</span> (n &gt; <span class="number">0</span>);</span><br><span class="line">  <span class="keyword">return</span> sign + result;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(numberToString(<span class="number">13</span>, <span class="number">10</span>));</span><br><span class="line"><span class="comment">// → 1.5e-3231.3e-3221.3e-3211.3e-3201.3e-3191.3e-3181.3…</span></span><br></pre></td></tr></table></figure>
+
+<p>即使你已经发现了问题，也要假装你并没有发现。我们知道我们的程序出故障了，并且想要知道原因。</p>
+<p>在这种情况下，你必须克制强烈的欲望去随即改变代码然后观察是否那使得它变得更好。相反，<em>think</em>。分析发生了什么并且想出发生这种现象的可能的原因。然后，做额外的观察去测试这个理论。或者，如果你还没有一套理论，做额外的观察去帮助你想出一个。</p>
+<p>放置一些策略上的<code>console.log</code>调用到程序中，是一个查看程序中发生了什么的好的方式。在这种情况下，我们想要<code>n</code>接收值13和1，然后是0。让我们在循环开始写下它的值。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">13</span></span><br><span class="line"><span class="number">1.3</span></span><br><span class="line"><span class="number">0.13</span></span><br><span class="line"><span class="number">0.013</span></span><br><span class="line">…</span><br><span class="line"><span class="number">1.5e-323</span></span><br></pre></td></tr></table></figure>
+
+<p>13除以10不会产生一个整数。我们实际想要的是<code>n = Math.floor(n / base)</code>而不是<code>n /= base</code>，如此一来这个数就能够恰当地向右移位。</p>
+<p>用<code>console.log</code>去观察程序行为的一个替代就是浏览器的*debugger`能力。浏览器可以在代码特定的某一行设置一个断点，并且可以检查绑定的值在那个点上。我不会涉及太多细节，因为不同浏览器的debugger都不太相同，可以在开发者工具或者在网上搜索更多信息。</p>
+<p>另外一种设置断点的方式是在你的程序中包含一个<code>debugger</code>语句（简单包含这个关键字）。如果浏览器的开发者工具激活了，程序将会停在这个语句。</p>
+<h2 id="错误传播（error-propagation）"><a href="#错误传播（error-propagation）" class="headerlink" title="错误传播（error propagation）"></a>错误传播（error propagation）</h2><p>并非所有的问题都可以被编程者避免。如果你的程序以某种方式和外界进行通信，就可能出现输入格式不正确，负载过重或者是网络故障的情况。</p>
+<p>如果你是为自己编程，可以忽略这些问题直到它们出现。但是如果你需要构建要被他人使用的东西，你通常想要程序表现得更好而不是崩溃。有时跳过错误的输入并继续运行是正确的要做的事情。在其他情况下，报告给用户哪里出错并且然后放弃。但是在任何一种情况下，程序不得不积极地做一些事情响应问题。</p>
+<p>假设你有一个函数<code>promptInteger</code>，向用户请求一个整数并返回它。如果用户输入”orange”，它应该返回什么？</p>
+<p>一个选择是使它返回一个特殊值。常规的这样的值是<code>null</code>，<code>undefined</code>或者-1。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">promptNumber</span>(<span class="params">question</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> result = <span class="built_in">Number</span>(prompt(question));</span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">Number</span>.isNaN(result)) <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(promptNumber(<span class="string">"How many trees do you see?"</span>));</span><br></pre></td></tr></table></figure>
+
+<p>现在任何调用<code>promptNumber</code>的代码必须检查是否实际的数字被读取，并且如果失败，需要以某种方式恢复，可能是再次询问或者填充一个默认值。或者也可以返回给调用者一个特殊值，用来表明它没能成功做成它被要求的事情。</p>
+<p>在许多情况下，主要是错误很普遍的时候，并且调用者应该明确考虑它们，返回一个特殊值是一种好的表明错误的方式。它确实也有缺点。首先，要是函数可以返回任何可能的值呢？在这样的函数中，你将不得不采取一些措施如将结果包装在一个对象中，以此来区分成功还是失败。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">lastElement</span>(<span class="params">array</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(array.length == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> &#123;<span class="attr">failed</span>: <span class="literal">true</span>&#125;;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> &#123;<span class="attr">element</span>: array[array.length - <span class="number">1</span>]&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>返回特殊值的第二个问题是他可能导致尴尬的代码。如果一段代码调用<code>promptNumber</code>10次，就不得不检查10次是否<code>null</code>被返回。并且如果对于查找<code>null</code>只是简单返回<code>null</code>，那么调用者反过来又要检查它。</p>
+<h2 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h2><p>当一个函数不能继续正常执行下去的时候，我们想要做的是停止我们正在做的事情然后立刻跳到一个地方，这个地方知道如何处理这个问题。这就是异常处理所做的事情。</p>
+<p>异常是一种使得遇到问题的代码抛出（raise/throw）异常成为可能的一种机制。异常可以是任意值。抛出一个异常有点像从一个函数超动力的返回：不仅跳出当前函数还会跳出它的调用者，一路向下直到第一个开启当前执行的调用。这叫做栈展开（unwinding stack）。你可能记得第三章提到过的函数栈。</p>
+<p>如果异常总是向下一直到栈底，那么它们可能没有太多用途。它们只会提供一种新颖的方式去破坏你的程序。它们的强大之处在于，你可以沿着栈设置障碍去捕获异常。一旦你捕获到了异常，你就可以做点什么事情去解决这个问题，然后继续运行程序。</p>
+<p>这是一个例子。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">promptDirection</span>(<span class="params">question</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> result = prompt(question);</span><br><span class="line">  <span class="keyword">if</span> (result.toLowerCase() == <span class="string">"left"</span>) <span class="keyword">return</span> <span class="string">"L"</span>;</span><br><span class="line">  <span class="keyword">if</span> (result.toLowerCase() == <span class="string">"right"</span>) <span class="keyword">return</span> <span class="string">"R"</span>;</span><br><span class="line">  <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">"Invalid direction: "</span> + result);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">look</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (promptDirection(<span class="string">"Which way?"</span>) == <span class="string">"L"</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"a house"</span>;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"two angry bears"</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"You see"</span>, look());</span><br><span class="line">&#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"Something went wrong: "</span> + error);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>throw</code>关键字被用于抛出一个异常。捕获异常通过将一段代码包裹在<code>try</code>块中实现，后面跟着关键字<code>catch</code>。当<code>try</code>块中的代码导致抛出一个异常，<code>catch</code>块就会执行，括号中的名字绑定到异常值。在<code>catch</code>块完成之后，或者如果<code>try</code>块没有异常的完成了，程序将继续执行整个<code>try/catch</code>块后面的语句。</p>
+<p>上面的例子中，我们使用了<code>Error</code>构造器去创造了一个异常值。这是一个标准JS构造器创造一个带有<code>message</code>属性的对象。在大多数的JS环境中，这个构造器的实例也聚集了关于异常创建时存在的调用栈信息，所谓的堆栈追踪（stack trace）。这个信息存储在<code>stack</code>属性中并且当试着去debug的时候可能是有用的：它告诉我们问题发生的函数和这个做了失败的调用的函数。</p>
+<p>注意<code>look</code>函数完全忽略了<code>promptDirection</code>可能会出错的可能性。这是异常的一个大的优点：错误处理的代码只在错误发生的地方和要处理的地方才是必须的。处于中间位置的函数完全可以忽略。</p>
+<p>嗯，大多数情况下是这样。</p>
+<h2 id="异常后的清理工作"><a href="#异常后的清理工作" class="headerlink" title="异常后的清理工作"></a>异常后的清理工作</h2><p>异常的效果是另外一种控制流。每种可能导致异常的行为（几乎是每个函数调用和属性访问），可能导致控制突然离开你的代码。</p>
+<p>这意味着当代码有几个副作用时，即便常规控制流看上去好像它们总是都会发生，异常也可能使得它们中的某些不会发生。</p>
+<p>这是一个非常糟糕的银行业代码。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> accounts = &#123;</span><br><span class="line">  a: <span class="number">100</span>,</span><br><span class="line">  b: <span class="number">0</span>,</span><br><span class="line">  c: <span class="number">20</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getAccount</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> accountName = prompt(<span class="string">"Enter an account name"</span>);</span><br><span class="line">  <span class="keyword">if</span> (!accounts.hasOwnProperty(accountName)) &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">`No such account: <span class="subst">$&#123;accountName&#125;</span>`</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> accountName;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">transfer</span>(<span class="params">from, amount</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (accounts[<span class="keyword">from</span>] &lt; amount) <span class="keyword">return</span>;</span><br><span class="line">  accounts[<span class="keyword">from</span>] -= amount;</span><br><span class="line">  accounts[getAccount()] += amount;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>transfer</code>函数从一个给定账户转钱到另一个账户，其间询问转入账户的名字。如果给定一个不合法的账户名字，<code>getAcount</code>抛出一个异常。</p>
+<p>但是<code>transfer</code>首先从转出账户扣除钱然后调用<code>getAcount</code>函数在它添加钱到另一个账户之前。如果在那个时间点被异常打断，就会让钱凭空消失了。</p>
+<p>那段代码可以被写得更聪明些，比如在开始转钱之前调用<code>getAcount</code>。但是这样的问题常以更微妙的方式出现。即使函数看上去不会抛出异常，也可能会由于异常的情况或者包含程序员错误而抛出异常。</p>
+<p>一种解决这个问题的方式是使用更少的副作用。再一次，一个编程风格，计算出新的值而不是修改存在的数据会有所帮助。如果一段代码停在了创造新值的过程中，没有人会看见半成品的值，并且这丝毫不是问题。</p>
+<p>但是那不总是实用的。所以<code>try</code>语句还有一个额外的特性。它们可以后面跟着一个<code>finally</code>语句，可以与<code>catch</code>并存或者自己独立出现。一个<code>finally</code>块表明无论发生了什么，尝试去运行<code>try</code>块中的代码之后运行<code>finally</code>中的代码。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">transfer</span>(<span class="params">from, amount</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (accounts[<span class="keyword">from</span>] &lt; amount) <span class="keyword">return</span>;</span><br><span class="line">  <span class="keyword">let</span> progress = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    accounts[<span class="keyword">from</span>] -= amount;</span><br><span class="line">    progress = <span class="number">1</span>;</span><br><span class="line">    accounts[getAccount()] += amount;</span><br><span class="line">    progress = <span class="number">2</span>;</span><br><span class="line">  &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (progress == <span class="number">1</span>) &#123;</span><br><span class="line">      accounts[<span class="keyword">from</span>] += amount;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个版本的函数追踪它的进度，并且如果离开的时候，它注意到在创造不一致的程序状态点中止，他会修复做过的破坏。</p>
+<p>注意即使<code>finally</code>代码会在<code>try</code>块中抛出异常的时候运行，他也不干涉异常。在<code>finally</code>块运行之后，栈继续展开。</p>
+<p>编写即使在异常出现在意料之外的地方可靠运行的程序是困难的。许多人根本不关心这个问题，并且因为异常通常是为特殊情况保留的，所以这个问题可能很少发生以至于从未被注意到。这是一件好事还是一件真正的坏事取决于当软件失败的时候会造成多大的破坏。</p>
+<h2 id="选择捕获"><a href="#选择捕获" class="headerlink" title="选择捕获"></a>选择捕获</h2><p>当异常一直到栈底还未被捕获时，将被环境所处理。这句话的含义随着环境的不同而不同。在浏览器中，一个错误描述被打印到JS控制台（可以通过开发者工具查看）。NodeJS，这个我们将在20章讨论的无浏览器环境，对数据差错更加小心。当一个未处理的异常发生的时候将会终止整个进程。</p>
+<p>对于程序员的错误，让错误随风过去往往是你能做的最好的选择。一个未被处理的异常是一种标记一个被破坏程序的合理的方式，并且JS控制台将会提供问题发生时，哪些函数调用在栈上的信息。</p>
+<p>对于常规的可能发生的问题，因为未处理的异常而崩溃是一个糟糕的策略。</p>
+<p>非法使用语言，如引用一个不存在的绑定，在<code>null</code>上查找属性，或者调用非函数，将会导致抛出异常。这样的异常也可以被捕获。</p>
+<p>当进入<code>catch</code>体的时候，我们所知道的是我们的<code>try</code>体中的某部分导致了异常。但是我们不知道是什么导致了这个异常。</p>
+<p>JS（一个明显的遗漏）没有提供选择性地捕获异常的直接支持：要么你捕获它们所有，要么一个都不捕获。这使得在写<code>catch</code>块的时候很容易假设你得到的异常就是你想的那个异常。</p>
+<p>但是可能不是这样。可能违反了其他一些假设，或者你可能引入了一个可能导致异常的bug。这有一个例子尝试去一直调用<code>promptDirection</code>直到得到一个合法的答案。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (;;) &#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> dir = promtDirection(<span class="string">"Where?"</span>); <span class="comment">// ← typo!</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"You chose "</span>, dir);</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"Not a valid direction. Try again."</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>for(;;)</code>结构是一种有意创造不会自终止循环的一种方式。只有在合法的方向给定的时候我们才会跳出循环。但是我们拼错了<code>promptDirection</code>，这将会导致一个”undefined variable”错误。因为<code>catch</code>块完全忽略异常值<code>e</code>，假定它知道问题是什么，错误地将绑定错误以为是坏的输入的错误。这不仅导致一个无限循环，还埋葬了关于错误拼写绑定的有用的错误信息。</p>
+<p>一般规则是，不要做空白的捕获异常，除非是想要将异常路由到某个地方。例如，在网络中告诉另一个系统我们的程序崩溃了。即便这样也要仔细考虑如何隐藏信息。</p>
+<p>所以我们想要捕获一种特定类型的异常。我们可以通过<code>catch</code>块来检查是否我们得到的异常是我们感兴趣的异常并且如果不是就重新抛出异常。但是我们怎么识别一个异常？</p>
+<p>我们可以对比异常的<code>message</code>属性与我们期待的错误信息。但是那是一种不可靠的写代码的方式，我们将使用供人类使用的信息来做编程决定。一旦有人改变了message，那么代码将停止工作。</p>
+<p>相反，让我们定义一个新的错误类型，并使用<code>instanceof</code>去识别它。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">InputError</span> <span class="keyword">extends</span> <span class="title">Error</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">promptDirection</span>(<span class="params">question</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> result = prompt(question);</span><br><span class="line">  <span class="keyword">if</span>(result.toLowerCase() == <span class="string">"left"</span>) <span class="keyword">return</span> <span class="string">"L"</span>;</span><br><span class="line">  <span class="keyword">if</span>(result.toLowerCase() == <span class="string">"right"</span>) <span class="keyword">return</span> <span class="string">"R"</span>;</span><br><span class="line">  <span class="keyword">throw</span> <span class="keyword">new</span> InputError(<span class="string">"Invalid direction: "</span> + result);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>新的error类继承自<code>Error</code>。它没有定义自己的构造器，也就意味着它继承自<code>Error</code>的构造器，并接受一个字符串参数。事实上，它并没有定义任何东西，这个类是空的。<code>InputError</code>对象表现得类似<code>Error</code>对象，除了他们有不同的类名以便我们区分它们。</p>
+<p>现在循环可以仔细地捕获这些异常。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (;;) &#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> dir = promptDirection(<span class="string">"Where?"</span>);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"You chose "</span>, dir);</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">    <span class="keyword">if</span> (e <span class="keyword">instanceof</span> InputError) &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">"Not a valid direction. Try again."</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">throw</span> e;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这只会捕获<code>InputError</code>的实例，并且忽略不相关的异常。如果重新引入了拼写错误，未定义异常将会恰当地报告。</p>
+<h2 id="断言"><a href="#断言" class="headerlink" title="断言"></a>断言</h2><p>断言就是程序中检查某事是否表现得如它应该表现得一样的检查。它们不被用于正常操作可能出现的情况，而是去发现程序员的错误。</p>
+<p>例如，如果<code>firstElement</code>作为一个不应该被在空数组上调用的函数，我们可以这样写：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">firstElement</span>(<span class="params">array</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(array.length == <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">"firstElement called with []"</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> array[<span class="number">0</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>现在，代替悄悄地返回<code>undefined</code>（当获取一个不存在的数组属性时返回），而是会当你一旦错误使用的时候就大声爆破掉你的程序。这使得错误发生的时候不至于被忽视并且很容易找到原因。</p>
+<p>我不推荐对每个可能的不好的输入写断言。那将是大量的工作并且可能产生非常讨厌的代码。你可以把它们保留给那些容易犯的错或者是那些你自己犯的错误。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>错误和不好的输入是生活的事实。编程中一个重要的方面就是发现，诊断和修复bug。如果你有自动化测试套件或者向程序中添加断言问题就会变得更容易去注意。</p>
+<p>程序控制外的因素导致的问题通常应该被优雅地处理。有时，当问题可以在本地处理时，特殊的返回值是一种追踪它们的好方式。否则，异常可能更受偏爱。</p>
+<p>抛出一个异常导致调用栈展开直到下一个封闭的<code>try/catch</code>块，或者直到堆栈的底部。异常值将会被给到捕获异常的<code>catch</code>块的参数，并且应该核实它是期望的异常种类然后做点什么。为了帮助处理由异常导致的不可预测的控制流，<code>finally</code>块可被用于确保当一个块完成时<code>finally</code>块中的代码总会运行。</p>
+<h2 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h2><h3 id="RETRY"><a href="#RETRY" class="headerlink" title="RETRY"></a>RETRY</h3><p>假设你有一个函数<code>primitiveMultiply</code>有20%的几率将两个数相乘，有80%的几率抛出<code>MultiplicatorUnitFailure</code>类型的异常。写一个函数包装这个笨重的函数并且让他持续尝试直到一次成功的调用，在那之后返回结果。</p>
+<p>确保你只处理你尝试去解决的异常。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MultiplicatorUnitFailure</span> <span class="keyword">extends</span> <span class="title">Error</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">primitiveMultiply</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(<span class="built_in">Math</span>.random() &lt; <span class="number">0.2</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> a * b;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> MultiplicatorUnitFailure(<span class="string">"Klunk"</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">reliableMultiply</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// Your code here.</span></span><br><span class="line">  <span class="keyword">for</span>(;;) &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> primitiveMultiply(a, b);</span><br><span class="line">    &#125; <span class="keyword">catch</span>(e) &#123;</span><br><span class="line">      <span class="keyword">if</span>(e <span class="keyword">instanceof</span> MultiplicatorUnitFailure) &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"OOPS..failure"</span>);</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">throw</span> e;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(reliableMultiply(<span class="number">8</span>, <span class="number">8</span>));</span><br><span class="line"><span class="comment">// -&gt; 64</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="锁着的盒子"><a href="#锁着的盒子" class="headerlink" title="锁着的盒子"></a>锁着的盒子</h3><p>考虑下面的（相当做作的）对象：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> box = &#123;</span><br><span class="line">  locked: <span class="literal">true</span>,</span><br><span class="line">  unlock() &#123; <span class="keyword">this</span>.locked = <span class="literal">false</span>; &#125;,</span><br><span class="line">  lock() &#123; <span class="keyword">this</span>.locked = <span class="literal">true</span>;  &#125;,</span><br><span class="line">  _content: [],</span><br><span class="line">  <span class="keyword">get</span> content() &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.locked) <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">"Locked!"</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>._content;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>这是一个带锁的盒子。有一个数组在盒子中，但是只能在盒子未被锁的时候才能获取。直接获取私有的<code>_content</code>属性是被禁止的。</p>
+<p>写一个叫做<code>withBoxUnlocked</code>的函数，接受一个函数值作为参数，解锁盒子，运行函数，并且确保函数返回前盒子被再次锁上，不考虑是否参数函数正常返回还是抛出一个异常。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> box = &#123;</span><br><span class="line">  locked: <span class="literal">true</span>,</span><br><span class="line">  unlock() &#123; <span class="keyword">this</span>.locked = <span class="literal">false</span>; &#125;,</span><br><span class="line">  lock() &#123; <span class="keyword">this</span>.locked = <span class="literal">true</span>;  &#125;,</span><br><span class="line">  _content: [],</span><br><span class="line">  <span class="keyword">get</span> content() &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.locked) <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">"Locked!"</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>._content;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">withBoxUnlocked</span>(<span class="params">body</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// Your code here</span></span><br><span class="line">  <span class="keyword">let</span> locked = box.locked;</span><br><span class="line">  <span class="keyword">if</span>(!locked) <span class="keyword">return</span> body();</span><br><span class="line">  </span><br><span class="line">  box.unlock();</span><br><span class="line">  <span class="keyword">try</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> body();</span><br><span class="line">  &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">    box.lock();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">withBoxUnlocked(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  box.content.push(<span class="string">"gold piece"</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">  withBoxUnlocked(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">"Pirates on the horizon! Abort!"</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"Error raised:"</span>, e);</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(box.locked);</span><br><span class="line"><span class="comment">// → true</span></span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/12/27/EJ7/" rel="prev" title="EJ7">
+      <i class="fa fa-chevron-left"></i> EJ7
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/01/05/EJ9/" rel="next" title="EJ9">
+      EJ9 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#BUGs和ERRORs"><span class="nav-number">1.</span> <span class="nav-text">BUGs和ERRORs</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#语言"><span class="nav-number">1.1.</span> <span class="nav-text">语言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#严格模式"><span class="nav-number">1.2.</span> <span class="nav-text">严格模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类型"><span class="nav-number">1.3.</span> <span class="nav-text">类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试"><span class="nav-number">1.4.</span> <span class="nav-text">测试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Debugging"><span class="nav-number">1.5.</span> <span class="nav-text">Debugging</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#错误传播（error-propagation）"><span class="nav-number">1.6.</span> <span class="nav-text">错误传播（error propagation）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#异常"><span class="nav-number">1.7.</span> <span class="nav-text">异常</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#异常后的清理工作"><span class="nav-number">1.8.</span> <span class="nav-text">异常后的清理工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#选择捕获"><span class="nav-number">1.9.</span> <span class="nav-text">选择捕获</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#断言"><span class="nav-number">1.10.</span> <span class="nav-text">断言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">1.11.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#练习"><span class="nav-number">1.12.</span> <span class="nav-text">练习</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#RETRY"><span class="nav-number">1.12.1.</span> <span class="nav-text">RETRY</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#锁着的盒子"><span class="nav-number">1.12.2.</span> <span class="nav-text">锁着的盒子</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Guohang Ma</p>
+  <div class="site-description" itemprop="description">developer blog</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">136</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">38</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Guohang Ma</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

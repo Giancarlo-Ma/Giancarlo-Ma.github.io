@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="JavaScript和浏览器这本书的下一张将会讨论web浏览器。没有web浏览器，就不会有JS。或者即使有，也没有人会关注它。 web技术从一开始就是分散的，不仅在技术上，它发展的方式也是一样。各种浏览器厂商都以一些特别的、有时考虑不周的方式添加了新功能，这些功能有时会被其他厂商采用，并最终以标准的形式确定下来。 这既是一种祝福，也是一种诅咒。一方面，它允许没有中央方控制一个系统，而是由各方在松散">
+<meta property="og:type" content="article">
+<meta property="og:title" content="EJ13">
+<meta property="og:url" content="http://yoursite.com/2019/01/14/EJ13/index.html">
+<meta property="og:site_name" content="Giancarlo&#39;s Blog">
+<meta property="og:description" content="JavaScript和浏览器这本书的下一张将会讨论web浏览器。没有web浏览器，就不会有JS。或者即使有，也没有人会关注它。 web技术从一开始就是分散的，不仅在技术上，它发展的方式也是一样。各种浏览器厂商都以一些特别的、有时考虑不周的方式添加了新功能，这些功能有时会被其他厂商采用，并最终以标准的形式确定下来。 这既是一种祝福，也是一种诅咒。一方面，它允许没有中央方控制一个系统，而是由各方在松散">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2019-01-14T14:53:35.000Z">
+<meta property="article:modified_time" content="2020-06-07T02:09:33.450Z">
+<meta property="article:author" content="Guohang Ma">
+<meta property="article:tag" content="technology software development blog">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2019/01/14/EJ13/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>EJ13 | Giancarlo's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Giancarlo's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Code Life</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/14/EJ13/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Guohang Ma">
+      <meta itemprop="description" content="developer blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Giancarlo's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          EJ13
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-01-14 22:53:35" itemprop="dateCreated datePublished" datetime="2019-01-14T22:53:35+08:00">2019-01-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-06-07 10:09:33" itemprop="dateModified" datetime="2020-06-07T10:09:33+08:00">2020-06-07</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Eloquent-JavaScript/" itemprop="url" rel="index"><span itemprop="name">Eloquent JavaScript</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="JavaScript和浏览器"><a href="#JavaScript和浏览器" class="headerlink" title="JavaScript和浏览器"></a>JavaScript和浏览器</h1><p>这本书的下一张将会讨论web浏览器。没有web浏览器，就不会有JS。或者即使有，也没有人会关注它。</p>
+<p>web技术从一开始就是分散的，不仅在技术上，它发展的方式也是一样。各种浏览器厂商都以一些特别的、有时考虑不周的方式添加了新功能，这些功能有时会被其他厂商采用，并最终以标准的形式确定下来。</p>
+<p>这既是一种祝福，也是一种诅咒。一方面，它允许没有中央方控制一个系统，而是由各方在松散的协作(或偶尔公开的敌对状态下)下进行改进。另一方面，Web开发的随意方式意味着最终的系统并不是内部一致性的光辉典范。它的某些部分完全令人困惑，构思拙劣。</p>
+<a id="more"></a>
+
+<h2 id="网络和Internet"><a href="#网络和Internet" class="headerlink" title="网络和Internet"></a>网络和Internet</h2><p>计算机网络早在20世纪50年代就出现了。如果你在两个或者多个计算机间放置电缆并且允许它们来回通过这些电缆发送数据，你就可以做各种各样精彩的事情。</p>
+<p>如果连接在一栋大楼里面的两个计算机允许我们做精彩的事，那么将整个星球的计算机互联会更棒。开始实现这个愿景的技术在20世纪80年代被开发出来，最终导致的网络被叫做Internet。它没有辜负它的诺言。</p>
+<p>一台计算机可以向另外的计算机发送bit。为了从这种bit-shooting模式中产生高效的通信，双方计算机必须知道bit应该代表什么。任何给定序列的bit的含义完全取决于要表达的东西以及使用的编码机制。</p>
+<p>一个网络协议描述了一种通过网络通信的方式。有发送电子邮件，收电子邮件，共享文件，甚至是控制那些刚好被恶意软件感染的计算机的各种各样的协议。</p>
+<p>例如，超文本传输协议（HTTP)就是一个用于检索命名资源（一块信息，例如网页或者图片）的协议。它指定发起请求的一方应该像下面这样开始一个请求，指定资源名字和要使用的协议版本。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET &#x2F;index.html HTTP&#x2F;1.1</span><br></pre></td></tr></table></figure>
+
+<p>关于请求方在请求中包含更多信息的方式和接收方打包返回内容的方式有各种各样的规则。我们将在18章深入学习HTTP。</p>
+<p>大多数的协议在其他协议之上构建。HTTP将网络看作类似流一样的设备，你可以将bit放入其中，并且让他们以正确的顺序到达正确的终点。如同我们在11章看到的那样，确保这些并不是容易的事。</p>
+<p>传输控制协议（TCP）是一个解决这个问题的协议。所有联网的设备使用这种协议，并且大多数的互联网通信都构建在这种协议之上。</p>
+<p>一个TCP连接像下面这样工作：一台计算机必须等待，或者监听其他计算机来发起通信。为了能够在一台计算机上同时监听不同种类的通讯，每一个监听器关联一个数字（端口号）。大多数的协议指定默认端口号。例如，当我们想要使用SMTP发送邮件的时候，我们发送电子邮件的计算机将监听25端口。</p>
+<p>另一台计算机然后就可以通过用正确的端口号连接到目标计算机来建立连接。如果目标机器可达并且正在监听那个端口，连接就成功创建了。监听的计算机叫做服务器，而发起连接的计算机叫做客户端。</p>
+<p>这样的连接表现的就像可以flow bit的双向管道——彼此都可以向上面发送数据。一旦bit发送成功，它们就可以再次在另一端读取。这是一个方便的模型。你可以说TCP提供了网络的抽象。</p>
+<h2 id="Web"><a href="#Web" class="headerlink" title="Web"></a>Web</h2><p>万维网（不要和作为整体的Internet搞混）是一组允许我们在浏览器中访问网页的一组协议和格式。名称中的web指的是这样的网页可以很容易的连接到彼此，因此连接成了用户可以在其中移动的巨大网格。</p>
+<p>为了成为万维网的一部分，你需要做的就是将一台机器连接到互联网，并让它用HTTP协议监听80端口，这样其他计算机就可以向它索要文档。</p>
+<p>每一个web上的文档都以统一资源定位符（URL）命名，看起来像这样：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;eloquentjavascript.net&#x2F;13_browser.html</span><br><span class="line">|     |                      |               |</span><br><span class="line">protocol       server               path</span><br></pre></td></tr></table></figure>
+<p>第一部分告诉我们这个URL使用了HTTP协议（对比加密的HTTP，应该是https://）。然后是我们要请求的文档来自哪个server。最后是标识我们感兴趣的特定文档（或者资源）的路径字符串。</p>
+<p>连接到互联网的计算机得到一个IP地址，是一个可用于发送消息到该计算机的数字，看起来像这样<code>149.210.142.219</code>或者<code>2001:4860:4860::8888</code>。但是或多或少的随机数列表很难记忆并且不容易输入，所以你可以为一个特定地址或者一个地址集合注册一个域名。我注册了<em>eloquentjavascript.net</em>这个域名指向我控制的计算机的IP地址并且因此可以使用这个域名来提供网页。</p>
+<p>如果你将URL输入浏览器的地址栏，浏览器将尝试检索并显示那个URL地址的文档。首先，你的浏览器必须找到地址<em>eloquentjavascript.net*指向的地址。然后，使用HTTP协议，将会向那个地址的服务器请求一个连接并请求资源</em>/13_browser.html*。如果一切顺利，服务器发送回来一个文档，浏览器将其显示在屏幕上。</p>
+<h2 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h2><p>HTML，代表超文本标记语言，是用于网页的文档格式。一个HTML文档除了给出文本结构的标签，用于描述链接，段落和标题等，还包括文本。</p>
+<p>一个HTML文档可能看上去像这样：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!doctype <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>My home page<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>My home page<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>Hello, I am Marijn and this is my home page.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>I also wrote a book! Read it</span><br><span class="line">      <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"http://eloquentjavascript.net"</span>&gt;</span>here<span class="tag">&lt;/<span class="name">a</span>&gt;</span>.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>包裹在尖括号（&lt;&gt;）的标签，提供关于文档结构的信息。其他的文本就是普通的文字。</p>
+<p>文档以<code>&lt;!doctype html&gt;</code>开头，告诉浏览器将这个页面解释位现代HTML，不同于使用在过去的各种各样的方言。</p>
+<p>HTML文档有一个head和一个body。head包含关于文档的信息，body包含文档本身。在这个例子中，head声明了文档的标题为”My home page”，并且使用UTF-8编码，这是一种将Unicode文本编码为二进制数据的方式。文档的body包含了标题和两个段落。</p>
+<p>标签以多种形式出现。一个元素，如body，一个段落或者一个链接，开始于opening tag像<code>&lt;p&gt;</code>，并终止于closing tag像<code>&lt;/p&gt;</code>。一些opening tag，例如链接的那个，以name=”value”的形式包含额外的信息。这些被叫做属性。在这个例子中，连接的终点用href=”<a href="http://eloquentjavascript.net&quot;来表示，href代表hypertext" target="_blank" rel="noopener">http://eloquentjavascript.net&quot;来表示，href代表hypertext</a> reference。</p>
+<p>一些标签不包含任何东西因此不需要闭合。元标签<code>&lt;meta charset=&quot;utf-8&quot;&gt;</code>就是这样的例子。</p>
+<p>为了能够在文档的文本中包含尖括号，即使它们在HTML中有特殊的含义，另一种形式的特殊标记必须引入。一个普通的开始尖括号写作<code>&amp;lt;</code>，一个关闭尖括号写作<code>&amp;gt;</code>。HTML中，&amp;符号后面跟着一个名字或者字符代码和一个分号被叫做实体（entity），并会由它编码的字符代替。</p>
+<p>这类似于JS中反斜线使用的方式，因为这种机制也给了&amp;符号一个特殊的意义，它们就需要被转义为<code>&amp;amp;</code>。在包装在双引号的属性值中，<code>&amp;quot;</code>可以被用于插入一个实际的引号字符。</p>
+<p>HTML以一种极度能容忍错误的方式解析。当应该在的标签丢失的时候，浏览器重新构建他们。以何种方式实现已经被标准化了，所以你可以在现代浏览器中依赖这个。</p>
+<p>下面的文档将会和刚刚的文档一样看待。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!doctype <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">utf-8</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">title</span>&gt;</span>My home page<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>My home page<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Hello, I am Marijn and this is my home page.</span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>I also wrote a book! Read it</span><br><span class="line">  <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">http://eloquentjavascript.net</span>&gt;</span>here<span class="tag">&lt;/<span class="name">a</span>&gt;</span>.</span><br></pre></td></tr></table></figure>
+
+<p><code>&lt;html&gt;&lt;head&gt;&lt;body&gt;</code>标签完全丢失了。浏览器知道<code>&lt;meta&gt;&lt;title&gt;</code>在head中并且<code>&lt;h1&gt;</code>意味着bidy开始了。此外，我没有明确关闭一个段落，因为开始一个新的段落或者结束文档将隐式闭合它们。属性值的引号也省略了。</p>
+<p>这本书经常会忽略<code>&lt;html&gt;&lt;head&gt;&lt;body&gt;</code>标签来使得行文简洁而不过分杂乱。但是我将会闭合标签并且在属性周围包含引号。</p>
+<p>我也经常会忽略doctype和<code>charset</code>声明。并不鼓励你从HTML文档中忽略这些。当你丢弃这些的时候浏览器通常会做一些荒谬的事情。即便doctype和charset没有明确展示在文本中，你也应该隐式默认它们在。</p>
+<h2 id="HTML和JavaScript"><a href="#HTML和JavaScript" class="headerlink" title="HTML和JavaScript"></a>HTML和JavaScript</h2><p>在这本书的上下文中，最重要的HTML标签就是<code>&lt;script&gt;</code>。这个标签允许我们在文档中包含一段JS代码。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>Testing alert<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="actionscript">alert(<span class="string">"hello!"</span>);</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>当浏览器读取HTML的时候一遇到script标签这个script就会立刻运行。这个页面会弹出一个对话框——alert类似prompt，在弹窗这方面，但是不会询问输入。</p>
+<p>直接在文档中嵌入大型程序通常不切实际。<code>&lt;script&gt;</code>标签可以通过src属性从一个URL获取一个script文件。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>Testing alert<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"code/hello.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><em>code/hello.js</em>包含了同样的程序——<code>alert(&quot;hello!&quot;)</code>。当HTML页面引用其他的URL作为自己的一部分时——如一个图片或者一个script——浏览器将立刻检索它们并将其包含到页面中。</p>
+<p>一个script标签必须总是以<code>&lt;/script&gt;</code>关闭，即使他引用不包含任何代码的script文件。如果你忘记这个，页面的剩余部分都会被解释为script的一部分。</p>
+<p>可以在浏览器中通过给script一个<code>type=&quot;module&quot;</code>属性来加载ES模块（参见第十章）。这样的模块可以通过在import声明中使用相对于他们的URL作为模块名来依赖其他模块。</p>
+<p>一些属性也可以包含一个JS程序。下面展示的<code>&lt;button&gt;</code>标签（作为按钮展示）有一个onclick属性。当按钮被点击时属性值运行。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">onclick</span>=<span class="string">"alert('Boom!');"</span>&gt;</span>DO NOT PRESS<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>注意我在onclick属性中的字符串使用了单引号，因为双引号已经被用于引用整个属性了。我也可以用<code>&amp;quot;</code>。</p>
+<h2 id="在沙箱中"><a href="#在沙箱中" class="headerlink" title="在沙箱中"></a>在沙箱中</h2><p>运行从互联网上下载的程序具有潜在的危险性。你不太了解你所访问网站背后的人，他们也不一定是善意的。运行非善意人写的程序容易让你的电脑被病毒感染，你的数据被偷，并且你的账户被黑客攻击。</p>
+<p>尽管web的吸引力就是你可以不需要信任你所访问的所有页面的浏览它。这就是为什么浏览器极大限制了JS程序可以做的事情：他不能访问你计算机的文件或者修改任何与JS嵌入网页无关的任何东西。</p>
+<p>以这种方式隔离一个编程环境叫做沙盒化（sandboxing）。</p>
+<p>沙盒最困难的部分在于允许程序有足够有用的空间同时还限制它们做危险的事情。许多有用的功能，如和其他服务器通信或者读取剪切板的内容，也可以被用于做有问题，侵犯隐私的事情。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/01/09/EJ11/" rel="prev" title="EJ11">
+      <i class="fa fa-chevron-left"></i> EJ11
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/01/15/EJ14/" rel="next" title="EJ14">
+      EJ14 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#JavaScript和浏览器"><span class="nav-number">1.</span> <span class="nav-text">JavaScript和浏览器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#网络和Internet"><span class="nav-number">1.1.</span> <span class="nav-text">网络和Internet</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Web"><span class="nav-number">1.2.</span> <span class="nav-text">Web</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTML"><span class="nav-number">1.3.</span> <span class="nav-text">HTML</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTML和JavaScript"><span class="nav-number">1.4.</span> <span class="nav-text">HTML和JavaScript</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在沙箱中"><span class="nav-number">1.5.</span> <span class="nav-text">在沙箱中</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Guohang Ma</p>
+  <div class="site-description" itemprop="description">developer blog</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">136</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">38</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Guohang Ma</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

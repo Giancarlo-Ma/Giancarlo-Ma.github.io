@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="作为css系列文章的第一篇，本文主要是通过阅读”css mastry”第三版整理而成，还希望大家指正。 在本篇文章中，我们着重学习理解CSS盒模型，外边距是如何以及为什么会发生合并的，不同的定位属性和值，浮动和清除浮动是如何工作的以及格式化上下文到底是个什么东西这五个问题。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="可视化模型概述">
+<meta property="og:url" content="http://yoursite.com/2017/12/31/%E5%8F%AF%E8%A7%86%E5%8C%96%E6%A8%A1%E5%9E%8B%E6%A6%82%E8%BF%B0/index.html">
+<meta property="og:site_name" content="Giancarlo&#39;s Blog">
+<meta property="og:description" content="作为css系列文章的第一篇，本文主要是通过阅读”css mastry”第三版整理而成，还希望大家指正。 在本篇文章中，我们着重学习理解CSS盒模型，外边距是如何以及为什么会发生合并的，不同的定位属性和值，浮动和清除浮动是如何工作的以及格式化上下文到底是个什么东西这五个问题。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2017-12-31T12:46:25.000Z">
+<meta property="article:modified_time" content="2020-06-07T02:09:33.790Z">
+<meta property="article:author" content="Guohang Ma">
+<meta property="article:tag" content="css layout">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2017/12/31/%E5%8F%AF%E8%A7%86%E5%8C%96%E6%A8%A1%E5%9E%8B%E6%A6%82%E8%BF%B0/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>可视化模型概述 | Giancarlo's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Giancarlo's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Code Life</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/31/%E5%8F%AF%E8%A7%86%E5%8C%96%E6%A8%A1%E5%9E%8B%E6%A6%82%E8%BF%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Guohang Ma">
+      <meta itemprop="description" content="developer blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Giancarlo's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          可视化模型概述
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-12-31 20:46:25" itemprop="dateCreated datePublished" datetime="2017-12-31T20:46:25+08:00">2017-12-31</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-06-07 10:09:33" itemprop="dateModified" datetime="2020-06-07T10:09:33+08:00">2020-06-07</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Css-Mastery/" itemprop="url" rel="index"><span itemprop="name">Css Mastery</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>作为css系列文章的第一篇，本文主要是通过阅读”css mastry”第三版整理而成，还希望大家指正。</p>
+<p>在本篇文章中，我们着重学习理解CSS盒模型，外边距是如何以及为什么会发生合并的，不同的定位属性和值，浮动和清除浮动是如何工作的以及格式化上下文到底是个什么东西这五个问题。</p>
+<a id="more"></a>
+
+<h3 id="盒模型回顾"><a href="#盒模型回顾" class="headerlink" title="盒模型回顾"></a>盒模型回顾</h3><p>我们知道，页面中的每一个元素都是一个由内容区，内边距，边框和外边距组成的矩形盒子。</p>
+<p>内边距包围在内容区周边，比如我们为元素设定一个background属性，那么这个background就被应用到内容区和内边距区域。就其本身而言，内边距刚好形成了一个槽，就可以避免内容区与边框直接接触。</p>
+<p>而边框就是在内边距外边形成的线，可以有点状，实线，虚线等多种样式。</p>
+<p>在边框外面就是外边距，是盒子可视部分以外的透明区域，允许我们控制页面元素之间的距离。</p>
+<p>而另一个不影响布局的属性是outline属性，这个属性在元素的边框外面画一条线，不影响盒子的宽高，在debug一些复杂的布局和证明一个布局效应的时候会比较有用。</p>
+<p>内边距，边框和外边距默认是为零的，但是一些用户代理样式表会为许多元素设定内边距和外边距，比如，标题元素总是默认存在一些外边距，并且这些随着浏览器的不同而变得不同，我们可以在自己定义的样式表中重写这些属性或者使用引入的css reset样式表。</p>
+<hr>
+<h4 id="box-sizing"><a href="#box-sizing" class="headerlink" title="box-sizing"></a>box-sizing</h4><p>在默认情况下，元素的宽高属性指的是内容盒的宽度和高度，为元素添加内边距和边框不会影响内容盒的大小而是会增加元素盒子的整体大小。如果你想要一个5px内边距，5px边框在每一边，并且总的宽度为100px，就需要设置元素的width属性为80px。此外，如果盒子还有个10px的外边距，那么它就会占据总共120px的空间。</p>
+<p>我们可以通过box-sizing这个属性去改变盒子模型宽度的计算方式，默认的box-sizing值为content-box，而其表现正如我们上面所述。但是，有另外的方式去影响宽高在响应式布局中是非常有用的。</p>
+<p>我们可以设置box-sizing的属性为border-box，这样一来，宽高的计算方式就包含进了内边距和边框以及内容盒子的宽高，但依然不包括外边距，而外边距依然影响着元素占据的总空间。对于上面的例子而言，我们就可以设置box-sizing的值为boeder-box，这时就不用计算得到内容区的宽度了，而只需要设置宽度为100px就好了，其他的属性和值保持依旧，就实现了和上面一样的效果了。也可以理解为border-box之后，设定的width属性就是盒子的可视区域宽度。</p>
+<p>那么为什么这样是有用的呢？在许多情况下，这种处理宽高的方式都是更符合人的直觉的，并且这也是在IE6之前的IE浏览器实际的工作方式。</p>
+<p>内边距，边框和外边距可以被应用到盒子的一边或者多边，外边距也能够被赋予一个负的值，这在一些拉入和抽出元素本身在页面的位置的场景下是比较有用的，后面的文章里会讨论这些技术。</p>
+<p>你可以用任何长度单位比如px，ems和百分比去度量在CSS声明中去为元素添加内边距和外边距。使用百分比外边距的时候会有一些奇怪的行为确实值得提一下，假设上面的例子，我们设置左侧外边距为5%会发生什么呢？</p>
+<p>答案就是左侧外边距为父元素5%的宽度，比如父元素的宽度为100px，那么它的左<br>侧外边距就为5px。</p>
+<p>当设置上下外边距为百分比形式的时候，你可能会认为，这个百分比来自于父元素的高度。这看来似乎是符合逻辑的，然而，因为高度通常是不显式声明的，而且可能因为随着内容区高度的变化变得失控，所以CSS规范中也说明上下外边距和内边距的百分比来自于它的包含块的宽度。在这个例子中，包含块就是父级元素，但是包含块是可以变化的。我们将会在后面的文章里面阐述这究竟意味着什么。</p>
+<hr>
+<h4 id="最小和最大值"><a href="#最小和最大值" class="headerlink" title="最小和最大值"></a>最小和最大值</h4><p>有时候为元素应用最小宽度和最大宽度在响应式布局中可能是非常有用的，因为它允许块级元素默认自动填充满父级元素的宽度，但是不会缩减到更窄以至于小于最小宽度指定的值，或者是拉伸到更宽以至大于最大宽度指定的值。</p>
+<p>相似地，最小高度和最大高度也同样存在，但是当在CSS中应用任何高度值你应该特别小心。因为元素的高度最好是被它包含的内容所隐式指定。否则，如果内容增加的时候，或者文本大小改变了，内容将会溢出固定高度的盒子。如果你因为某种原因确实要设置默认的高度，用min-height属性是更好的，因为它能够让你的盒子随着内容扩展而增大。</p>
+<hr>
+<h3 id="视觉格式化模型"><a href="#视觉格式化模型" class="headerlink" title="视觉格式化模型"></a>视觉格式化模型</h3><p>随着对盒模型的理解，我们能够开始探索一些视觉格式化和定位模型。</p>
+<p>人们经常把p元素，h1元素和article元素叫做块级元素。这意味着他们视觉上是作为内容块或者块级盒子（block boxes）显示的。相反地，像strong，span和time元素被描述成内联级元素，因为他们的元素作为内联盒子（inline boxes）在行（lines）内显示。</p>
+<p>通过元素的display属性可以改变生成盒子的类型。这意味着你可以通过设置像span一样的内联元素的display属性为block使得它可以表现的像一个块级盒子一样。也可以通过设置display属性为none使得元素根本不生成任何盒子，如此一来，这个盒子就不再显示并且在文档中占据任何空间了。</p>
+<p>在CSS中有许多不同的定位模型，包括浮动，绝对定位和相对定位。除非特别指定，所有的盒子生下来就是默认定位在normal flow中并且默认值为static。如同名字表达的意思一样，在normal flow中的盒子的位置将会按照HTML文档的顺序被安排。</p>
+<p>块级盒子将会一个接一个的出现在垂直位置上。盒子间的垂直距离将会被盒子的垂直外边距计算。</p>
+<p>内联盒子在一行上被水平布局，遵循文本流并且在换行时换行到新行。他们的水平空间可以通过水平内边距边框和外边距调整，然而，垂直内边距边框和外边距将不会对一个inline box产生影响。类似地，指定一个明确的宽度和高度也是没有任何作用的。</p>
+<p>一行文本形成的水平方向的盒子被叫做一个line-box，并且一个line-box总是足够高到容纳他所有的inline-box。唯一改变line-box尺寸的方式就是修改行高或者在他内部的inline-box的水平内边距边框和外边距。</p>
+<p>你也可以设置元素的display属性为inline-block，如同名字表达的那样，这个声明使得元素水平对齐就好像inline-box那样。然而，盒子的内部表现的就像盒子是块级一样，看可以被精确地指定宽度高度垂直内边距和外边距等。</p>
+<p>当你用表格标记（比如table，tr，th，td元素等）的时候，table本身表现为一个块级元素，然而表格的内容将会根据生成的行和列对齐（line up）。也可以去为其他元素设置display属性使得他们产生像表格布局一样的行为。通过用正确的方式去应用table，table-row和table-cell的值，你可以不需要用table标记就实现一些HTML表格元素的特性。</p>
+<p>flexbox和Grid Layout大大扩展了display属性，这些我们在后面文章中讨论。通常来说，这些新的布局模式创造的盒子在外部上下文中表现的就像块级盒子一样，但是在内部对于元素是如何显示的创建了一套新的规则。</p>
+<p>这种外部和内部显示模式的分离（比如inline-block，flexbox，grid）正在Display Level 3模块中被标准化。在那里，已存在关于显示模式的特性和关键词正在被扩展以允许更加细粒度的控制。重要的结论是内联级元素和块级元素仍然是html元素默认行为的基本，但事实有略微的差别。</p>
+<hr>
+<h4 id="匿名盒子（Anonymous-Boxes）"><a href="#匿名盒子（Anonymous-Boxes）" class="headerlink" title="匿名盒子（Anonymous Boxes）"></a>匿名盒子（Anonymous Boxes）</h4><p>如同HTML可以嵌套一样，盒子也能够包含其他的盒子。大多数的盒子是被准确定义的元素形成的。然而有一种情况是块级盒子会被创建即便它没有被明确的定义——当我们在块级元素例如section元素的开始处添加一些文本，如同下面那样，即便没有定义“some text”作为块级元素，它还是被当作块级元素对待的。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">section</span>&gt;</span></span><br><span class="line">  some text</span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>Some more text<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">section</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>在这种情况下，这个盒子被描述为一个匿名的块级盒子（anonymous block box），因为它没有被关联为一个明确定义的元素。</p>
+<p>相似的事情发生在块级元素内部的文本组成的行盒（line boxes）。假定有一个段落包含三行文本，那么每一行文本都形成一个匿名的行盒（anonymous line box），不能够直接对匿名块级盒子或者行盒直接定义样式，除非通过:first-line伪元素，已经被限制使用并且只允许你改变字体和颜色。然而，理解在屏幕上看到的所有元素创建某种形式的盒子是特别有用的。</p>
+<hr>
+<h4 id="外边距合并（Margin-Collapsing）"><a href="#外边距合并（Margin-Collapsing）" class="headerlink" title="外边距合并（Margin Collapsing）"></a>外边距合并（Margin Collapsing）</h4><p>当谈到常规的块级盒子时，有一种叫做外边距合并的行为。外边距合并是一个相对简单的概念。然而在实践中，当你布局一个web页面的时候，他可能会导致一些困惑。简单来说，当两个或者更多垂直外边距相遇的时候，他们会合并形成一个外边距。这个外边距就等于二者当中比较大的那个外边距的高度。</p>
+<p>当两个元素在一起时，第一个元素的底部外边距将会合并第二个元素的顶部外边距。</p>
+<p>当一个元素包含在另一个元素内部的时候，假定没有内边距和边框分隔外边距，他们的顶部和底部外边距也会被合并。</p>
+<p>起初看来这可能很奇怪，但是外边距居然还会和自身合并。假定有一个空元素，只有外边距没有内边距和边框，在这种情况下，顶部的外边距触摸到底部的外边距，那么就会合并在一起。</p>
+<p>如果上面的外边距触摸到其他元素的外边距，将会合并他自己。</p>
+<p>这就是为什么许多空的段落元素占据非常小的空间的原因，因为他们的外边距合并成为一个单一的小的外边距了。</p>
+<p>外边距合并看上去很奇怪，但事实上是很有道理的。拿一个几个段落的组成的文本页，如果没有外边距合并，第一段和第二段之间的间距就是二倍的第一段的上外边距。正因为有了外边距合并，在每一段之间的边距合并，使得这个间距和其他地方的保持一致。</p>
+<p>外边距合并只发生在normal flow中块级盒子的垂直外边距。像inline-box，浮动盒子或者是绝对定位盒子不会发生外边距合并。</p>
+<hr>
+<h4 id="包含块（Containing-block）"><a href="#包含块（Containing-block）" class="headerlink" title="包含块（Containing block）"></a>包含块（Containing block）</h4><p>给一个元素包含块的概念是十分重要的，因为它决定了像之前看到的百分比padding和margin这些属性是如何解释的。</p>
+<p>元素的包含块取决于元素是如何定位的。如果元素是static定位的话（不声明position属性或者显式设置position）或者相对定位，他的包含快被计算到最近的父元素的边缘，这个父元素的display属性会产生一个类块的上下文，包括block，inline-block，table-cell，list-item等等。</p>
+<p>默认地，宽高外边距和内边距设定成百分比的时候都是基于父元素的尺寸计算的。当你指定一个元素是绝对定位或者fix定位的时候就会有所改变。下面我们将学习不同的定位模型以及他们是如何和包含块交互的。</p>
+<hr>
+<h4 id="相对定位"><a href="#相对定位" class="headerlink" title="相对定位"></a>相对定位</h4><p>当你为一个元素指定相对定位的时候，初始情况下元素仍然在原来所在的位置，只有当设置了上下左右属性值的时候元素才会发生相应的偏移，并且元素仍然占据原本的空间，不脱离文档流，只是相对原来的位置做相对偏移。偏移之后，元素可能会覆盖其他元素。</p>
+<hr>
+<h4 id="绝对定位"><a href="#绝对定位" class="headerlink" title="绝对定位"></a>绝对定位</h4><p>相对定位被认为是normal-flow定位模型的一部分，因为元素是相对于它在文档流中的位置进行定位的。相反地，绝对定位使得元素脱离文档流，因此不占据任何空间。其他在文档流中的元素表现地就好像绝对定位元素不在那里一样。</p>
+<hr>
+<p>2017 年 12月 31日</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/css-layout/" rel="tag"># css layout</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2017/12/30/%E5%8F%98%E9%87%8F%E7%B1%BB%E5%9E%8B%E4%B8%8E%E8%AE%A1%E7%AE%97/" rel="prev" title="变量类型和计算">
+      <i class="fa fa-chevron-left"></i> 变量类型和计算
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2017/12/31/%E5%8E%9F%E5%9E%8B%E5%92%8C%E5%8E%9F%E5%9E%8B%E9%93%BE/" rel="next" title="原型和原型链">
+      原型和原型链 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#盒模型回顾"><span class="nav-number">1.</span> <span class="nav-text">盒模型回顾</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#box-sizing"><span class="nav-number">1.1.</span> <span class="nav-text">box-sizing</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#最小和最大值"><span class="nav-number">1.2.</span> <span class="nav-text">最小和最大值</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#视觉格式化模型"><span class="nav-number">2.</span> <span class="nav-text">视觉格式化模型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#匿名盒子（Anonymous-Boxes）"><span class="nav-number">2.1.</span> <span class="nav-text">匿名盒子（Anonymous Boxes）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#外边距合并（Margin-Collapsing）"><span class="nav-number">2.2.</span> <span class="nav-text">外边距合并（Margin Collapsing）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#包含块（Containing-block）"><span class="nav-number">2.3.</span> <span class="nav-text">包含块（Containing block）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#相对定位"><span class="nav-number">2.4.</span> <span class="nav-text">相对定位</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#绝对定位"><span class="nav-number">2.5.</span> <span class="nav-text">绝对定位</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Guohang Ma</p>
+  <div class="site-description" itemprop="description">developer blog</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">136</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">38</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Guohang Ma</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

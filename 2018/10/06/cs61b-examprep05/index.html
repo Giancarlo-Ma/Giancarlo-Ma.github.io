@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Assorted ADTsA list is an ordered collection, or sequence. 123456interface List&lt;E&gt; &amp;#123;  boolean add(E element); &#x2F;&#x2F; add element to the end of the list  void add(int index, E element); &#x2F;&#x2F; adds">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cs61b-examprep05">
+<meta property="og:url" content="http://yoursite.com/2018/10/06/cs61b-examprep05/index.html">
+<meta property="og:site_name" content="Giancarlo&#39;s Blog">
+<meta property="og:description" content="Assorted ADTsA list is an ordered collection, or sequence. 123456interface List&lt;E&gt; &amp;#123;  boolean add(E element); &#x2F;&#x2F; add element to the end of the list  void add(int index, E element); &#x2F;&#x2F; adds">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2018-10-06T05:51:54.000Z">
+<meta property="article:modified_time" content="2020-06-07T02:09:33.790Z">
+<meta property="article:author" content="Guohang Ma">
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="data structure">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2018/10/06/cs61b-examprep05/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>cs61b-examprep05 | Giancarlo's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Giancarlo's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Code Life</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/06/cs61b-examprep05/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Guohang Ma">
+      <meta itemprop="description" content="developer blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Giancarlo's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          cs61b-examprep05
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-10-06 13:51:54" itemprop="dateCreated datePublished" datetime="2018-10-06T13:51:54+08:00">2018-10-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-06-07 10:09:33" itemprop="dateModified" datetime="2020-06-07T10:09:33+08:00">2020-06-07</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CS61B/" itemprop="url" rel="index"><span itemprop="name">CS61B</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Assorted-ADTs"><a href="#Assorted-ADTs" class="headerlink" title="Assorted ADTs"></a>Assorted ADTs</h1><p>A <strong>list</strong> is an ordered collection, or <em>sequence</em>.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">List</span>&lt;<span class="title">E</span>&gt; </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">boolean</span> <span class="title">add</span><span class="params">(E element)</span></span>; <span class="comment">// add element to the end of the list</span></span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> index, E element)</span></span>; <span class="comment">// adds element at the given index</span></span><br><span class="line">  <span class="function">E <span class="title">get</span><span class="params">(<span class="keyword">int</span> index)</span></span>; <span class="comment">// returns element at the given index</span></span><br><span class="line">  <span class="function"><span class="keyword">int</span> <span class="title">size</span><span class="params">()</span></span>; <span class="comment">// the number of elements in the list</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>A <strong>set</strong> is a (usually unordered) collection of unique elements.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Set</span>&lt;<span class="title">E</span>&gt; </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">add</span><span class="params">(E element)</span></span>; <span class="comment">// adds element to the collection</span></span><br><span class="line">  <span class="function"><span class="keyword">boolean</span> <span class="title">contains</span><span class="params">(Object object)</span></span>; <span class="comment">// checks if set containes object</span></span><br><span class="line">  <span class="function"><span class="keyword">int</span> <span class="title">size</span><span class="params">()</span></span>; <span class="comment">// number of elements in the set</span></span><br><span class="line">  <span class="function"><span class="keyword">boolean</span> <span class="title">remove</span><span class="params">(Object object)</span></span>; <span class="comment">// removes specified object from set</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>A <strong>map</strong> is a collection of key-value mappings, like a dictionary in Python. Like a set, the keys in a map is unique.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Map</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt; </span>&#123;</span><br><span class="line">  <span class="function">V <span class="title">put</span><span class="params">(K key, V value)</span></span>; <span class="comment">// adds key-value pair to the map</span></span><br><span class="line">  <span class="function">V <span class="title">get</span><span class="params">(K key)</span></span>; <span class="comment">// returns value for the corresponding key</span></span><br><span class="line">  <span class="function"><span class="keyword">boolean</span> <span class="title">containsKey</span><span class="params">(K key)</span></span>; <span class="comment">//checks if the map contains the specified key</span></span><br><span class="line">  <span class="function">Set&lt;K&gt; <span class="title">keySet</span><span class="params">()</span></span>; <span class="comment">// returns set of all keys in map</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Stacks and queues are two similar types of linear collections with special behavior.A <strong>stack</strong> is a last-in, first-out ADT: elements are always added or removed from one end of the data structure. A <strong>queue</strong> is a first-in, first-out ADT. Both data types support three basic operations: <code>push(e)</code> which adds an element, <code>peek()</code> which returns the next element, and <code>poll()</code> which returns and removes the next element.<br>Java defines an interface that combines both stacks and queues in the Deque. A <strong>deque</strong> (double ended queue, pronounced “deck”) is a linear collection that supports element insertion and removal at both ends.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Deque</span>&lt;<span class="title">E</span>&gt; </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">addFirst</span><span class="params">(E e)</span></span>; <span class="comment">// adds e to the front of deque</span></span><br><span class="line">  <span class="function">E <span class="title">removeFirst</span><span class="params">()</span></span>; <span class="comment">// removes and returns front element of deque</span></span><br><span class="line">  <span class="function">E <span class="title">getFirst</span><span class="params">()</span></span>; <span class="comment">// returns front element of deque</span></span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">addLast</span><span class="params">(e)</span></span>; <span class="comment">// adds e to end of deque</span></span><br><span class="line">  <span class="function">E <span class="title">removeLast</span><span class="params">()</span></span>; <span class="comment">// removes and returns last element of deque</span></span><br><span class="line">  <span class="function">E <span class="title">getLast</span><span class="params">()</span></span>; <span class="comment">// returns last element of deque</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Generally-speaking, a <strong>priority queue</strong> is like a regular queue except each element has a priority associated with it which determines in what order elements are removed from the queue. In Java, <code>PriorityQueue</code> is a class, a heap data structure implementing the priority queue ADT. The priority is determined by either natural<br>order (<code>E implements Comparable&lt;E&gt;</code>) or a supplied <code>Comparator&lt;E&gt;</code>.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PriorityQueue</span>&lt;<span class="title">E</span>&gt; </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">boolean</span> <span class="title">add</span><span class="params">(E e)</span></span>; <span class="comment">// adds element e to the priority queue</span></span><br><span class="line">  <span class="function">E <span class="title">peek</span><span class="params">()</span></span>; <span class="comment">// looks at the highest priority element, but does not remove it from the PQ</span></span><br><span class="line">  <span class="function">E <span class="title">poll</span><span class="params">()</span></span>; <span class="comment">// pops the highest priority element from the PQ</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="Use-them"><a href="#Use-them" class="headerlink" title="Use them"></a>Use them</h1><p>a. Given an array of integers A and an integer k, return true if any two numbers in the array sum up to k, and return false otherwise. How would you do this? Give the main idea and what ADT you would use.</p>
+<p><span style="color:red">The fastest way to do this is with the help of a set (specifically, a HashSet, which has constant time add() and contains()). The key insight is that is that if a + b = x, then b = x - a. This means that we can look to see whether or not x - (current element) has been seen already. We can store every element that we look through in a set, and do a single pass through the array.</span></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">twoSum</span><span class="params">(<span class="keyword">int</span>[] A, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">  Set&lt;Integer&gt; prevSeen = <span class="keyword">new</span> Set&lt;&gt;();</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i : A) &#123;</span><br><span class="line">    <span class="keyword">if</span> (prevSeen.contains(k - i)) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    prevSeen.add(i);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>b. Find the k most common words in a document. Assume that you can represent this as an array of Strings, where each word is an element in the array. You might find using multiple data structures useful.</p>
+<p><span style="color:red">Keep a count of all the words in the document using a HashMap&lt;String, Integer&gt;. After we go through all of the words, each word will be mapped to how many times it’s appeared. What we can do is to put all the words into a MaxPriorityQueue<String>, using a custom comparator that compares words based on the counts in the HashMap. We can then pop off the k most common words by just calling poll() on the MaxPriorityQueue k times.</span></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">topKPopularWords</span> <span class="params">(String[] words, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">  Map&lt;String, Integer&gt; counts = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">  <span class="keyword">for</span> (String word : words) &#123;</span><br><span class="line">    <span class="keyword">if</span> (!counts.containsKey(word)) &#123;</span><br><span class="line">      counts.put(word, <span class="number">1</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      counts.put(word, counts.get(word) + <span class="number">1</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  PriorityQueue&lt;String&gt; pq = <span class="keyword">new</span> PriorityQueue&lt;&gt;(<span class="keyword">new</span> Comparator&lt;String&gt;()&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span> <span class="params">(String a, String b)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> counts.get(b) - counts.get(a);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="keyword">for</span> (String word : counts.keySet()) &#123;</span><br><span class="line">    pq.add(word);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; k; i++) &#123;</span><br><span class="line">    System.out.println(pq.poll());</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="Mutant-ADTs"><a href="#Mutant-ADTs" class="headerlink" title="Mutant ADTs"></a>Mutant ADTs</h1><p>a. Define a Queue class that implements the push and poll methods of a queue ADT using only a Stack class which implements the stack ADT.<br><em>Hint: Try using two stacks</em></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Queue</span>&lt;<span class="title">E</span>&gt; </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> Stack&lt;E&gt; stack = <span class="keyword">new</span> Stack&lt;&gt;();</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">push</span> <span class="params">(E e)</span> </span>&#123;</span><br><span class="line">    stack.push(e);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> E <span class="title">poll</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> poll(stack.pop());</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> E <span class="title">poll</span> <span class="params">(E previous)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (stack.isEmpty()) &#123;</span><br><span class="line">      <span class="keyword">return</span> previous;</span><br><span class="line">    &#125;</span><br><span class="line">    E current = stack.poll();</span><br><span class="line">    E toReturn = poll(current);</span><br><span class="line">    stack.push(current);</span><br><span class="line">    <span class="keyword">return</span> toReturn;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>b. Suppose we wanted a data structure <code>SortedStack</code> that takes in integers, and maintains them in sorted order. <code>SortedStack</code> supports two operations: <code>push(int i)</code> and <code>pop()</code>. Pushing puts an int onto our <code>SortedStack</code>, and popping returns the next smallest item in the <code>SortedStack</code>. For example, if we inserted 10, 4, 8, 2, 14, and 3 into a <code>SortedStack</code>, and then popped everything off, we would get 2, 3, 4, 8, 10, 14.</p>
+<p><span style="color:red">The solution to this is very similar to that of the question above. Once again,we will have two stacks, A and B. A will hold all the items, and B will be our buffer again. This time, when we add something to the queue, we continue to pop items off from A and push it onto B until the next item that will be popped(we can access this via peek()) is greater than or equal to the item we’re adding to it. At that point, we can push our item onto A, and then pop everything from B and push them back into A. Thus, we maintain the sorted-ness of our SortedStack.</span></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SortedStack</span>&lt;<span class="title">Item</span> <span class="keyword">implements</span> <span class="title">Comparable</span>&lt;<span class="title">Item</span>&gt;&gt; </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> Stack&lt;Item&gt; a;</span><br><span class="line">  <span class="keyword">private</span> Stack&lt;Item&gt; b;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="title">SortedStack</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    a = <span class="keyword">new</span> Stack&lt;&gt;();</span><br><span class="line">    b = <span class="keyword">new</span> Stack&lt;&gt;();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">push</span><span class="params">(Item i)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">while</span> (!a.isEmpty() &amp;&amp; a.peek() &lt; i) &#123;</span><br><span class="line">      b.push(a.pop());</span><br><span class="line">    &#125;</span><br><span class="line">    a.push(i);</span><br><span class="line">    <span class="keyword">while</span> (!b.isEmpty()) &#123;</span><br><span class="line">      a.push(b.pop());</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> Item <span class="title">poll</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a.pop();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/java/" rel="tag"># java</a>
+              <a href="/tags/data-structure/" rel="tag"># data structure</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/10/06/cs61b-disc05/" rel="prev" title="cs61b-disc05">
+      <i class="fa fa-chevron-left"></i> cs61b-disc05
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/10/07/cs61a-guerrilla02/" rel="next" title="cs61a-guerrilla02">
+      cs61a-guerrilla02 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Assorted-ADTs"><span class="nav-number">1.</span> <span class="nav-text">Assorted ADTs</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Use-them"><span class="nav-number">2.</span> <span class="nav-text">Use them</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Mutant-ADTs"><span class="nav-number">3.</span> <span class="nav-text">Mutant ADTs</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Guohang Ma</p>
+  <div class="site-description" itemprop="description">developer blog</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">136</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">38</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Guohang Ma</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

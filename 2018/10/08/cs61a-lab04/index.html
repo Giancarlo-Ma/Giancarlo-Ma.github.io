@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Q1: List IndexingFor each of the following lists, what is the list indexing expression that evaluates to 7? For example, if x &#x3D; [7], then the answer would be x[0]. You can use the interpreter or Pytho">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cs61a-lab04">
+<meta property="og:url" content="http://yoursite.com/2018/10/08/cs61a-lab04/index.html">
+<meta property="og:site_name" content="Giancarlo&#39;s Blog">
+<meta property="og:description" content="Q1: List IndexingFor each of the following lists, what is the list indexing expression that evaluates to 7? For example, if x &#x3D; [7], then the answer would be x[0]. You can use the interpreter or Pytho">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://yoursite.com/2018/10/08/cs61a-lab04/connect_4.gif">
+<meta property="article:published_time" content="2018-10-08T02:42:20.000Z">
+<meta property="article:modified_time" content="2020-06-07T02:09:32.620Z">
+<meta property="article:author" content="Guohang Ma">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="SICP">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2018/10/08/cs61a-lab04/connect_4.gif">
+
+<link rel="canonical" href="http://yoursite.com/2018/10/08/cs61a-lab04/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>cs61a-lab04 | Giancarlo's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Giancarlo's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Code Life</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/08/cs61a-lab04/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Guohang Ma">
+      <meta itemprop="description" content="developer blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Giancarlo's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          cs61a-lab04
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-10-08 10:42:20" itemprop="dateCreated datePublished" datetime="2018-10-08T10:42:20+08:00">2018-10-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-06-07 10:09:32" itemprop="dateModified" datetime="2020-06-07T10:09:32+08:00">2020-06-07</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CS61A/" itemprop="url" rel="index"><span itemprop="name">CS61A</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="Q1-List-Indexing"><a href="#Q1-List-Indexing" class="headerlink" title="Q1: List Indexing"></a>Q1: List Indexing</h2><p>For each of the following lists, what is the list indexing expression that evaluates to 7? For example, if x = [7], then the answer would be x[0]. You can use the interpreter or Python Tutor to experiment with your answers.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; x &#x3D; [1, 3, [5, 7], 9]</span><br><span class="line">x[2][1]</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; x &#x3D; [[7]]</span><br><span class="line">x[0][0]</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; x &#x3D; [3, 2, 1, [9, 8, 7]]</span><br><span class="line">x[3][2]</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; x &#x3D; [[3, [5, 7], 9]]</span><br><span class="line">x[0][1][1]</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>What would Python display? If you get stuck, try it out in the Python interpreter!</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; lst &#x3D; [3, 2, 7, [84, 83, 82]]</span><br><span class="line">&gt;&gt;&gt; lst[4]</span><br><span class="line">Error</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; lst[3][0]</span><br><span class="line">84</span><br></pre></td></tr></table></figure>
+<h2 id="Q2-WWPD-Lists"><a href="#Q2-WWPD-Lists" class="headerlink" title="Q2: WWPD: Lists?"></a>Q2: WWPD: Lists?</h2><p>What would Python display? Try to figure it out before you type it into the interpreter!</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; [x*x for x in range(5)]</span><br><span class="line">[0, 1, 4, 9, 16]</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; [n for n in range(10) if n % 2 &#x3D;&#x3D; 0]</span><br><span class="line">[0, 2, 4, 6, 8]</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; ones &#x3D; [1 for i in [&quot;hi&quot;, &quot;bye&quot;, &quot;you&quot;]]</span><br><span class="line">&gt;&gt;&gt; ones + [str(i) for i in [6, 3, 8, 4]]</span><br><span class="line">[1, 1, 1, &#39;6&#39;, &#39;3&#39;, &#39;8&#39;, &#39;4&#39;]</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; [i+5 for i in [n for n in range(1,4)]]</span><br><span class="line">[6, 7, 8]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; [i**2 for i in range(10) if i &lt; 3]</span><br><span class="line">[0, 1, 4]</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; lst &#x3D; [&#39;hi&#39; for i in [1, 2, 3]]</span><br><span class="line">&gt;&gt;&gt; print(lst)</span><br><span class="line">[&#39;hi&#39;, &#39;hi&#39;, &#39;hi&#39;]</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; lst + [i for i in [&#39;1&#39;, &#39;2&#39;, &#39;3&#39;]]</span><br><span class="line">[&#39;hi&#39;, &#39;hi&#39;, &#39;hi&#39;, &#39;1&#39;, &#39;2&#39;, &#39;3&#39;]</span><br></pre></td></tr></table></figure>
+<h2 id="Q3-If-This-Not-That"><a href="#Q3-If-This-Not-That" class="headerlink" title="Q3: If This Not That"></a>Q3: If This Not That</h2><p>Define if_this_not_that, which takes a list of integers i_list and an integer this. For each element in i_list, if the element is larger than this, then print the element. Otherwise, print “that”.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">if_this_not_that</span><span class="params">(i_list, this)</span>:</span></span><br><span class="line">    <span class="string">"""Define a function which takes a list of integers `i_list` and an integer</span></span><br><span class="line"><span class="string">    `this`. For each element in `i_list`, print the element if it is larger</span></span><br><span class="line"><span class="string">    than `this`; otherwise, print the word "that".</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; original_list = [1, 2, 3, 4, 5]</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; if_this_not_that(original_list, 3)</span></span><br><span class="line"><span class="string">    that</span></span><br><span class="line"><span class="string">    that</span></span><br><span class="line"><span class="string">    that</span></span><br><span class="line"><span class="string">    4</span></span><br><span class="line"><span class="string">    5</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="keyword">for</span> elem <span class="keyword">in</span> i_list:</span><br><span class="line">        <span class="keyword">if</span> elem &lt;= this:</span><br><span class="line">            print(<span class="string">"that"</span>)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            print(elem)</span><br><span class="line"></span><br><span class="line"><span class="comment"># List comprehension version</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">if_this_not_that</span><span class="params">(i_list, this)</span>:</span></span><br><span class="line">    [print(i) <span class="keyword">if</span> i &gt; this <span class="keyword">else</span> print(<span class="string">'that'</span>) <span class="keyword">for</span> i <span class="keyword">in</span> i_list]</span><br></pre></td></tr></table></figure>
+<h1 id="City-Data-Abstraction"><a href="#City-Data-Abstraction" class="headerlink" title="City Data Abstraction"></a>City Data Abstraction</h1><p>Say we have an abstract data type for cities. A city has a name, a latitude coordinate, and a longitude coordinate.</p>
+<p>Our ADT has one constructor:</p>
+<ul>
+<li><p><code>make_city(name, lat, lon)</code>: Creates a city object with the given name, latitude, and longitude.<br>We also have the following selectors in order to get the information for each city:</p>
+</li>
+<li><p><code>get_name(city)</code>: Returns the city’s name</p>
+</li>
+<li><p><code>get_lat(city)</code>: Returns the city’s latitude</p>
+</li>
+<li><p><code>get_lon(city)</code>: Returns the city’s longitude<br>Here is how we would use the constructor and selectors to create cities and extract their information:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; berkeley &#x3D; make_city(&#39;Berkeley&#39;, 122, 37)</span><br><span class="line">&gt;&gt;&gt; get_name(berkeley)</span><br><span class="line">&#39;Berkeley&#39;</span><br><span class="line">&gt;&gt;&gt; get_lat(berkeley)</span><br><span class="line">122</span><br><span class="line">&gt;&gt;&gt; new_york &#x3D; make_city(&#39;New York City&#39;, 74, 40)</span><br><span class="line">&gt;&gt;&gt; get_lon(new_york)</span><br><span class="line">40</span><br></pre></td></tr></table></figure>
+<p>All of the selector and constructor functions can be found in <code>city.py</code>, if you are curious to see how they are implemented. However, the point of data abstraction is that we do not need to know how an abstract data type is implemented, but rather just how we can interact with and use the data type.</p>
+</li>
+</ul>
+<h2 id="Q4-Distance"><a href="#Q4-Distance" class="headerlink" title="Q4: Distance"></a>Q4: Distance</h2><p>We will now implement the function <code>distance</code>, which computes the distance between two city objects. Recall that the distance between two coordinate pairs <code>(x1, y1)</code> and <code>(x2, y2)</code> can be found by calculating the <code>sqrt</code> of <code>(x1 - x2)**2 + (y1 - y2)**2</code>. We have already imported sqrt for your convenience. Use the latitude and longitude of a city as its coordinates; you’ll need to use the selectors to access this info!</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> math <span class="keyword">import</span> sqrt</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">distance</span><span class="params">(city1, city2)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; city1 = make_city('city1', 0, 1)</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; city2 = make_city('city2', 0, 2)</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; distance(city1, city2)</span></span><br><span class="line"><span class="string">    1.0</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; city3 = make_city('city3', 6.5, 12)</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; city4 = make_city('city4', 2.5, 15)</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; distance(city3, city4)</span></span><br><span class="line"><span class="string">    5.0</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="string">"*** YOUR CODE HERE ***"</span></span><br><span class="line">    <span class="keyword">return</span> sqrt((get_lat(city1) - get_lat(city2)) ** <span class="number">2</span> + (get_lon(city1) - get_lon(city2)) ** <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="Q5-Closer-city"><a href="#Q5-Closer-city" class="headerlink" title="Q5: Closer city"></a>Q5: Closer city</h2><p>Next, implement <code>closer_city</code>, a function that takes a latitude, longitude, and two cities, and returns the name of the city that is relatively closer to the provided latitude and longitude.</p>
+<p>You may only use the selectors and constructors introduced above and the <code>distance</code> function you just defined for this question.</p>
+<p><em>Hint: How can use your distance function to find the distance between the given location and each of the given cities?</em></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">closer_city</span><span class="params">(lat, lon, city1, city2)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    Returns the name of either city1 or city2, whichever is closest to</span></span><br><span class="line"><span class="string">    coordinate (lat, lon).</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; berkeley = make_city('Berkeley', 37.87, 112.26)</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; stanford = make_city('Stanford', 34.05, 118.25)</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; closer_city(38.33, 121.44, berkeley, stanford)</span></span><br><span class="line"><span class="string">    'Stanford'</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; bucharest = make_city('Bucharest', 44.43, 26.10)</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; vienna = make_city('Vienna', 48.20, 16.37)</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; closer_city(41.29, 174.78, bucharest, vienna)</span></span><br><span class="line"><span class="string">    'Bucharest'</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="string">"*** YOUR CODE HERE ***"</span></span><br><span class="line">    city3 = make_city(lat, lon)</span><br><span class="line">    <span class="keyword">if</span> distance(city3, city1) &gt; distance(city3, city2):</span><br><span class="line">        <span class="keyword">return</span> get_name(city2)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> get_name(city1)</span><br></pre></td></tr></table></figure>
+
+<h2 id="Q6-Don’t-violate-the-abstraction-barrier"><a href="#Q6-Don’t-violate-the-abstraction-barrier" class="headerlink" title="Q6: Don’t violate the abstraction barrier!"></a>Q6: Don’t violate the abstraction barrier!</h2><p>When writing functions that use an ADT, we should use the constructor(s) and selector(s) whenever possible instead of assuming the ADT’s implementation. Relying on a data abstraction’s underlying implementation is known as violating the abstraction barrier, and we never want to do this!</p>
+<p>It’s possible that you passed the doctests for <code>distance</code> and <code>closer_city</code> even if you violated the abstraction barrier. To check whether or not you did so, uncomment the following lines in your <code>lab04.py</code> file:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># make_city = lambda name, lat, lon: &#123; 'name': name, 'lat': lat, 'lon': lon &#125;</span></span><br><span class="line"><span class="comment"># get_name = lambda city: city['name']</span></span><br><span class="line"><span class="comment"># get_lat = lambda city: city['lat']</span></span><br><span class="line"><span class="comment"># get_lon = lambda city: city['lon']</span></span><br></pre></td></tr></table></figure>
+<p>These statements change the implementation of the city ADT. The nature of the abstraction barrier guarantees that changing the implementation of an ADT shouldn’t affect the functionality of any programs that use that ADT, as long as the constructors and selectors were used properly.</p>
+<p>Now, rerun your tests for distance and closer_city without changing any of your code:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">python3 ok -q distance</span><br><span class="line">python3 ok -q closer_city</span><br></pre></td></tr></table></figure>
+<p>If you’ve followed the rules and used the constructor and selectors when you should’ve, the doctests should still pass!</p>
+<p>If you passed the Ok tests before uncommenting those lines but not afterward, the fix is simple! Just replace any code that violates the abstraction barrier, i.e. creating a city with a new list object or indexing into a city, with the appropriate constructor or selector.</p>
+<p>Make sure that your functions pass the tests with both the first and the second implementations of the City ADT and that you understand why they should work for both before moving on.</p>
+<h1 id="Optional-Questions"><a href="#Optional-Questions" class="headerlink" title="Optional Questions"></a>Optional Questions</h1><p>All these questions can be found in <code>lab04_extra.py</code></p>
+<h2 id="Q7-Flatten"><a href="#Q7-Flatten" class="headerlink" title="Q7: Flatten"></a>Q7: Flatten</h2><p>Write a function <code>flatten</code> that takes a (possibly deep) list and “flattens” it. For example:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; lst &#x3D; [1, [[2], 3], 4, [5, 6]]</span><br><span class="line">&gt;&gt;&gt; flatten(lst)</span><br><span class="line">[1, 2, 3, 4, 5, 6]</span><br></pre></td></tr></table></figure>
+<p>Hint: you can check if something is a list by using the built-in <code>type</code> function. For example,</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; type(3) &#x3D;&#x3D; list</span><br><span class="line">False</span><br><span class="line">&gt;&gt;&gt; type([1, 2, 3]) &#x3D;&#x3D; list</span><br><span class="line">True</span><br></pre></td></tr></table></figure>
+<p><span style="color:red">I think the question may be thought as only having 3 conditions. First, the lst is empty list, we can only return []. Second, the first element in lst is a list, then we need call flatten recursively to its first element and the rest of the list. Last, the first element in lst is not a list(aka. one item), then we simply concat the first element and the flattened rest of the list.</span></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">flatten</span><span class="params">(lst)</span>:</span></span><br><span class="line">    <span class="string">"""Returns a flattened version of lst.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; flatten([1, 2, 3])     # normal list</span></span><br><span class="line"><span class="string">    [1, 2, 3]</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; x = [1, [2, 3], 4]      # deep list</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; flatten(x)</span></span><br><span class="line"><span class="string">    [1, 2, 3, 4]</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; x = [[1, [1, 1]], 1, [1, 1]] # deep list</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; flatten(x)</span></span><br><span class="line"><span class="string">    [1, 1, 1, 1, 1, 1]</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="string">"*** YOUR CODE HERE ***"</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> list:</span><br><span class="line">        <span class="keyword">return</span> []</span><br><span class="line">    <span class="keyword">elif</span> type(lst[<span class="number">0</span>]) == list:</span><br><span class="line">        <span class="keyword">return</span> flatten(lst[<span class="number">0</span>]) + flatten(lst[<span class="number">1</span>:])</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> [lst[<span class="number">0</span>]] + flatten(lst[<span class="number">1</span>:])</span><br></pre></td></tr></table></figure>
+
+<h2 id="Q8-Merge"><a href="#Q8-Merge" class="headerlink" title="Q8: Merge"></a>Q8: Merge</h2><p>Write a function <code>merge</code> that takes 2 sorted lists <code>lst1</code> and <code>lst2</code>, and returns a new list that contains all the elements in the two lists in sorted order.<br><span style="color:red">This iterative style of this problem may be like this, which can be used to the merge process of mergesort algorithm. The main idea here is that keeping the two lists not empty, then we compare the first element of the two lists, and the compare result decides which one we choose to slice. When the loop ends, we must have one list emptyed, then simply concat the rest list to the new list.</span></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">merge</span><span class="params">(lst1, lst2)</span>:</span></span><br><span class="line">    <span class="string">"""Merges two sorted lists.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; merge([1, 3, 5], [2, 4, 6])</span></span><br><span class="line"><span class="string">    [1, 2, 3, 4, 5, 6]</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; merge([], [2, 4, 6])</span></span><br><span class="line"><span class="string">    [2, 4, 6]</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; merge([1, 2, 3], [])</span></span><br><span class="line"><span class="string">    [1, 2, 3]</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; merge([5, 7], [2, 4, 6])</span></span><br><span class="line"><span class="string">    [2, 4, 5, 6, 7]</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="string">"*** YOUR CODE HERE ***"</span></span><br><span class="line">    new = []</span><br><span class="line">    <span class="keyword">while</span> lst1 <span class="keyword">and</span> lst2:</span><br><span class="line">        <span class="keyword">if</span> lst1[<span class="number">0</span>] &lt; lst2[<span class="number">0</span>]:</span><br><span class="line">            new += [lst1[<span class="number">0</span>]]</span><br><span class="line">            lst1 = lst1[<span class="number">1</span>:]</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            new += [lst2[<span class="number">0</span>]]</span><br><span class="line">            lst2 = lst2[<span class="number">1</span>:]</span><br><span class="line">    <span class="keyword">if</span> lst1:</span><br><span class="line">        <span class="keyword">return</span> new + lst1</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> new + lst2</span><br></pre></td></tr></table></figure>
+<p><span style="color:red">This main idea of recursion is like the flatten function. There’re basiclly 4 conditions(while the solution can be shrinked to 3 conditions in the PDF solution). First, lst1 is empty list, then we return lst2. Second, lst2 is empty, then we return lst1. The rest of recursion is comparing the first element of the lst1 and lst2, then according to the result, we recursively call the merge function.</span></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">merge</span><span class="params">(lst1, lst2)</span>:</span></span><br><span class="line">    <span class="string">"""Merges two sorted lists.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; merge([1, 3, 5], [2, 4, 6])</span></span><br><span class="line"><span class="string">    [1, 2, 3, 4, 5, 6]</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; merge([], [2, 4, 6])</span></span><br><span class="line"><span class="string">    [2, 4, 6]</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; merge([1, 2, 3], [])</span></span><br><span class="line"><span class="string">    [1, 2, 3]</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; merge([5, 7], [2, 4, 6])</span></span><br><span class="line"><span class="string">    [2, 4, 5, 6, 7]</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="string">"*** YOUR CODE HERE ***"</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> lst1:</span><br><span class="line">        <span class="keyword">return</span> lst2</span><br><span class="line">    <span class="keyword">elif</span> <span class="keyword">not</span> lst2:</span><br><span class="line">        <span class="keyword">return</span> lst1</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> lst1[<span class="number">0</span>] &lt; lst2[<span class="number">0</span>]:</span><br><span class="line">        <span class="keyword">return</span> [lst1[<span class="number">0</span>]] + merge(lst1[<span class="number">1</span>:], lst2)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> [lst2[<span class="number">0</span>]] + merge(lst2[<span class="number">1</span>:], lst1)</span><br></pre></td></tr></table></figure>
+
+<h1 id="Connect-N"><a href="#Connect-N" class="headerlink" title="Connect N"></a>Connect N</h1><p>You’ve probably heard of Connect 4, a two-player game where the players take turns dropping a colored piece from the top of a column in a grid. The piece ends at the last empty spot in this column - that is, as close to the bottom as possible. A player can only put pieces in columns with open spaces.</p>
+<img src="/2018/10/08/cs61a-lab04/connect_4.gif" class="">
+
+<p>The winner is the first player who gets N of their pieces next to each other - either horizontally, vertically or diagonally. The game ends at this point, or as soon as the board is full.</p>
+<p>We can generalize this game so that the goal is to connect N pieces instead of just 4. In this section, we will be implementing a command line version of Connect N!</p>
+<h2 id="Building-Connect-N"><a href="#Building-Connect-N" class="headerlink" title="Building Connect N"></a>Building Connect N</h2><p>Let’s build the combat field for players ‘X’ and ‘O’.</p>
+<p>In this lab, we will represent the playing board as a list of lists. We call such a list two-dimensional because we can visualize it as a rectangle. For instance, this list:</p>
+<p><code>[[&#39;-&#39;, &#39;-&#39;, &#39;-&#39;, &#39;-&#39;], [&#39;O&#39;, &#39;O&#39;, &#39;O&#39;, &#39;X&#39;], [&#39;X&#39;, &#39;X&#39;, &#39;X&#39;, &#39;O&#39;]]</code><br>would represent the following board:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- - - -</span><br><span class="line">O O O X</span><br><span class="line">X X X O</span><br></pre></td></tr></table></figure>
+<p>What does the number of nested lists represent? What about the number of elements in each nested list? When you have made up your mind, you are ready to build the board!</p>
+<p><strong>Notice that just like lists are zero-indexed, our board is zero-indexed.</strong> This means that the columns and rows in the above board would be numbered like this:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">0  - - - -</span><br><span class="line">1  O O O X</span><br><span class="line">2  X X X O</span><br><span class="line">   0 1 2 3</span><br></pre></td></tr></table></figure>
+<h2 id="Q9-Creating-an-empty-board"><a href="#Q9-Creating-an-empty-board" class="headerlink" title="Q9: Creating an empty board"></a>Q9: Creating an empty board</h2><p>We are going to use data abstraction as we build our game, so let’s start by making the constructors. We will represent an empty spot by the string <code>&#39;-&#39;</code>. In <code>lab04_extra.py</code>, fill out the constructors.</p>
+<p>First, implement the function <code>create_row</code>, which returns one empty row in our board according to our abstraction (i.e., a row is one list).</p>
+<p>This function should consist of a one-line return statement.</p>
+<p><em>Hint: You can create a list in one line using a list comprehension.</em></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">create_row</span><span class="params">(size)</span>:</span></span><br><span class="line">    <span class="string">"""Returns a single, empty row with the given size. Each empty spot is represented by the string '-'.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; create_row(5)</span></span><br><span class="line"><span class="string">    ['-', '-', '-', '-', '-']</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="string">"*** YOUR CODE HERE ***"</span></span><br><span class="line">    <span class="keyword">return</span> [<span class="string">'-'</span> <span class="keyword">for</span> x <span class="keyword">in</span> range(size)]</span><br></pre></td></tr></table></figure>
+<p>Then, use <code>create_row</code> to implement <code>create_board</code>, which returns a board with the specified dimensions.</p>
+<p>This function should consist of a one-line return statement.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">create_board</span><span class="params">(rows, columns)</span>:</span></span><br><span class="line">    <span class="string">"""Returns a board with the given dimensions.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; create_board(3, 5)</span></span><br><span class="line"><span class="string">    [['-', '-', '-', '-', '-'], ['-', '-', '-', '-', '-'], ['-', '-', '-', '-', '-']]</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="string">"*** YOUR CODE HERE ***"</span></span><br><span class="line">    <span class="keyword">return</span> [create_row(columns) <span class="keyword">for</span> x <span class="keyword">in</span> range(rows)]</span><br></pre></td></tr></table></figure>
+<h2 id="Q10-Updating-the-board"><a href="#Q10-Updating-the-board" class="headerlink" title="Q10: Updating the board"></a>Q10: Updating the board</h2><p>Over the course of a game, the board will change and we will need to keep our representation of the board up-to-date. To do so, we will be creating a new board that represents the new state of the game every time a piece is played. Implement <code>replace_elem</code>, which takes a list, an index, and an element to be placed at that index in the returned new list.</p>
+<p>This function should consist of a one-line return statement.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">replace_elem</span><span class="params">(lst, index, elem)</span>:</span></span><br><span class="line">    <span class="string">"""Create and return a new list whose elements are the same as those in LST except at index INDEX, which should contain element ELEM instead.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; old = [1, 2, 3, 4, 5, 6, 7]</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; new = replace_elem(old, 2, 8)</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; new</span></span><br><span class="line"><span class="string">    [1, 2, 8, 4, 5, 6, 7]</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; new is old   # check that replace_elem outputs a new list</span></span><br><span class="line"><span class="string">    False</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="keyword">assert</span> index &gt;= <span class="number">0</span> <span class="keyword">and</span> index &lt; len(lst), <span class="string">'Index is out of bounds'</span></span><br><span class="line">    <span class="string">"*** YOUR CODE HERE ***"</span></span><br><span class="line">    <span class="keyword">return</span> [lst[i] <span class="keyword">if</span> i != index <span class="keyword">else</span> elem <span class="keyword">for</span> i <span class="keyword">in</span> range(len(lst))]</span><br><span class="line">    <span class="comment">#  return lst[:index] + [elem] + lst[(index + 1):]</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Q11-Manipulating-pieces"><a href="#Q11-Manipulating-pieces" class="headerlink" title="Q11: Manipulating pieces"></a>Q11: Manipulating pieces</h2><p>Now that we have the board ready, let’s make our selectors! First, we need a way to find out which piece (<code>&#39;-&#39;</code>, <code>&#39;X&#39;</code> or <code>&#39;O&#39;</code>) is at a given position. Implement <code>get_piece</code> so it does this.</p>
+<p>Note: Because get_piece is a selector, it is allowed to break through the data abstraction barrier. This means that it is aware that the board is implemented as a list and can use list operations to update it. This allows us to abstract away the inner implementation for all of the other functions that both the programmer and other users will use.</p>
+<p>This function should consist of a one-line return statement.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_piece</span><span class="params">(board, row, column)</span>:</span></span><br><span class="line">    <span class="string">"""Returns the piece at location (row, column) in the board.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; rows, columns = 2, 2</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; board = create_board(rows, columns)</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; board = put_piece(board, rows, 0, 'X')[1] # Puts piece "X" in column 0 of board and updates board</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; board = put_piece(board, rows, 0, 'O')[1] # Puts piece "O" in column 0 of board and updates board</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; get_piece(board, 1, 0)</span></span><br><span class="line"><span class="string">    'X'</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; get_piece(board, 1, 1)</span></span><br><span class="line"><span class="string">    '-'</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="string">"*** YOUR CODE HERE ***"</span></span><br><span class="line">    <span class="keyword">return</span> board[row][column]</span><br></pre></td></tr></table></figure>
+<p>Right now, all spots in our board are empty, so the output of <code>get_piece</code> won’t be very interesting - and neither will the game. Let’s change that! Go ahead and implement <code>put_piece</code>, which places the given <code>player</code>‘s piece in the given <code>column</code>. <code>put_piece</code> should return a 2-element tuple that contains (<code>&lt;row index&gt;</code>, <code>&lt;new board&gt;</code>). The first element is the index of the row the piece ends up in, or -1 if the column is already full. The second element is the new board after the piece has been placed. If the column was full then just return the original board.</p>
+<p>Assume that the given column is on the board. Remember that you can get pieces in the board by using get_piece. The argument max_rows may be helpful in determining which rows you should check for an empty slot to put the piece in.</p>
+<p>Hint: You will probably need to use the <code>replace_elem</code> function you wrote above twice to create the new board.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">put_piece</span><span class="params">(board, max_rows, column, player)</span>:</span></span><br><span class="line">    <span class="string">"""Puts PLAYER's piece in the bottommost empty spot in the given column of the board. Returns a tuple of two elements:</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        1. The index of the row the piece ends up in, or -1 if the column is full.</span></span><br><span class="line"><span class="string">        2. The new board</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; rows, columns = 2, 2</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; board = create_board(rows, columns)</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; row, new_board = put_piece(board, rows, 0, 'X')</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; row</span></span><br><span class="line"><span class="string">    1</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; row, new_board = put_piece(new_board, rows, 0, 'O')</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; row</span></span><br><span class="line"><span class="string">    0</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; row, new_board = put_piece(new_board, rows, 0, 'X')</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; row</span></span><br><span class="line"><span class="string">    -1</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="string">"*** YOUR CODE HERE ***"</span></span><br><span class="line">    curr_row = max_rows - <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> get_piece(board, curr_row, column) != <span class="string">'-'</span> <span class="keyword">and</span> curr_row &gt;= <span class="number">0</span>:</span><br><span class="line">        curr_row -= <span class="number">1</span></span><br><span class="line">    <span class="keyword">if</span> curr_row &gt;= <span class="number">0</span>:</span><br><span class="line">        new_row = replace_item(board[curr_row], column, player)</span><br><span class="line">        new_board = replace_item(board, curr_row, new_row)</span><br><span class="line">        board = new_board</span><br><span class="line">    <span class="keyword">return</span> curr_row, board</span><br></pre></td></tr></table></figure>
+
+<h1 id="You-are-now-crossing-the-abstraction-barrier"><a href="#You-are-now-crossing-the-abstraction-barrier" class="headerlink" title="You are now crossing the abstraction barrier!!!"></a>You are now crossing the abstraction barrier!!!</h1><p>You have now implemented the constructor and selectors as well as ways to modify the attributes of your abstract data type, the board. From now on, you should never need to treat the board as if it were a list. Instead, trust your abstraction barrier and use the functions you have written so far.</p>
+<h2 id="Q12-Making-a-move"><a href="#Q12-Making-a-move" class="headerlink" title="Q12: Making a move"></a>Q12: Making a move</h2><p>Let’s first write a function for players to make a move in the game. This is different from the <code>put_piece</code> function above in that <code>put_piece</code> assumes that the player gives a valid column number. <code>make_move</code> should only place the piece on the board if the given column is actually on the board. It returns a 2-element tuple (row index, board).</p>
+<p>If the move is valid, put a piece in the column and return the index of the row the piece ends up in (do you have a function that will help you do this?) as well as the new board. If the move is invalid, <code>make_move</code> should return -1 and the original board, unchanged.</p>
+<p>The arguments <code>max_rows</code> and <code>max_cols</code> describe the dimensions of the board and may be useful in determining whether or not a move is valid.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">make_move</span><span class="params">(board, max_rows, max_cols, col, player)</span>:</span></span><br><span class="line">    <span class="string">"""Put player's piece in column COL of the board, if it is a valid move.</span></span><br><span class="line"><span class="string">    Return a tuple of two values:</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        1. If the move is valid, make_move returns the index of the row the piece is placed in. Otherwise, it returns -1.</span></span><br><span class="line"><span class="string">        2. The updated board</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; rows, columns = 2, 2</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; board = create_board(rows, columns)</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; row, board = make_move(board, rows, columns, 0, 'X')</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; row</span></span><br><span class="line"><span class="string">    1</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; get_piece(board, 1, 0)</span></span><br><span class="line"><span class="string">    'X'</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; row, board = make_move(board, rows, columns, 0, 'O')</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; row</span></span><br><span class="line"><span class="string">    0</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; row, board = make_move(board, rows, columns, 0, 'X')</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; row</span></span><br><span class="line"><span class="string">    -1</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; row, board = make_move(board, rows, columns, -4, '0')</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; row</span></span><br><span class="line"><span class="string">    -1</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="string">"*** YOUR CODE HERE ***"</span></span><br><span class="line">    <span class="keyword">if</span> col &gt;= max_cols <span class="keyword">or</span> col &lt; <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>, board</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> put_piece(board, max_rows, col, player)</span><br></pre></td></tr></table></figure>
+<h2 id="Q13-Printing-and-viewing-the-board"><a href="#Q13-Printing-and-viewing-the-board" class="headerlink" title="Q13: Printing and viewing the board"></a>Q13: Printing and viewing the board</h2><p>Wouldn’t it be great if we could actually see the board and the pieces on it? Let’s now write a function to help us do that.</p>
+<p>The function print_board takes in a board (as defined by our abstraction) and the dimensions of the board, and it prints out the current state of the board.</p>
+<p>We would like our board to look good, and for this, strings do a better job than lists. Thus, we would like the row [‘X’, ‘X’, ‘O’, ‘-‘] to be printed as ‘X X O -‘ where the pieces are separated by a single blank space. Remember that you can concatenate strings with the + operator, e.g. ‘hel’ + ‘lo’ = ‘hello’.</p>
+<p>Remember that we’re still on the other side of the abstraction barrier, and you must implement this function as if we didn’t know the board is a list of lists. This is called respecting the data abstraction barrier. Specifically, to get information about board, you should use the selectors you’ve implemented instead of indexing into it.</p>
+<p><em>Hint: You might find that you’re failing doctests that seem to match your output. Chances are that you have an extra space character at the end of your rows in your board. A function that might come in handy is strip(), which removes leading and trailing whitespace from a string. For example:</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; s &#x3D; &#39;   hello &#39;</span><br><span class="line">&gt;&gt;&gt; s.strip()</span><br><span class="line">&#39;hello&#39;</span><br></pre></td></tr></table></figure>
+<p><span style="color:red">My solution</span></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">print_board</span><span class="params">(board, max_rows, max_cols)</span>:</span></span><br><span class="line">    <span class="string">"""Prints the board. Row 0 is at the top, and column 0 at the far left.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; rows, columns = 2, 2</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; board = create_board(rows, columns)</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; print_board(board, rows, columns)</span></span><br><span class="line"><span class="string">    - -</span></span><br><span class="line"><span class="string">    - -</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; new_board = make_move(board, rows, columns, 0, 'X')[1]</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; print_board(new_board, rows, columns)</span></span><br><span class="line"><span class="string">    - -</span></span><br><span class="line"><span class="string">    X -</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="string">"*** YOUR CODE HERE ***"</span></span><br><span class="line">    row = <span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> row &lt; max_rows:</span><br><span class="line">        col = <span class="number">0</span></span><br><span class="line">        row_str = <span class="string">''</span></span><br><span class="line">        <span class="keyword">while</span> col &lt; max_cols:</span><br><span class="line">            row_str += get_piece(board, row, col) + <span class="string">' '</span></span><br><span class="line">            col += <span class="number">1</span></span><br><span class="line">        row_str = row_str.strip()</span><br><span class="line">        print(row_str)</span><br><span class="line">        row += <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p><span style="color:red">PDF solution</span></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">print_board</span><span class="params">(board, max_rows, max_cols)</span>:</span></span><br><span class="line">    <span class="string">"""Prints the board. Row 0 is at the top, and column 0 at the far left.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; rows, columns = 2, 2</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; board = create_board(rows, columns)</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; print_board(board, rows, columns)</span></span><br><span class="line"><span class="string">    - -</span></span><br><span class="line"><span class="string">    - -</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; new_board = make_move(board, rows, columns, 0, 'X')[1]</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; print_board(new_board, rows, columns)</span></span><br><span class="line"><span class="string">    - -</span></span><br><span class="line"><span class="string">    X -</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="keyword">for</span> row <span class="keyword">in</span> range(max_rows):</span><br><span class="line">        row_str = <span class="string">''</span></span><br><span class="line">        <span class="keyword">for</span> col <span class="keyword">in</span> range(max_cols):</span><br><span class="line">            piece = get_piece(board, row, col)</span><br><span class="line">            row_str += piece + <span class="string">" "</span></span><br><span class="line">        print(row_str.strip())</span><br></pre></td></tr></table></figure>
+
+<h2 id="Q14-Checking-for-victory"><a href="#Q14-Checking-for-victory" class="headerlink" title="Q14: Checking for victory"></a>Q14: Checking for victory</h2><p>Fun, right? At long as you don’t care about winning… The last thing we need for our Connect N game to be fully functioning is the ability to detect a win.</p>
+<p>First, let’s implement two helper functions <code>check_win_row</code> and <code>check_win_col</code> that check for horizontal and vertical wins for the given player.</p>
+<p>Since we check for wins after each turn, and only the player who made the most recent move can have a win, <code>check_win_row</code> and <code>check_win_col</code> should only check for a win for the player that is passed as an argument. Also remember that <code>num_connect</code> tells you how many adjacent pieces are needed for a win. The arguments <code>max_rows</code> and <code>max_cols</code> describe the dimensions of the game board.</p>
+<p>As in <code>print_board</code>, use the data abstractions you just built.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">check_win_row</span><span class="params">(board, max_rows, max_cols, num_connect, row, player)</span>:</span></span><br><span class="line">    <span class="string">""" Returns True if the given player has a horizontal win</span></span><br><span class="line"><span class="string">    in the given row, and otherwise False.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; rows, columns, num_connect = 4, 4, 2</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; board = create_board(rows, columns)</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; board = make_move(board, rows, columns, 0, 'X')[1]</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; board = make_move(board, rows, columns, 0, 'O')[1]</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; check_win_row(board, rows, columns, num_connect, 3, 'O')</span></span><br><span class="line"><span class="string">    False</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; board = make_move(board, rows, columns, 2, 'X')[1]</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; board = make_move(board, rows, columns, 0, 'O')[1]</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; check_win_row(board, rows, columns, num_connect, 3, 'X')</span></span><br><span class="line"><span class="string">    False</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; board = make_move(board, rows, columns, 1, 'X')[1]</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; check_win_row(board, rows, columns, num_connect, 3, 'X')</span></span><br><span class="line"><span class="string">    True</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; check_win_row(board, rows, columns, 4, 3, 'X')    # A win depends on the value of num_connect</span></span><br><span class="line"><span class="string">    False</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; check_win_row(board, rows, columns, num_connect, 3, 'O')   # We only detect wins for the given player</span></span><br><span class="line"><span class="string">    False</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="string">"*** YOUR CODE HERE ***"</span></span><br><span class="line">    count = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> col <span class="keyword">in</span> range(max_cols):</span><br><span class="line">        <span class="keyword">if</span> get_piece(board, row, col) == player:</span><br><span class="line">            count += <span class="number">1</span></span><br><span class="line">            <span class="keyword">if</span> count &gt;= num_connect:</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            count = <span class="number">0</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">check_win_column</span><span class="params">(board, max_rows, max_cols, num_connect, col, player)</span>:</span></span><br><span class="line">    <span class="string">""" Returns True if the given player has a vertical win in the given column,</span></span><br><span class="line"><span class="string">    and otherwise False.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; rows, columns, num_connect = 5, 5, 2</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; board = create_board(rows, columns)</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; board = make_move(board, rows, columns, 0, 'X')[1]</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; board = make_move(board, rows, columns, 1, 'O')[1]</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; check_win_column(board, rows, columns, num_connect, 0, 'X')</span></span><br><span class="line"><span class="string">    False</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; board = make_move(board, rows, columns, 1, 'X')[1]</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; board = make_move(board, rows, columns, 1, 'O')[1]</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; check_win_column(board, rows, columns, num_connect, 1, 'O')</span></span><br><span class="line"><span class="string">    False</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; board = make_move(board, rows, columns, 2, 'X')[1]</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; board = make_move(board, rows, columns, 1, 'O')[1]</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; check_win_column(board, rows, columns, num_connect, 1, 'O')</span></span><br><span class="line"><span class="string">    True</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; check_win_column(board, rows, columns, 4, 1, 'O')</span></span><br><span class="line"><span class="string">    False</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; check_win_column(board, rows, columns, num_connect, 1, 'X')</span></span><br><span class="line"><span class="string">    False</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="string">"*** YOUR CODE HERE ***"</span></span><br><span class="line">    count = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> row <span class="keyword">in</span> range(max_row):</span><br><span class="line">        <span class="keyword">if</span> get_piece(board, row, col) == player:</span><br><span class="line">            count += <span class="number">1</span></span><br><span class="line">            <span class="keyword">if</span> count &gt;= num_connect:</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            count = <span class="number">0</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+<h2 id="Q15-Winning"><a href="#Q15-Winning" class="headerlink" title="Q15: Winning!"></a>Q15: Winning!</h2><p>Finally, let’s implement a way to check for any wins. Implement <code>check_win</code> so that it returns <code>True</code> if there is a win in any direction - that is, horizontally, vertically or diagonally.</p>
+<p>You should use the functions you just wrote, <code>check_win_row</code> and <code>check_win_column</code>, along with the provided function <code>check_win_diagonal(board, max_rows, max_cols, num_connect, row, col, player)</code>, which returns <code>True</code> if the given player has a diagonal win passing the spot (row, column) and <code>False</code> otherwise.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">check_win</span><span class="params">(board, max_rows, max_cols, num_connect, row, col, player)</span>:</span></span><br><span class="line">    <span class="string">"""Returns True if the given player has any kind of win passing through</span></span><br><span class="line"><span class="string">    (row, col), and False otherwise.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; rows, columns, num_connect = 2, 2, 2</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; board = create_board(rows, columns)</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; board = make_move(board, rows, columns, 0, 'X')[1]</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; board = make_move(board, rows, columns, 1, 'O')[1]</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; board = make_move(board, rows, columns, 0, 'X')[1]</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; check_win(board, rows, columns, num_connect, 0, 0, 'O')</span></span><br><span class="line"><span class="string">    False</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; check_win(board, rows, columns, num_connect, 0, 0, 'X')</span></span><br><span class="line"><span class="string">    True</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; board = create_board(rows, columns)</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; board = make_move(board, rows, columns, 0, 'X')[1]</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; board = make_move(board, rows, columns, 0, 'O')[1]</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; board = make_move(board, rows, columns, 1, 'X')[1]</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; check_win(board, rows, columns, num_connect, 1, 0, 'X')</span></span><br><span class="line"><span class="string">    True</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; check_win(board, rows, columns, num_connect, 0, 0, 'X')</span></span><br><span class="line"><span class="string">    False</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; board = create_board(rows, columns)</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; board = make_move(board, rows, columns, 0, 'X')[1]</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; board = make_move(board, rows, columns, 1, 'O')[1]</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; board = make_move(board, rows, columns, 1, 'X')[1]</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; check_win(board, rows, columns, num_connect, 0, 0, 'X')</span></span><br><span class="line"><span class="string">    False</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; check_win(board, rows, columns, num_connect, 1, 0, 'X')</span></span><br><span class="line"><span class="string">    True</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    diagonal_win = check_win_diagonal(board, max_rows, max_cols, num_connect, row, col, player)</span><br><span class="line">    <span class="string">"*** YOUR CODE HERE ***"</span></span><br><span class="line">    <span class="keyword">return</span> check_win_row(board, max_rows, max_cols, num_connect, row, player) <span class="keyword">or</span> check_win_column(board, max_rows, max_cols, num_connect, col, player) <span class="keyword">or</span> diagonal_win</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/python/" rel="tag"># python</a>
+              <a href="/tags/SICP/" rel="tag"># SICP</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/10/07/cs61a-hw04/" rel="prev" title="cs61a-hw04">
+      <i class="fa fa-chevron-left"></i> cs61a-hw04
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/10/08/cs61a-disc04/" rel="next" title="cs61a-disc04">
+      cs61a-disc04 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Q1-List-Indexing"><span class="nav-number">1.</span> <span class="nav-text">Q1: List Indexing</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q2-WWPD-Lists"><span class="nav-number">2.</span> <span class="nav-text">Q2: WWPD: Lists?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q3-If-This-Not-That"><span class="nav-number">3.</span> <span class="nav-text">Q3: If This Not That</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#City-Data-Abstraction"><span class="nav-number"></span> <span class="nav-text">City Data Abstraction</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Q4-Distance"><span class="nav-number">1.</span> <span class="nav-text">Q4: Distance</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q5-Closer-city"><span class="nav-number">2.</span> <span class="nav-text">Q5: Closer city</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q6-Don’t-violate-the-abstraction-barrier"><span class="nav-number">3.</span> <span class="nav-text">Q6: Don’t violate the abstraction barrier!</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Optional-Questions"><span class="nav-number"></span> <span class="nav-text">Optional Questions</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Q7-Flatten"><span class="nav-number">1.</span> <span class="nav-text">Q7: Flatten</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q8-Merge"><span class="nav-number">2.</span> <span class="nav-text">Q8: Merge</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Connect-N"><span class="nav-number"></span> <span class="nav-text">Connect N</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Building-Connect-N"><span class="nav-number">1.</span> <span class="nav-text">Building Connect N</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q9-Creating-an-empty-board"><span class="nav-number">2.</span> <span class="nav-text">Q9: Creating an empty board</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q10-Updating-the-board"><span class="nav-number">3.</span> <span class="nav-text">Q10: Updating the board</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q11-Manipulating-pieces"><span class="nav-number">4.</span> <span class="nav-text">Q11: Manipulating pieces</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#You-are-now-crossing-the-abstraction-barrier"><span class="nav-number"></span> <span class="nav-text">You are now crossing the abstraction barrier!!!</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Q12-Making-a-move"><span class="nav-number">1.</span> <span class="nav-text">Q12: Making a move</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q13-Printing-and-viewing-the-board"><span class="nav-number">2.</span> <span class="nav-text">Q13: Printing and viewing the board</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q14-Checking-for-victory"><span class="nav-number">3.</span> <span class="nav-text">Q14: Checking for victory</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q15-Winning"><span class="nav-number">4.</span> <span class="nav-text">Q15: Winning!</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Guohang Ma</p>
+  <div class="site-description" itemprop="description">developer blog</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">136</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">38</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Guohang Ma</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

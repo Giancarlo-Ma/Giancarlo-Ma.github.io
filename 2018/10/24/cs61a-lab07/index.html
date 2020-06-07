@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Check-OffQ1: A-OkaySign up for checkoffs in your lab if you’d like to get credit for this week’s checkoff.What happens in the following code? Make sure you can explain why each line works or breaks. 1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cs61a-lab07">
+<meta property="og:url" content="http://yoursite.com/2018/10/24/cs61a-lab07/index.html">
+<meta property="og:site_name" content="Giancarlo&#39;s Blog">
+<meta property="og:description" content="Check-OffQ1: A-OkaySign up for checkoffs in your lab if you’d like to get credit for this week’s checkoff.What happens in the following code? Make sure you can explain why each line works or breaks. 1">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2018-10-24T14:17:26.000Z">
+<meta property="article:modified_time" content="2020-06-07T02:09:32.630Z">
+<meta property="article:author" content="Guohang Ma">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="SICP">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2018/10/24/cs61a-lab07/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>cs61a-lab07 | Giancarlo's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Giancarlo's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Code Life</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/24/cs61a-lab07/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Guohang Ma">
+      <meta itemprop="description" content="developer blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Giancarlo's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          cs61a-lab07
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-10-24 22:17:26" itemprop="dateCreated datePublished" datetime="2018-10-24T22:17:26+08:00">2018-10-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-06-07 10:09:32" itemprop="dateModified" datetime="2020-06-07T10:09:32+08:00">2020-06-07</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CS61A/" itemprop="url" rel="index"><span itemprop="name">CS61A</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Check-Off"><a href="#Check-Off" class="headerlink" title="Check-Off"></a>Check-Off</h1><h2 id="Q1-A-Okay"><a href="#Q1-A-Okay" class="headerlink" title="Q1: A-Okay"></a>Q1: A-Okay</h2><p>Sign up for checkoffs in your lab if you’d like to get credit for this week’s checkoff.<br>What happens in the following code? Make sure you can explain why each line works or breaks.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; class A:</span><br><span class="line">...    y &#x3D; 1</span><br><span class="line">...    def __init__(self, y):</span><br><span class="line">...        self.y &#x3D; y</span><br><span class="line">...    def f(self, x):</span><br><span class="line">...        self.y +&#x3D; x</span><br><span class="line">...  </span><br><span class="line">&gt;&gt;&gt; a &#x3D; A(0) # Ok or not okay?</span><br><span class="line">&gt;&gt;&gt; a.f(6)   # Ok or not okay?</span><br><span class="line">&gt;&gt;&gt; a.f(A, 9) # Ok or not okay?</span><br><span class="line">&gt;&gt;&gt; A.f(a, 4) # Ok or not okay?</span><br><span class="line">&gt;&gt;&gt; A.f(A, 4) # Ok or not okay?</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h1 id="Coding-Practice"><a href="#Coding-Practice" class="headerlink" title="Coding Practice"></a>Coding Practice</h1><h2 id="Q4-Link-to-List"><a href="#Q4-Link-to-List" class="headerlink" title="Q4: Link to List"></a>Q4: Link to List</h2><p>Write a function <code>link_to_list</code> that takes in a linked list and returns the sequence as a Python list. You may assume that the input list is shallow; none of the elements is another linked list.</p>
+<p>Try to find both an iterative and recursive solution for this problem!<br><span style="color:red">Iterative solution</span></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">link_to_list</span><span class="params">(link)</span>:</span></span><br><span class="line">    <span class="string">"""Takes a linked list and returns a Python list with the same elements.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; link = Link(1, Link(2, Link(3, Link(4))))</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; link_to_list(link)</span></span><br><span class="line"><span class="string">    [1, 2, 3, 4]</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; link_to_list(Link.empty)</span></span><br><span class="line"><span class="string">    []</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="string">"*** YOUR CODE HERE ***"</span></span><br><span class="line">    lst = []</span><br><span class="line">    <span class="keyword">while</span> link != Link.empty:</span><br><span class="line">      lst.append(link.first)</span><br><span class="line">      link = link.rest</span><br><span class="line">    <span class="keyword">return</span> lst</span><br></pre></td></tr></table></figure>
+<p><span style="color:red">Recursive solution</span></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">link_to_list</span><span class="params">(link)</span>:</span></span><br><span class="line">    <span class="string">"""Takes a linked list and returns a Python list with the same elements.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; link = Link(1, Link(2, Link(3, Link(4))))</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; link_to_list(link)</span></span><br><span class="line"><span class="string">    [1, 2, 3, 4]</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; link_to_list(Link.empty)</span></span><br><span class="line"><span class="string">    []</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="string">"*** YOUR CODE HERE ***"</span></span><br><span class="line">    <span class="keyword">if</span> link == Link.empty:</span><br><span class="line">      <span class="keyword">return</span> []</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">      <span class="keyword">return</span> [link.first] + link_to_list(link.rest)</span><br></pre></td></tr></table></figure>
+<h2 id="Q5-Store-Digits"><a href="#Q5-Store-Digits" class="headerlink" title="Q5: Store Digits"></a>Q5: Store Digits</h2><p>Write a function <code>store_digits</code> that takes in an integer <code>n</code> and returns a linked list where each element of the list is a digit of <code>n</code>.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">store_digits</span><span class="params">(n)</span>:</span></span><br><span class="line">    <span class="string">"""Stores the digits of a positive number n in a linked list.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; s = store_digits(1)</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; s</span></span><br><span class="line"><span class="string">    Link(1)</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; store_digits(2345)</span></span><br><span class="line"><span class="string">    Link(2, Link(3, Link(4, Link(5))))</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; store_digits(876)</span></span><br><span class="line"><span class="string">    Link(8, Link(7, Link(6)))</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="string">"*** YOUR CODE HERE ***"</span></span><br><span class="line">    l = Link.empty</span><br><span class="line">    <span class="keyword">while</span> n &gt; <span class="number">0</span>:</span><br><span class="line">        l = Link(n % <span class="number">10</span>, l)</span><br><span class="line">        n //= <span class="number">10</span></span><br><span class="line">    <span class="keyword">return</span> l</span><br></pre></td></tr></table></figure>
+
+<h2 id="Q6-Cumulative-Sum"><a href="#Q6-Cumulative-Sum" class="headerlink" title="Q6: Cumulative Sum"></a>Q6: Cumulative Sum</h2><p>Write a function <code>cumulative_sum</code> that mutates the Tree <code>t</code> so that each node’s label becomes the sum of all labels in the subtree rooted at the node.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">cumulative_sum</span><span class="params">(t)</span>:</span></span><br><span class="line">    <span class="string">"""Mutates t so that each node's label becomes the sum of all labels in</span></span><br><span class="line"><span class="string">    the corresponding subtree rooted at t.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; t = Tree(1, [Tree(3, [Tree(5)]), Tree(7)])</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; cumulative_sum(t)</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; t</span></span><br><span class="line"><span class="string">    Tree(16, [Tree(8, [Tree(5)]), Tree(7)])</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="string">"*** YOUR CODE HERE ***"</span></span><br><span class="line">    <span class="keyword">for</span> b <span class="keyword">in</span> t.branches:</span><br><span class="line">        cumulative_sum(b)</span><br><span class="line">    t.label = sum([b.label <span class="keyword">for</span> b <span class="keyword">in</span> t.branches]) + t.label</span><br></pre></td></tr></table></figure>
+<h1 id="Midterm-Review-required"><a href="#Midterm-Review-required" class="headerlink" title="Midterm Review (required)"></a>Midterm Review (required)</h1><h2 id="Q7-Is-BST"><a href="#Q7-Is-BST" class="headerlink" title="Q7: Is BST"></a>Q7: Is BST</h2><p>Write a function <code>is_bst</code>, which takes a Tree <code>t</code> and returns <code>True</code> if, and only if, <code>t</code> is a valid binary search tree, which means that:</p>
+<ul>
+<li>Each node has at most two children (a leaf is automatically a valid binary search tree)</li>
+<li>The children are valid binary search trees</li>
+<li>For every node, the entries in that node’s left child are less than or equal to the label of the node</li>
+<li>For every node, the entries in that node’s right child are greater than the label of the node<br>Note that, if a node has only one child, that child could be considered either the left or right child. You should take this into consideration. <strong>Do not use the <code>BST</code> constructor or anything from the <code>BST</code> class.</strong></li>
+</ul>
+<p>Hint: It may be helpful to write helper functions <code>bst_min</code> and <code>bst_max</code> that return the minimum and maximum, respectively, of a Tree if it is a valid binary search tree.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">is_bst</span><span class="params">(t)</span>:</span></span><br><span class="line">    <span class="string">"""Returns True if the Tree t has the structure of a valid BST.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; t1 = Tree(6, [Tree(2, [Tree(1), Tree(4)]), Tree(7, [Tree(7), Tree(8)])])</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; is_bst(t1)</span></span><br><span class="line"><span class="string">    True</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; t2 = Tree(8, [Tree(2, [Tree(9), Tree(1)]), Tree(3, [Tree(6)]), Tree(5)])</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; is_bst(t2)</span></span><br><span class="line"><span class="string">    False</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; t3 = Tree(6, [Tree(2, [Tree(4), Tree(1)]), Tree(7, [Tree(7), Tree(8)])])</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; is_bst(t3)</span></span><br><span class="line"><span class="string">    False</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; t4 = Tree(1, [Tree(2, [Tree(3, [Tree(4)])])])</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; is_bst(t4)</span></span><br><span class="line"><span class="string">    True</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; t5 = Tree(1, [Tree(0, [Tree(-1, [Tree(-2)])])])</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; is_bst(t5)</span></span><br><span class="line"><span class="string">    True</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; t6 = Tree(1, [Tree(4, [Tree(2, [Tree(3)])])])</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; is_bst(t6)</span></span><br><span class="line"><span class="string">    True</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; t7 = Tree(2, [Tree(1, [Tree(5)]), Tree(4)])</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; is_bst(t7)</span></span><br><span class="line"><span class="string">    False</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="string">"*** YOUR CODE HERE ***"</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">bst_max</span><span class="params">(t)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> t.is_leaf():</span><br><span class="line">            <span class="keyword">return</span> t.label</span><br><span class="line">        <span class="keyword">return</span> max(t.label, bst_max(t.branches[<span class="number">-1</span>]))</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">bst_min</span><span class="params">(t)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> t.is_leaf():</span><br><span class="line">            <span class="keyword">return</span> t.label</span><br><span class="line">        <span class="keyword">return</span> min(t.label, bst_min(t.branches[<span class="number">0</span>]))</span><br><span class="line">    <span class="keyword">if</span> t.is_leaf():</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">    <span class="keyword">if</span> len(t.branches) == <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">return</span> is_bst(t.branches[<span class="number">0</span>]) <span class="keyword">and</span> (t.label &gt;= bst_min(t.branches[<span class="number">0</span>]) <span class="keyword">or</span> t.label &lt; bst_max(t.branches[<span class="number">0</span>]))</span><br><span class="line">    <span class="keyword">if</span> len(t.branches) == <span class="number">2</span>:</span><br><span class="line">        <span class="keyword">return</span> is_bst(t.branches[<span class="number">0</span>]) <span class="keyword">and</span> is_bst(t.branches[<span class="number">1</span>]) <span class="keyword">and</span> bst_max(t.branches[<span class="number">0</span>]) &lt;= t.label <span class="keyword">and</span> bst_min(t.branches[<span class="number">1</span>]) &gt; t.label</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+<h2 id="Q8-In-order-traversal"><a href="#Q8-In-order-traversal" class="headerlink" title="Q8: In-order traversal"></a>Q8: In-order traversal</h2><p>Write a function that returns a generator that generates an “in-order” traversal, in which we yield the value of every node in order from left to right, assuming that each node has either 0 or 2 branches.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">in_order_traversal</span><span class="params">(t)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    Generator function that generates an "in-order" traversal, in which we</span></span><br><span class="line"><span class="string">    yield the value of every node in order from left to right, assuming that each node has either 0 or 2 branches.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    For example, take the following tree t:</span></span><br><span class="line"><span class="string">            1</span></span><br><span class="line"><span class="string">        2       3</span></span><br><span class="line"><span class="string">    4     5</span></span><br><span class="line"><span class="string">         6  7</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    We have the in-order-traversal 4, 2, 6, 5, 7, 1, 3</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; t = Tree(1, [Tree(2, [Tree(4), Tree(5, [Tree(6), Tree(7)])]), Tree(3)])</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; list(in_order_traversal(t))</span></span><br><span class="line"><span class="string">    [4, 2, 6, 5, 7, 1, 3]</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="string">"*** YOUR CODE HERE ***"</span></span><br><span class="line">    <span class="keyword">if</span> t.is_leaf():</span><br><span class="line">        <span class="keyword">yield</span> t.label</span><br><span class="line">    <span class="keyword">yield</span> <span class="keyword">from</span> in_order_traversal(t.branches[<span class="number">0</span>])</span><br><span class="line">    <span class="keyword">yield</span> t.label</span><br><span class="line">    <span class="keyword">yield</span> <span class="keyword">from</span> in_order_traversal(t.branches[<span class="number">1</span>])</span><br></pre></td></tr></table></figure>
+<h1 id="Linked-List-Practice"><a href="#Linked-List-Practice" class="headerlink" title="Linked List Practice"></a>Linked List Practice</h1><h2 id="Q9-Remove-All"><a href="#Q9-Remove-All" class="headerlink" title="Q9: Remove All"></a>Q9: Remove All</h2><p>Implement a function <code>remove_all</code> that takes a <code>Link</code>, and a <code>value</code>, and remove any linked list node containing that value. You can assume the list already has at least one node containing <code>value</code> and the first element is never removed. Notice that you are not returning anything, so you should mutate the list.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">remove_all</span><span class="params">(link , value)</span>:</span></span><br><span class="line">    <span class="string">"""Remove all the nodes containing value. Assume there exists some</span></span><br><span class="line"><span class="string">    nodes to be removed and the first element is never removed.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; l1 = Link(0, Link(2, Link(2, Link(3, Link(1, Link(2, Link(3)))))))</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; print(l1)</span></span><br><span class="line"><span class="string">    &lt;0 2 2 3 1 2 3&gt;</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; remove_all(l1, 2)</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; print(l1)</span></span><br><span class="line"><span class="string">    &lt;0 3 1 3&gt;</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; remove_all(l1, 3)</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; print(l1)</span></span><br><span class="line"><span class="string">    &lt;0 1&gt;</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="string">"*** YOUR CODE HERE ***"</span></span><br><span class="line">    p1, p2 = link, link.rest</span><br><span class="line">    <span class="keyword">while</span> p2 <span class="keyword">is</span> <span class="keyword">not</span> Link.empty:</span><br><span class="line">        <span class="keyword">if</span> p2.first == value:</span><br><span class="line">            p1.rest = p2.rest</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            p1 = p1.rest</span><br><span class="line">        p2 = p2.rest</span><br></pre></td></tr></table></figure>
+<p><span style="color:red">The pdf solution</span></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">remove_all</span><span class="params">(link , value)</span>:</span></span><br><span class="line">    <span class="string">"""Remove all the nodes containing value. Assume there exists some</span></span><br><span class="line"><span class="string">    nodes to be removed and the first element is never removed.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; l1 = Link(0, Link(2, Link(2, Link(3, Link(1, Link(2, Link(3)))))))</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; print(l1)</span></span><br><span class="line"><span class="string">    &lt;0 2 2 3 1 2 3&gt;</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; remove_all(l1, 2)</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; print(l1)</span></span><br><span class="line"><span class="string">    &lt;0 3 1 3&gt;</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; remove_all(l1, 3)</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; print(l1)</span></span><br><span class="line"><span class="string">    &lt;0 1&gt;</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="keyword">if</span> link <span class="keyword">is</span> Link.empty <span class="keyword">or</span> link.rest <span class="keyword">is</span> Link.empty:</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">if</span> link.rest.first == value:</span><br><span class="line">        link.rest = link.rest.rest</span><br><span class="line">        remove_all(link, value)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        remove_all(link.rest, value)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># alternate solution</span></span><br><span class="line">    <span class="keyword">if</span> link <span class="keyword">is</span> <span class="keyword">not</span> Link.empty <span class="keyword">and</span> link.rest <span class="keyword">is</span> <span class="keyword">not</span> Link.empty:</span><br><span class="line">        remove_all(link.rest, value)</span><br><span class="line">        <span class="keyword">if</span> link.rest.first == value:</span><br><span class="line">            link.rest = link.rest.rest</span><br></pre></td></tr></table></figure>
+<p>Video walkthrough: <a href="https://youtu.be/hdO9Ry8d5FU?t=39m33s" target="_blank" rel="noopener">https://youtu.be/hdO9Ry8d5FU?t=39m33s</a></p>
+<h2 id="Q10-Mutable-Mapping"><a href="#Q10-Mutable-Mapping" class="headerlink" title="Q10: Mutable Mapping"></a>Q10: Mutable Mapping</h2><p>Implement <code>deep_map_mut(fn, link)</code>, which applies a function <code>fn</code> onto all elements in the given linked list <code>link</code>. If an element is itself a linked list, apply <code>fn</code> to each of its elements, and so on.</p>
+<p>Your implementation should mutate the original linked list. Do not create any new linked lists.</p>
+<p>Hint: The built-in <code>isinstance</code> function may be useful.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; s &#x3D; Link(1, Link(2, Link(3, Link(4))))</span><br><span class="line">&gt;&gt;&gt; isinstance(s, Link)</span><br><span class="line">True</span><br><span class="line">&gt;&gt;&gt; isinstance(s, int)</span><br><span class="line">False</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">deep_map_mut</span><span class="params">(fn, link)</span>:</span></span><br><span class="line">    <span class="string">"""Mutates a deep link by replacing each item found with the result of calling fn on the item.  Does NOT create new Links (so no use of Link's constructor)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Does not return the modified Link object.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; link1 = Link(3, Link(Link(4), Link(5, Link(6))))</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; deep_map_mut(lambda x: x * x, link1)</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; print(link1)</span></span><br><span class="line"><span class="string">    &lt;9 &lt;16&gt; 25 36&gt;</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="string">"*** YOUR CODE HERE ***"</span></span><br><span class="line">    <span class="keyword">if</span> link <span class="keyword">is</span> Link.empty:</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">elif</span> isinstance(link.first, Link):</span><br><span class="line">        deep_map_mut(fn, link.first)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        link.first = fn(link.first)</span><br><span class="line">    deep_map_mut(fn, link.rest)</span><br></pre></td></tr></table></figure>
+<h2 id="Q11-Cycles"><a href="#Q11-Cycles" class="headerlink" title="Q11: Cycles"></a>Q11: Cycles</h2><p>The <code>Link</code> class can represent lists with cycles. That is, a list may contain itself as a sublist.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; s &#x3D; Link(1, Link(2, Link(3)))</span><br><span class="line">&gt;&gt;&gt; s.rest.rest.rest &#x3D; s</span><br><span class="line">&gt;&gt;&gt; s.rest.rest.rest.rest.rest.first</span><br><span class="line">3</span><br></pre></td></tr></table></figure>
+<p>Implement <code>has_cycle</code>,that returns whether its argument, a <code>Link</code> instance, contains a cycle.</p>
+<p>Hint: Iterate through the linked list and try keeping track of which <code>Link</code> objects you’ve already seen.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">has_cycle</span><span class="params">(link)</span>:</span></span><br><span class="line">    <span class="string">"""Return whether link contains a cycle.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; s = Link(1, Link(2, Link(3)))</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; s.rest.rest.rest = s</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; has_cycle(s)</span></span><br><span class="line"><span class="string">    True</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; t = Link(1, Link(2, Link(3)))</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; has_cycle(t)</span></span><br><span class="line"><span class="string">    False</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; u = Link(2, Link(2, Link(2)))</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; has_cycle(u)</span></span><br><span class="line"><span class="string">    False</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="string">"*** YOUR CODE HERE ***"</span></span><br><span class="line">    <span class="keyword">if</span> link <span class="keyword">is</span> Link.empty:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        slow = link</span><br><span class="line">        fast = link.rest</span><br><span class="line">        <span class="keyword">while</span> fast <span class="keyword">is</span> <span class="keyword">not</span> Link.empty:</span><br><span class="line">            <span class="keyword">if</span> fast.rest <span class="keyword">is</span> Link.empty:</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">            slow = slow.rest</span><br><span class="line">            fast = fast.rest.rest</span><br><span class="line">            <span class="keyword">if</span> slow <span class="keyword">is</span> fast:</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+<p><span style = "color:red">The pdf solution</span></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">has_cycle</span><span class="params">(link)</span>:</span></span><br><span class="line">    <span class="string">"""Return whether link contains a cycle.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; s = Link(1, Link(2, Link(3)))</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; s.rest.rest.rest = s</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; has_cycle(s)</span></span><br><span class="line"><span class="string">    True</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; t = Link(1, Link(2, Link(3)))</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; has_cycle(t)</span></span><br><span class="line"><span class="string">    False</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; u = Link(2, Link(2, Link(2)))</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; has_cycle(u)</span></span><br><span class="line"><span class="string">    False</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    links = []</span><br><span class="line">    <span class="keyword">while</span> link <span class="keyword">is</span> <span class="keyword">not</span> Link.empty:</span><br><span class="line">        <span class="keyword">if</span> link <span class="keyword">in</span> links:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        links.append(link)</span><br><span class="line">        link = link.rest</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+<p>As an extra challenge, implement <code>has_cycle_constant</code> with only constant space. (If you followed the hint above, you will use linear space.) The solution is short (less than 20 lines of code), but requires a clever idea. Try to discover the solution yourself before asking around:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">has_cycle_constant</span><span class="params">(link)</span>:</span></span><br><span class="line">    <span class="string">"""Return whether link contains a cycle.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; s = Link(1, Link(2, Link(3)))</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; s.rest.rest.rest = s</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; has_cycle_constant(s)</span></span><br><span class="line"><span class="string">    True</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; t = Link(1, Link(2, Link(3)))</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; has_cycle_constant(t)</span></span><br><span class="line"><span class="string">    False</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="string">"*** YOUR CODE HERE ***"</span></span><br><span class="line">    <span class="keyword">if</span> link <span class="keyword">is</span> Link.empty:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">    slow, fast = link, link.rest</span><br><span class="line">    <span class="keyword">while</span> fast <span class="keyword">is</span> <span class="keyword">not</span> Link.empty:</span><br><span class="line">        <span class="keyword">if</span> fast.rest == Link.empty:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">        <span class="keyword">elif</span> fast <span class="keyword">is</span> slow <span class="keyword">or</span> fast.rest <span class="keyword">is</span> slow:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            slow, fast = slow.rest, fast.rest.rest</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+<p>This solution of this problem seems to be like my solution above.</p>
+<h1 id="Tree-Practice"><a href="#Tree-Practice" class="headerlink" title="Tree Practice"></a>Tree Practice</h1><h2 id="Q12-Reverse-Other"><a href="#Q12-Reverse-Other" class="headerlink" title="Q12: Reverse Other"></a>Q12: Reverse Other</h2><p>Write a function <code>reverse_other</code> that mutates the tree such that <strong>labels</strong> on every other (odd-depth) level are reversed. For example, <code>Tree(1,[Tree(2, [Tree(4)]), Tree(3)])</code> becomes <code>Tree(1,[Tree(3, [Tree(4)]), Tree(2)])</code>. Notice that the nodes themselves are not reversed; only the labels are.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">reverse_other</span><span class="params">(t)</span>:</span></span><br><span class="line">    <span class="string">"""Mutates the tree such that nodes on every other (odd-depth) level have the labels of their branches all reversed.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; t = Tree(1, [Tree(2), Tree(3), Tree(4)])</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; reverse_other(t)</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; t</span></span><br><span class="line"><span class="string">    Tree(1, [Tree(4), Tree(3), Tree(2)])</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; t = Tree(1, [Tree(2, [Tree(3, [Tree(4), Tree(5)]), Tree(6, [Tree(7)])]), Tree(8)])</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; reverse_other(t)</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; t</span></span><br><span class="line"><span class="string">    Tree(1, [Tree(8, [Tree(3, [Tree(5), Tree(4)]), Tree(6, [Tree(7)])]), Tree(2)])</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="string">"*** YOUR CODE HERE ***"</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">reverse_helper</span><span class="params">(t, need_reverse)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> t.is_leaf():</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        new_labs = [b.label <span class="keyword">for</span> b <span class="keyword">in</span> t.branches][::<span class="number">-1</span>]</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(b.branches)):</span><br><span class="line">            reverse_helper(b.branches[i], <span class="keyword">not</span> need_reverse)</span><br><span class="line">            <span class="keyword">if</span> need_reverse:</span><br><span class="line">                b.branches[i].label = new_labs[i]</span><br><span class="line">    reverse_helper(t, <span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/python/" rel="tag"># python</a>
+              <a href="/tags/SICP/" rel="tag"># SICP</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/10/22/cs61a-hw06/" rel="prev" title="cs61a-hw06">
+      <i class="fa fa-chevron-left"></i> cs61a-hw06
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/10/28/cs61a-disc07/" rel="next" title="cs61a-disc07">
+      cs61a-disc07 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Check-Off"><span class="nav-number">1.</span> <span class="nav-text">Check-Off</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Q1-A-Okay"><span class="nav-number">1.1.</span> <span class="nav-text">Q1: A-Okay</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Coding-Practice"><span class="nav-number">2.</span> <span class="nav-text">Coding Practice</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Q4-Link-to-List"><span class="nav-number">2.1.</span> <span class="nav-text">Q4: Link to List</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q5-Store-Digits"><span class="nav-number">2.2.</span> <span class="nav-text">Q5: Store Digits</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q6-Cumulative-Sum"><span class="nav-number">2.3.</span> <span class="nav-text">Q6: Cumulative Sum</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Midterm-Review-required"><span class="nav-number">3.</span> <span class="nav-text">Midterm Review (required)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Q7-Is-BST"><span class="nav-number">3.1.</span> <span class="nav-text">Q7: Is BST</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q8-In-order-traversal"><span class="nav-number">3.2.</span> <span class="nav-text">Q8: In-order traversal</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Linked-List-Practice"><span class="nav-number">4.</span> <span class="nav-text">Linked List Practice</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Q9-Remove-All"><span class="nav-number">4.1.</span> <span class="nav-text">Q9: Remove All</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q10-Mutable-Mapping"><span class="nav-number">4.2.</span> <span class="nav-text">Q10: Mutable Mapping</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q11-Cycles"><span class="nav-number">4.3.</span> <span class="nav-text">Q11: Cycles</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Tree-Practice"><span class="nav-number">5.</span> <span class="nav-text">Tree Practice</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Q12-Reverse-Other"><span class="nav-number">5.1.</span> <span class="nav-text">Q12: Reverse Other</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Guohang Ma</p>
+  <div class="site-description" itemprop="description">developer blog</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">136</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">38</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Guohang Ma</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

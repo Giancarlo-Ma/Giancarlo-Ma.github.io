@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="一直以来都想自己搭建个博客来记录下自己的学习历程和生活点滴，本来是想要用PHP从头搭建一个博客系统，不过刚好在这段时间在学习Vue，在很偶然的机会下，知道了Hexo这个博客搭建框架，便去繁从简，索性阅读了官方文档，打算以此记录下自己的学习历程。时间刚好到了2017年年底，便打算将对2017年的总结作为博客的第一篇文章。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2017年年终总结">
+<meta property="og:url" content="http://yoursite.com/2017/12/28/17%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:site_name" content="Giancarlo&#39;s Blog">
+<meta property="og:description" content="一直以来都想自己搭建个博客来记录下自己的学习历程和生活点滴，本来是想要用PHP从头搭建一个博客系统，不过刚好在这段时间在学习Vue，在很偶然的机会下，知道了Hexo这个博客搭建框架，便去繁从简，索性阅读了官方文档，打算以此记录下自己的学习历程。时间刚好到了2017年年底，便打算将对2017年的总结作为博客的第一篇文章。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2017-12-28T12:46:25.000Z">
+<meta property="article:modified_time" content="2020-06-07T02:09:33.320Z">
+<meta property="article:author" content="Guohang Ma">
+<meta property="article:tag" content="年终总结">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2017/12/28/17%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>2017年年终总结 | Giancarlo's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Giancarlo's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Code Life</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/28/17%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Guohang Ma">
+      <meta itemprop="description" content="developer blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Giancarlo's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          2017年年终总结
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-12-28 20:46:25" itemprop="dateCreated datePublished" datetime="2017-12-28T20:46:25+08:00">2017-12-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-06-07 10:09:33" itemprop="dateModified" datetime="2020-06-07T10:09:33+08:00">2020-06-07</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93/" itemprop="url" rel="index"><span itemprop="name">年终总结</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>一直以来都想自己搭建个博客来记录下自己的学习历程和生活点滴，本来是想要用PHP从头搭建一个博客系统，不过刚好在这段时间在学习Vue，在很偶然的机会下，知道了Hexo这个博客搭建框架，便去繁从简，索性阅读了官方文档，打算以此记录下自己的学习历程。时间刚好到了2017年年底，便打算将对2017年的总结作为博客的第一篇文章。<a id="more"></a></p>
+<h3 id="学习"><a href="#学习" class="headerlink" title="学习"></a>学习</h3><p>在2017年年初的时候，一个很偶然的机会下，我知道了JavaScript这门编程语言，了解到这是一个负责网站前端表现的脚本语言。由于一直以来对视觉表现美的追求，我渐渐地对网站的实现产生了浓厚的兴趣。于是，和大多数人一样，在慕课网上首先学习了基础的HTML和CSS，但是慕课网的HTML和CSS的教程相对基础，只是讲解了一些HTML和CSS中一些基本的规则，对一些需要深入理解的知识并未面面俱到。后来知道了百度前端技术学院这个平台，遂利用所学的HTML和CSS完成了前几个网页实现的作业。后来，意识到HTML和CSS并不是编程语言，因而开始了对于JS的学习。在拜读了《JavaScript Dom 编程艺术》，《JavaScript高级程序设计》之后，陆续做了百度前端学院和Freecodecamp上面的一些原生JS项目。渐渐感觉原生代码是如此繁琐，刚好在阅读别人博客的过程中，知道了一些库和框架的存在，最开始接触的是jQuery，通过阅读《锋利的jQuery》一书基本了解了jQuery的一些用法，深感开发可以如此便捷，也因此意识到不断学习新技术的重要性，往往原生JS中几行代码，通过jQuery一行就可以完成，实在是为开发人员带来了诸多便利。2017年的十月份，参加了校内某俱乐部的面试，当时给出的题目是一个“打飞机”游戏的JS实现，于是在完成题目的过程中，学习了Canvas的基本操作以及一些碰撞检测算法的实现。在后来验收的过程中，被问到对于JS框架的学习，虽然之前有听说过当下主流三大JS框架，但并没有深入学习，便决定回去之后选择其中一个来学习，最终还是从同为国人的尤雨溪开发的Vue开始了我对JS框架的学习，在对Vue的学习中，渐渐地被Vue的易用性、灵活性、高效性所吸引，并且对模块化开发有了一定的认识，也陆续接触了Webpack，Babel，Node这些当下比较流行的技术。</p>
+<p>总之，2017年里，在保证自己自动化学业课程完成的情况下，完成了对JS基础以及一些库和框架使用的学习。2018年里，还要继续巩固JS基础的学习以及ES6新语法，Nodejs, React等的学习，紧跟当下技术发展的方向，同时要恶补因非科班出身而较缺失的数据结构与算法知识，初步建立自身的学习体系。</p>
+<h3 id="音乐"><a href="#音乐" class="headerlink" title="音乐"></a>音乐</h3><p>从2015年年底开始弹吉他开始，大约也有两年的时间了，从最初几个和弦的弹唱到创作，再到如今发展为对音乐本身的学习，我想大概是因为真的热爱。从十岁那年听的人生中第一次单曲循环的逍遥叹开始，也过去了十二个春秋。十二年来，听的音乐的风格在不断地变化，渐渐感觉到有些时候，话语往往显得过分苍白，于是便渐渐地想要用音乐去表达一些东西。所幸在大学期间加入了吉协，认识到了一些很有创作才能的朋友，也从他们身上学到了许多东西。今年参加的新声代在聆听大家歌唱的时候，也在不断感受不同的人对音乐的表达。而最要庆幸的是，在比赛的过程中认识了康师傅，精彩的键盘表演让我对音乐有了新的理解，也藉此想要更加系统的学习音乐，遂买了电子琴，一切从零开始。</p>
+<p>2018年，在学习基本音乐理论的同时，预期学习《勋伯格和声学》，《作曲基本原理》，在音乐的学习路上洒一腔热爱。</p>
+<p>一首原创歌曲</p>
+<iframe src="//music.163.com/outchain/player?type=3&id=901554058&auto=1&height=66" width="330" height="86" frameborder="0" loading="lazy" allowfullscreen></iframe>
+
+<h3 id="生活"><a href="#生活" class="headerlink" title="生活"></a>生活</h3><p>2017年，遇见了很多的人，经历了许多的事，大概是个可爱的一年吧。</p>
+<p>*1月在疾驰的火车上看绿叶渐渐被霜染<br>在长春的街头<br>在铁岭的夜里<br>2月是家乡脚下的寒凉<br>3月是紫荆的喜欢<br>4月是日落黄昏的海上<br>静静在等待暮色降临的繁星<br>5月是海岛三人远去的背影<br>6月在塘前月色下静待花开<br>7月是塞北的石窟佛前下的肃穆<br>午夜的小摊里诉说着平凡<br>在金雕飞起的乌兰察布<br>却也未曾经过大草原的湖边<br>8月是夏日中故乡的清凉<br>9月天边拂晓下的微笑<br>也不再寂寥<br>10月是十九大背景下的不忘初心<br>11月是灯光背后的谢绝尘嚣<br>12月是考试月<br>*</p>
+<p>2017 年 12月 29日    </p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93/" rel="tag"># 年终总结</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2017/12/30/%E5%8F%98%E9%87%8F%E7%B1%BB%E5%9E%8B%E4%B8%8E%E8%AE%A1%E7%AE%97/" rel="next" title="变量类型和计算">
+      变量类型和计算 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#学习"><span class="nav-number">1.</span> <span class="nav-text">学习</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#音乐"><span class="nav-number">2.</span> <span class="nav-text">音乐</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生活"><span class="nav-number">3.</span> <span class="nav-text">生活</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Guohang Ma</p>
+  <div class="site-description" itemprop="description">developer blog</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">136</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">38</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Guohang Ma</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

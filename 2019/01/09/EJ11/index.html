@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="异步编程计算机的中心，也就是执行组成我们程序独立的步的部分叫做处理器。我们到目前为止所见的程序将会使处理器一直运转知道它们完成工作。修改数字的循环以多快的速度执行极度依赖处理器的速度。 但是许多程序与处理器外的东西交互。例如，它们可能通过计算机网络通讯或者从硬盘上请求数据，这些操作远比从内存中获取慢得多。 当这样的事情发生时，让处理器停转是一件遗憾的事情，存在可以同时做的一些其他的工作。在某种程度">
+<meta property="og:type" content="article">
+<meta property="og:title" content="EJ11">
+<meta property="og:url" content="http://yoursite.com/2019/01/09/EJ11/index.html">
+<meta property="og:site_name" content="Giancarlo&#39;s Blog">
+<meta property="og:description" content="异步编程计算机的中心，也就是执行组成我们程序独立的步的部分叫做处理器。我们到目前为止所见的程序将会使处理器一直运转知道它们完成工作。修改数字的循环以多快的速度执行极度依赖处理器的速度。 但是许多程序与处理器外的东西交互。例如，它们可能通过计算机网络通讯或者从硬盘上请求数据，这些操作远比从内存中获取慢得多。 当这样的事情发生时，让处理器停转是一件遗憾的事情，存在可以同时做的一些其他的工作。在某种程度">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://yoursite.com/2019/01/09/EJ11/asyn.png">
+<meta property="og:image" content="http://yoursite.com/2019/01/09/EJ11/Hieres-sur-Amby.png">
+<meta property="og:image" content="http://yoursite.com/2019/01/09/EJ11/test.png">
+<meta property="article:published_time" content="2019-01-09T12:45:40.000Z">
+<meta property="article:modified_time" content="2020-06-07T02:09:33.790Z">
+<meta property="article:author" content="Guohang Ma">
+<meta property="article:tag" content="technology software development blog">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2019/01/09/EJ11/asyn.png">
+
+<link rel="canonical" href="http://yoursite.com/2019/01/09/EJ11/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>EJ11 | Giancarlo's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Giancarlo's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Code Life</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/09/EJ11/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Guohang Ma">
+      <meta itemprop="description" content="developer blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Giancarlo's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          EJ11
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-01-09 20:45:40" itemprop="dateCreated datePublished" datetime="2019-01-09T20:45:40+08:00">2019-01-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-06-07 10:09:33" itemprop="dateModified" datetime="2020-06-07T10:09:33+08:00">2020-06-07</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Eloquent-JavaScript/" itemprop="url" rel="index"><span itemprop="name">Eloquent JavaScript</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="异步编程"><a href="#异步编程" class="headerlink" title="异步编程"></a>异步编程</h1><p>计算机的中心，也就是执行组成我们程序独立的步的部分叫做处理器。我们到目前为止所见的程序将会使处理器一直运转知道它们完成工作。修改数字的循环以多快的速度执行极度依赖处理器的速度。</p>
+<p>但是许多程序与处理器外的东西交互。例如，它们可能通过计算机网络通讯或者从硬盘上请求数据，这些操作远比从内存中获取慢得多。</p>
+<p>当这样的事情发生时，让处理器停转是一件遗憾的事情，存在可以同时做的一些其他的工作。在某种程度上，这是通过操作系统处理的，操作系统将会在多个运行程序间切换处理器。但是当我们想要让单个程序在等待网络请求的同时能够继续运行操作系统就帮不上忙了。</p>
+<a id="more"></a>
+
+<h2 id="异步性"><a href="#异步性" class="headerlink" title="异步性"></a>异步性</h2><p>在同步编程模型中，一次只能发生一件事。当你调用一个长时运行的函数时，只有当行为结束并且返回结果时他才会返回。当行为在进行时这阻塞了你的程序。</p>
+<p>一个异步模型允许多个事情同时发生。当你开始一个行为的时候，你的程序继续运行。当行为结束时，程序被通知然后获取结果（例如，从硬盘读取数据）。</p>
+<p>我们可以用一个小例子比较同步编程和异步编程：一个从网络获取两个资源的程序，随后将结果进行整合。</p>
+<p>在同步环境下，请求函数只在它完成工作后才可返回，最简单的做这个人物的方式是一个挨着另一个的发起请求。缺点在于第二个请求只有在第一个结束之后才可以发起。总时间至少是两次响应时间的和。</p>
+<p>这个问题的解，在一个同步系统中，是开一个额外的控制线程。一个线程（thread）是另一个运行的程序，通过操作系统，它的运行可能与其他程序交错进行，因为大多数现代计算机包含多个处理器，多个线程就可以同时在不同处理器运行。第二个线程可以发起第二个请求，然后两个线程等待响应，随后它们重新同步来组合结果。</p>
+<p>在下面的图中，粗线代表程序正常运行的时间，细线代表等待网络响应的时间。在同步模型中，花费在网络上的时间是给定控制线程的时间轴的一部分。在异步模型中，开始一个网络行为概念上导致时间轴上一个分叉。开启行为的程序继续运行，并且行为和它一同进行，当行为完成时通知程序。</p>
+<img src="/2019/01/09/EJ11/asyn.png" class="">
+
+<p>另一种描述区别的方式是，完成行为的等待在同步模型中是隐式的，而在异步模式中是显式的在我们控制下的。</p>
+<p>异步使得表达不适合直线模型的控制更简单，但是也能让表达直线程序更加尴尬。我们随后将会看一些解决这种尴尬性的方式。</p>
+<p>两个重要的JS编程平台，浏览器和Node.js，对于可能花费一些时间的操作采取异步策略，而不是依赖于线程。因为线程编程是出了名的困难（当一次做许多事情时理解一个程序做什么很困难），所以这通常被认为是个好事情。</p>
+<h2 id="乌鸦科技"><a href="#乌鸦科技" class="headerlink" title="乌鸦科技"></a>乌鸦科技</h2><p>大多数人知道乌鸦是非常小的鸟。它们可以使用工具，提前计划，记住事情，甚至在他们之间交流这些事情。</p>
+<p>大多数人不知道的是它们能够做许多我们不知道的事情。我曾经被一个鸦科专家告诉乌鸦科技离人类科技不远，它们正在努力追赶。</p>
+<p>例如，许多乌鸦文化有能力构建计算设备。这些不是像人类的计算设备的电子器件，而是通过小昆虫的行动来操作，一个和白蚁紧密相关的物种，已经与乌鸦建立了一种共生关系。鸟给它们提供食物，作为回报，昆虫构建并且操作它们的复杂的种群，在他们体内的生物的帮助下，进行计算。</p>
+<p>这些种群通常坐落于大的可长期居住的巢穴。鸟和昆虫一起工作，在鸟巢的树枝之间去建立一个球状粘土结构的网络，昆虫在里面生活和工作。</p>
+<p>为了和其他设备通信，这些机器使用光信号。乌鸦将一些反光材料嵌入到特殊的通信杆中，昆虫将这些材料用于反射另一个巢穴的光线，将数据编码为一个快速闪光序列。这意味着只有拥有完整视觉连接的巢穴才可以通信。</p>
+<p>我们的鸦科专家绘制了罗纳河岸上的amby村庄的乌鸦巢穴网络图，这张图展示了巢穴和他们之间的连接。</p>
+<img src="/2019/01/09/EJ11/Hieres-sur-Amby.png" class="">
+
+<p>在这个例子中，乌鸦计算机可以运行JS。在这一章中，我们将为他们写一些基本的网络功能。</p>
+<h2 id="回调"><a href="#回调" class="headerlink" title="回调"></a>回调</h2><p>一个异步编程的方法是让执行缓慢操作的函数接受一个额外的参数，一个回调函数。该操作被启动，当完成时，回调函数被用这个结果进行调用。</p>
+<p>作为一个例子，<code>setTimeout</code>函数等待给定的毫秒数（1秒是1000毫秒）然后调用一个函数。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="string">"Tick"</span>), <span class="number">500</span>);</span><br></pre></td></tr></table></figure>
+
+<p>等待通常不是一种非常重要的工作类型，但是当更新动画时或者检查是否有某件事情比预期时间花费了更长时间是是很有用的。</p>
+<p>在一行使用回调执行多个异步行为意味着你必须持续传递新的函数，在行为结束后处理计算过程的延续。</p>
+<p>大多数的乌鸦巢穴计算机有一个持久存储数据的电灯泡，在这个灯泡里，信息被蚀刻到细枝上，以便之后可以检索到，蚀刻或者查找数据花费一些时间，所以持久存储的接口是异步的并且使用回调函数。</p>
+<p>存储灯泡以JSON编码数据存储。一个乌鸦可能根据名字”food caches”来存储关于它隐藏食物的信息，可能是一个名字数组指向其他位置的数据，描述实际的贮藏地。为了在Big Oak的存储灯泡中查找一个食物贮藏地，一个乌鸦会运行这样的代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;bigOak&#125; <span class="keyword">from</span> <span class="string">"./crow-tech"</span>;</span><br><span class="line"><span class="comment">// bigOak由附录可知为一个node实例，包含storage对象信息，从中读取的food caches为一个数组</span></span><br><span class="line">bigOak.readStorage(<span class="string">"food caches"</span>, caches =&gt; &#123;</span><br><span class="line">    <span class="keyword">let</span> firstCache = caches[<span class="number">0</span>];</span><br><span class="line">    bigOak.readStorage(firstCache, info =&gt; &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(info);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>这种风格的编程是可行的，但是随着每一次异步行为缩进都会增加。如果做更复杂的如同时运行多个行为，可能有点不雅。</p>
+<p>乌鸦巢穴计算机用请求-响应对进行通讯。那意味着一个巢穴向另一个巢穴发送消息，另一个巢穴再回复消息，确认收到并且可能包含对所问问题的回复。</p>
+<p>每一个消息用一个类型来打标签，决定了它如何被处理。我们的代码可以为特定的请求类型定义处理程序，并且当这样的请求进来的时候，处理程序被调用产生一个回应。</p>
+<p>被”./crow-tech”模块输出的接口提供基于回调的通信函数。巢穴有一个<code>send</code>方法来发送一个请求。它接受目标巢穴的名字，请求的类型以及请求的内容作为前面三个参数，还接受最后一个参数，它是一个函数并在响应回来的时候调用。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 作为node实例的bigOak有send方法，接收目标节点，消息类型，消息内容和一个回调函数用于接收方处理完毕并发回响应时调用</span></span><br><span class="line">bigOak.send(<span class="string">"Cow Pasture"</span>, <span class="string">"note"</span>, <span class="string">"Let's caw loudly at 7PM"</span>, () =&gt; <span class="built_in">console</span>.log(<span class="string">"Note delivered."</span>));</span><br></pre></td></tr></table></figure>
+
+<p>但是为了使得巢穴可以接受这种请求，我们首先必须定义名为<code>note</code>的请求类型。处理这个请求的代码要在所有可以接受这种类型的消息的巢穴上都能运行。我们将假设乌鸦到处飞然后在所有巢穴安装我们的处理程序代码。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 网络实例上的defineRequestType方法，在network实例对象的types增加一个键值对，值为handler</span></span><br><span class="line"><span class="keyword">import</span> &#123;defineRequestType&#125; <span class="keyword">from</span> <span class="string">"./crow-tech"</span></span><br><span class="line"><span class="comment">// 定义"note"类型，并表明接收方收到该类型的处理函数，与上面的send一脉相承，在附录的send实现中，我们要在一定概率下，在接收方调用handler函数，在这里就是首先打印xxx收到了xxx内容，然后调用done函数，而done函数就是在10ms后调用send提供的callback函数（如果有error作为第一个参数传给callback），有点点绕。。。需要结合附录源码理解</span></span><br><span class="line">defineRequestType(<span class="string">"note"</span>, (nest, content, source, done) =&gt; &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`<span class="subst">$&#123;nest.name&#125;</span> received note: <span class="subst">$&#123;content&#125;</span>`</span>);</span><br><span class="line">    done();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p><code>defineRequestType</code>函数定义一种新类型的请求。例子添加了对”note”请求的支持，仅仅是为给定巢穴发送一个音符。我们的实现调用<code>console.log</code>如此我们可以确认请求到达了。巢穴有一个name属性保存着他们的名字。</p>
+<p>在某种程度上，异步是可以传染的。任何调用异步函数的函数本身必须是异步的，使用一个回调或者一个相似的机制来传递结果。与简单地返回值相比，调用回调更加复杂，所以需要以这种方式大规模构造程序并不好。</p>
+<h2 id="Promises"><a href="#Promises" class="headerlink" title="Promises"></a>Promises</h2><p>和抽象的概念相处要比可以被值表示的概念更容易。就异步行为而言，代替为将来某一刻要调用的函数做安排，你可以返回一个代表这个将来事件的对象。</p>
+<p>这就是标准中<code>Promise</code>类的用途。一个<em>promise</em>就是一个异步操作，可能在某个时刻完成并产生一个值。当这个值可以获取时能够通知任何对此感兴趣的人。</p>
+<p>最简单的创建promise的方式就是调用<code>Promise.resolve</code>。这个函数确保你给的值被包装在一个promise中。如果它已经是一个promise了，就简单的返回，否则你得到一个新的promise，并立刻以你的值返回。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> fifteen = <span class="built_in">Promise</span>.resolve(<span class="number">15</span>);</span><br><span class="line">fifteen.then(<span class="function"><span class="params">value</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="string">`Got <span class="subst">$&#123;value&#125;</span>`</span>));</span><br><span class="line"><span class="comment">// → Got 15</span></span><br></pre></td></tr></table></figure>
+
+<p>为了得到promise的结果，你可以使用它的<code>then</code>方法。这注册了一个回调函数当promise解析成功并且产生一个值时调用。你可以为单个promise添加多个回调函数，即使你在promise已经被解决（resolved, finished）后添加他们，它们也会被调用。</p>
+<p>但是那并不是<code>then</code>方法的全部功能。他返回另一个promise，这个promise解析为处理程序返回的值，或者如果返回一个promise，则等待这个promise，然后解析为其结果。</p>
+<p>将promise想象成一个将值移动到一个异步现实的设备是很有用的。一个正常值简单地在那。一个promise值就是可能已经在那或者可能在将来某个时间才会出现的值。根据promise定义的计算作用在这些包装值上，并且在值可用时异步执行。</p>
+<p>为了创建一个<code>promise</code>，你可以用<code>Promise</code>构造器。它有一个奇怪的接口，构造器接受一个函数作为参数，然后该函数被调用，传递给它一个函数去解析promise。它以这种方式工作，而不是用resolve方法，如此一来只有创建promise的代码才能解析它。</p>
+<p>这就是为<code>readStorage</code>函数创建的基于promise的接口。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 将读取storage的异步方法封装（实现通过直接读取节点的storage对象的name属性获得，并通过setTimeout伪装成异步）。</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">storage</span>(<span class="params">nest, name</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="params">resolve</span> =&gt;</span> &#123;</span><br><span class="line">        nest.readStorage(name, result =&gt; resolve(result));</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">storage(bigOak, <span class="string">"enemies"</span>);</span><br><span class="line">    .then(<span class="function"><span class="params">value</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="string">"Got"</span>, value));</span><br></pre></td></tr></table></figure>
+
+<p>这个异步函数返回一个有意义的值。这是promise主要的优点，它们简化了异步函数的使用。代替不得不传进去回调，基于promise的函数看上去像普通的函数：它们接收输入作为参数并且返回输出。唯一的区别就是输出还不可用。</p>
+<h2 id="失败"><a href="#失败" class="headerlink" title="失败"></a>失败</h2><p>常规的JS计算可以因抛出一个异常而失败。异步计算经常需要这样的东西。网络请求可能失败，或者异步计算的某部分代码会抛出异常。</p>
+<p>对于回调风格的异步编程最紧迫的问题就是确保失败正确报告给回调是非常困难的。</p>
+<p>一个广泛使用的规范就是传递给回调的第一个参数被用于表明行为失败，第二个包含当行为成功时产生的值。这样的回调函数必须检查是否产生了异常并确保它们调用函数导致的抛出的异常，被捕获并传递给正确的函数。</p>
+<p>promise使得这个很容易。它们要么可以被resolved（动作成功结束）或者rejecteds（失败了）。resolve处理程序（用then注册）只在动作成功才调用，并且rejections自动传播到由then返回的新的promise。当一个处理程序抛出异常时，这自动导致由then调用产生的promise被rejected。所以如果任何在异步动作链中的元素失败，整个链的输出都被标记为rejected，并且在失败的点的后面没有成功处理程序被调用。</p>
+<p>就像resolve一个promise提供一个值一样，reject也会提供一个值，通常叫做rejection的reason。当一个处理函数的异常导致了rejection，异常值被用作reason。相似地，当一个处理程序返回一个rejected的promise，这个rejection流动到下一个promise。有一个<code>Promise.reject</code>函数立刻创建一个全新的rejected的promise。</p>
+<p>为了明确处理rejections，promise有一个<code>catch</code>方法注册一个处理程序用于在promise被reject时调用，与<code>then</code>处理程序如何处理正常的resolve类似。在返回新的promise方面也非常类似<code>then</code>方法。如果<code>catch</code>处理程序抛出错误，那么新的promise也是rejected的。</p>
+<p>作为一种简略的表达形式，<code>then</code>也接受一个rejection处理程序作为它的第二个参数，所以可以在单个方法调用中安装两种类型的处理程序。</p>
+<p>传递给<code>Promise</code>构造器的函数接收第二个参数，挨着resolve函数，可被用于reject新的promise。</p>
+<p>由then和catch调用产生的promise值链可以被看作是一个流水线，通过这个流水线，异步值或者失败移动。因为这样的链通过注册处理程序创建，每一个链接都关联一个成功处理程序或者一个rejection处理程序或者二者皆有，不匹配输出（成功或者失败）类型的处理程序被忽略。但是那些类型匹配的被调用，并且他们的输出决定了即将到来的值的类型，如果返回一个非promise值就成功，抛出异常则reject，如果返回promise则取决于promise返回的结果。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">_, reject</span>) =&gt;</span> reject(<span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">"Fail"</span>)))</span><br><span class="line">  .then(<span class="function"><span class="params">value</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="string">"Handler 1"</span>))</span><br><span class="line">  .catch(<span class="function"><span class="params">reason</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"Caught failure "</span> + reason);</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"nothing"</span>;</span><br><span class="line">  &#125;)</span><br><span class="line">  .then(<span class="function"><span class="params">value</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="string">"Handler 2"</span>, value));</span><br><span class="line"><span class="comment">// → Caught failure Error: Fail</span></span><br><span class="line"><span class="comment">// → Handler 2 nothing</span></span><br></pre></td></tr></table></figure>
+
+<p>就像未捕获的异常由环境处理一样，当一个promise rejection没有被处理时JS环境可以检测到并且将其作为错误报告。</p>
+<h2 id="网络很难"><a href="#网络很难" class="headerlink" title="网络很难"></a>网络很难</h2><p>偶尔，对于乌鸦的镜像系统没有足够的光去传播一个信号或者有东西阻塞了信号传播。对于一个发出的信号但是永不会接收到是有可能的。</p>
+<p>实际上，这将导致send的回调永远不会调用，这可能导致程序终止，而且我们甚至没有意识到存在问题。如果在给定时间过后还没有收到回应，请求超时并报告失败是不错的。</p>
+<p>通常，传输失败是随机的意外，比如汽车的车头灯干扰了光信号，简单地重新尝试请求可能会成功。所以在此过程中，让我们的请求函数在它放弃之前重新发送请求多次。</p>
+<p>既然我们已经认定promise是个好东西，我们也要让我们的请求函数返回一个promise。就它们可以表达的而言，回调和primise是等同的。基于回调的函数可以被包装来暴露一个基于promise的接口，反之亦然。</p>
+<p>即使当一个请求和响应成功送达，响应也可能会失败，例如，如果请求还没有定义的类型或者处理程序抛出一个错误。为了支持这个，send和defineRequestType遵循之前提及的规范，传递给回调的第一个参数是失败的原因，第二个是实际的结果。</p>
+<p>通过我们的包装器可以解释为promise的resolution和rejection。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使超时容易被区分</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Timeout</span> <span class="keyword">extends</span> <span class="title">Error</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">request</span>(<span class="params">nest, target, type, content</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> done = <span class="literal">false</span>;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">attempt</span>(<span class="params">n</span>) </span>&#123;</span><br><span class="line">      <span class="comment">// send的回调如果在发送或者处理过程过程中产生error，那么通过failed可以检测到并将错误reject到链式调用的下一步</span></span><br><span class="line">      nest.send(target, type, content, (failed, value) =&gt; &#123;</span><br><span class="line">        done = <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">if</span> (failed) reject(failed);</span><br><span class="line">        <span class="keyword">else</span> resolve(value);</span><br><span class="line">      &#125;);</span><br><span class="line">      setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (done) <span class="keyword">return</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (n &lt; <span class="number">3</span>) attempt(n + <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">else</span> reject(<span class="keyword">new</span> Timeout(<span class="string">"Timed out"</span>));</span><br><span class="line">      &#125;, <span class="number">250</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    attempt(<span class="number">1</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>非原文翻译</strong>：这里额外做一下解释，以免将来忘记。我们这里的意图是想把<code>request</code>函数包装为promise形式。回调版本是基于对象调用，我们这里封装成一个函数，需要把源对象带上，也就是nest，这里作为新函数的第一个参数，而因为不需要callback，所以参数列表还是四个参数。然后我们调用request函数的时候，立刻执行promise构造器中的函数，首先初始化done为false来表示我们还未收到响应，随后调用attempt函数也就是开始尝试发送请求，这个通过nest对象的send方法实现，也是”crow-tech”包中提供的方法。这个方法的第四个参数是响应收到时的回调函数。我们调用send方法之后，由于它是异步方法，所以无需等待立刻执行setTimeout这也是一个异步函数，那么等待250毫秒之后，若我们在这个等待过程中已经收到响应了，那么就会先调用上面send方法的回调函数，就会将done设置为false。若这个等待时间过了，还没有执行刚刚的回调函数，说明响应因为某种原因没有收到，我们调用attempt并把参数值加1，使得三次attempt不成功之后就放弃并报出超时。这里还有一个地方没有说明，就是即便我们收到了响应，由于消息类型未知或者对于该消息的处理程序出现问题，我们也会失败，所以done设置为true之后，还要判断回调函数的第一个参数是不是被设置了，因为上面提到回调函数遵循的规范是第一个参数表明是否失败，而第二个参数才是回调返回的值。如果第一个参数被设置，说明在刚刚说的某个环节出现了问题，那么我们依然要reject，否则才是彻底的没问题，我们resolve结果即可。并一旦在attempt三次之内将done设置为true，我们下一次的执行的setTimeout就会return了。至此函数执行完毕。</p>
+<p>因为promise只可以被resolve或者reject一次，这会工作。第一次resolve或者reject调用决定了promise的输出，任何下面的调用，比如在请求完成之后超时到达或者请求在另一次请求完成之后回来，都被忽略了。</p>
+<p>为了构建一个异步的循环，对于重新尝试，我们需要一个递归函数，一个普通的循环不允许我们等待一个异步行为。attempt函数做单个attempt去发送一个请求。它也设置了一个超时，也就是说如果250毫秒过后没有响应，要么开始下一次尝试要么如果这是第四次尝试，就用Timeout的一个实例作为reason来reject promise。</p>
+<p>每0.25秒重新请求并且1秒后没有响应就直接放弃当然有点武断。如果请求确实传送到了但是对于多次投递的请求处理程序多花费了点时间是可能的。我们将在编写处理程序的时候考虑这个问题——重复的消息应是无害的。</p>
+<p>一般来说，我们今天不会构建一个世界级的，健壮的网络。但是那是ok的——乌鸦并没有太高的期望。</p>
+<p>为了完全使我们隔离回调，我们继续，也要为<code>defineRequestType</code>定义一个包装器，使之允许处理函数返回一个promise或者普通的值，并将其和回调连接起来。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 将定义消息类型包装到一个基于promise的函数中</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">requestType</span>(<span class="params">name, handler</span>) </span>&#123;</span><br><span class="line">  defineRequestType(name, (nest, content, source, callback) =&gt; &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="built_in">Promise</span>.resolve(handler(nest, content, source)).then(<span class="function"><span class="params">response</span> =&gt;</span> callback(<span class="literal">null</span>, response), failure =&gt; callback(failure));</span><br><span class="line">    &#125; <span class="keyword">catch</span> (exception) &#123;</span><br><span class="line">      callback(exception);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>非原文翻译：首先我们这个函数只是调用了defineRequestType这个函数，而在源代码实现中，这个函数只是将network实例的types属性上增加一个名为name的属性，其值为这里传入的handler。而它真正要被用到的是在后面的send函数中，我们在接收节点对数据的处理。而我们在这里传入的handler（接收三参数）并没有直接应用到对应的消息类型，而是将新函数内部的一个四参数的handler应用到该消息类型（每种消息类型都需要一个四参数的handler，最后一个参数包含回调），因为我们最终源代码里应用的是一个四参数的handler，那么我们调用者传入的handler要做什么呢？这个handler只接受三个参数，用于单纯的处理工作，而异步部分由promise完成。我们这里的Promise.resolve接收handler处理的结果，返回的值可能是JS原始值或者是promise值，而如果是原始值，那么就执行then的第一个参数，如果是promise值，就要根据resolve还是reject执行then的对应参数了。并且因为handler函数也可能抛出错误，这时then方法就帮不上什么忙了，需要catch其中的错误，并传递给回调函数。</strong></p>
+<p><code>Promise.resolve</code>被用于将一个<code>handler</code>返回的值转换成promise（如果不是promise）。</p>
+<p>注意对<code>handler</code>的调用被包装在<code>try</code>块中来保证任何抛出的异常直接给到回调函数。这很好地阐述了使用原始回调正确处理错误的困难——很容易忘记将异常像这样正确地路由，并且如果你不做这个，失败将不会报告到正确的回调。promise使得这个大多数都是自动的并且更不易出错。</p>
+<h2 id="promise集合"><a href="#promise集合" class="headerlink" title="promise集合"></a>promise集合</h2><p>每一个巢穴计算机在他的<code>neighbors</code>属性中保存了传输距离内的其他巢穴的数组。为了检查哪些是当前可达的，你可以写一个函数尝试去发送”ping”请求到所有neighbor并观察哪些会有所响应。</p>
+<p>当处理运行在同一时间的promise集合时，<code>Promise.all</code>函数是很有用的。它返回一个promise，这个promise等待数组中所有的promise去resolve，然后resolve到一个这些promise产生的值的数组（和原数组一样的顺序）。如果任何promise被reject了，那么<code>Promise.all</code>的结果本身也是reject。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义一种消息类型并指定其handler</span></span><br><span class="line"><span class="comment">// 接收到ping消息类型时，handler返回pong</span></span><br><span class="line">requestType(<span class="string">"ping"</span>, () =&gt; <span class="string">"pong"</span>);</span><br><span class="line"><span class="comment">// 这里我们要找到从某一巢穴可达的邻居集合，以数组形式体现</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">availableNeighbor</span>(<span class="params">nest</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> requests = nest.neighbors.map(<span class="function"><span class="params">neighbor</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> request(nest, neighbor, <span class="string">"ping"</span>)</span><br><span class="line">    .then(<span class="function"><span class="params">()</span> =&gt;</span> <span class="literal">true</span>, () =&gt; <span class="literal">false</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="comment">// requests是一个promise数组，并且promise状态都为resolved，只是值有的为true，有的为false</span></span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Promise</span>.all(requests).then(<span class="function"><span class="params">result</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> nest.neighbors.filter(<span class="function">(<span class="params">_, i</span>) =&gt;</span> result[i])</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>非原文翻译</strong>：对上述代码进一步解释一下，首先nest.neighbors是响应巢穴的邻居数组，数组的map方法用于在数组上每个元素执行一个方法，并把得到的值替换到数组相应位置并返回这个新构造的数组。那么我们通过map方法构建了一个promise的数组，数组首先调用request函数，如果promise被resolve，那么我们调用then方法的第一个函数参数，否则调用then方法的第二个函数参数。结果就是产生了相应promise值为true或者false的promise对象，（<em>这里我查看了浏览器端promise对象包含的内容，发现promise对象由PromiseStatus和PromiseValue两部分组成，如图示</em>）这样我们获得了一个promise数组，并且对于不可达的也就是reject的位置我们将其promiseValue设置为false。这样是为了后面我们Promise.all方法不会fail，从而能成功调用then方法的第一个参数，所以我们利用filter的第二个参数是当前数组索引的事实，来成功筛选出那些promise含有值true的巢穴。</p>
+<img src="/2019/01/09/EJ11/test.png" class="">
+
+<p>当一个neighbor不可得时，我们不想要整个组合的promise fail因为那样我们仍然不知道任何东西。所以映射到邻居集合的函数将他们转换为请求promise关联的处理程序成功的返回true，失败的返回false。</p>
+<p>在组合的promise的处理函数中，filter被用于从邻居数组中移除那些对应值是false的元素。这利用了filter将当前元素的数组索引传递为第二个参数的事实（map,some和相似的高阶数组方法都是一样的）。</p>
+<h2 id="网络洪泛"><a href="#网络洪泛" class="headerlink" title="网络洪泛"></a>网络洪泛</h2><p>巢穴只可以和他们邻居聊天的方式极大的抑制了网络的用途。</p>
+<p>为了广播信息到整个网络，一个解决方案就是建立一种类型的请求来自动向邻居转发。这些邻居反过来在向它们的邻居转发，直到整个网络收到消息。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// everywhere是一个绑定到network实例执行的函数，对network的nodes对象的各个属性执行传入的函数</span></span><br><span class="line"><span class="keyword">import</span> &#123;everywhere&#125; <span class="keyword">from</span> <span class="string">"./crow-tech"</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 为network中的nodes对象中的各节点对象调用该函数</span></span><br><span class="line"><span class="comment">// 每个节点对象含有一个state属性对象，我们为了避免重复发送gossip，需要记录一个接受过的gossip数组。</span></span><br><span class="line">everywhere(<span class="function"><span class="params">nest</span> =&gt;</span> &#123;</span><br><span class="line">  nest.state.gossip = [];</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 从某一节点向除了exceptFor之外的其他邻居节点发送gossip</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sendGossip</span>(<span class="params">nest, message, exceptFor = null</span>) </span>&#123;</span><br><span class="line">  nest.state.gossip.push(message);</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">let</span> neighbor <span class="keyword">of</span> nest.neighbors) &#123;</span><br><span class="line">    <span class="keyword">if</span>(neighbor == exceptFor) <span class="keyword">continue</span>;</span><br><span class="line">    request(nest, neighbor, <span class="string">"gossip"</span>, message)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 定义接收gossip时应该如何处理，注意这里传入的handler就是三参数的handler，不包含回调，因为我们在上面封装的函数中已经做处理了</span></span><br><span class="line">requestType(<span class="string">"gossip"</span>, (nest, message, source) =&gt; &#123;</span><br><span class="line">  <span class="comment">// 如果已经见过了该消息，那么就不再继续处理</span></span><br><span class="line">  <span class="keyword">if</span>(nest.state.gossip.includes(message)) <span class="keyword">return</span>;</span><br><span class="line">  <span class="comment">// 打印一段提示性信息</span></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`<span class="subst">$&#123;nest.name&#125;</span> received gossip '<span class="subst">$&#123;message&#125;</span>' from <span class="subst">$&#123;source&#125;</span>`</span>);</span><br><span class="line">  <span class="comment">// 向除了源节点外的其他邻居节点发送gossip</span></span><br><span class="line">  sendGossip(nest, message, source);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>为了避免一直在网络中发送重复的消息，每一个巢穴保持它已经看见的gossip的字符串数组。为了定义这个数组，我们使用了<code>everywhere</code>函数——在每个巢穴上运行代码——对巢穴的state对象添加一个属性，在这个属性上我们保存巢穴局部的状态。</p>
+<p>当一个巢穴收到一个重复的gossip消息，这个消息很有可能是别人盲目的重新发送过来的，它就会忽略他。但是当收到一个新消息的时候，它会将消息发送给除了发给它的那个源的其他所有邻居。</p>
+<p>这将会使得一段gossip在网络中的传播犹如在水中墨水的扩散过程一样。即使有一些连接当前无效，如果有一个去给定巢穴的替代路由，这个gossip也会经由替代路由到达那里。</p>
+<p>这种类型的网络通信叫做洪泛（flooding）——用一段信息洪范到整个网络直到所有节点接收到。</p>
+<p>我们可以调用<code>sendGossip</code>来在整个村庄发送消息。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sendGossip(bigOak, <span class="string">"Kids with airgun in the park"</span>);</span><br></pre></td></tr></table></figure>
+
+<h2 id="消息路由"><a href="#消息路由" class="headerlink" title="消息路由"></a>消息路由</h2><p>如果一个给定节点想要和其他单个节点聊天，洪泛不是一个非常高效的方法。尤其当网络很大的时候，那将会导致大量无用信息的传输。</p>
+<p>一个替代方案是开发一种新的方式让消息去从一个节点跳到另一个节点直到它们到达终点。这种方案的困难之处在于需要知道整个网络的结构。为了向遥远的巢穴发送一个请求，需要知道哪一个邻居巢穴可以转发这个消息到终点。发送到错误的方向不是太好。</p>
+<p>因为每个巢穴都只知道直接相连的邻居，没有需要的信息去计算一个路由。我们必须以某种方式传播这些连接信息到所有的巢穴，最好是以一种可随时间动态变化的方式，比如当巢穴被遗弃或者新的巢穴被建筑。</p>
+<p>我们可以再一次使用洪泛，但是不在检查消息是否已经收到过，而是检查给定巢穴的新的邻居集合是否匹配我们当前它的邻居集合。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义消息类型以及三参数的handler，注意这里的消息内容是一个含有两个属性的对象</span></span><br><span class="line">requestType(<span class="string">"connections"</span>, (nest, &#123;name, neighbors&#125;, source) &#123;</span><br><span class="line">  <span class="comment">// 和上面ping pong的函数类似，首先要获取到我们定义在state对象上的connections，为一个map，包含一个键值对，键为自己的name，值为neighbors数组</span></span><br><span class="line">  <span class="keyword">let</span> connections = nest.state.connections;</span><br><span class="line">  <span class="comment">// 接收到的neighbors若和之前name下记录的neighbors相同，则不做任何改动</span></span><br><span class="line">  <span class="comment">// 这里还有一个关于数组比较的小hack</span></span><br><span class="line">  <span class="keyword">if</span>(<span class="built_in">JSON</span>.stringify(connections.get(name)) == <span class="built_in">JSON</span>.stringify(neighbors)) <span class="keyword">return</span>;</span><br><span class="line">  <span class="comment">// 说明有变动或者初次接收这个连接信息</span></span><br><span class="line">  <span class="comment">// 在自己的连接状态map中为这个name增加一个键值对</span></span><br><span class="line">  connections.set(name, neighbors);</span><br><span class="line">  <span class="comment">// 广播连接信息</span></span><br><span class="line">  broadcastConnections(nest, name, source);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// </span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">broadcastConnections</span>(<span class="params">nest, name, exceptFor = null</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 除了exceptFor指明的邻居，向其他邻居发送connection类型的消息，内容为一个包含该name以及对应name的neighbors数组的对象。</span></span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">let</span> neighbor <span class="keyword">of</span> nest.neighbors) &#123;</span><br><span class="line">    <span class="keyword">if</span>(neighbor == exceptFor) <span class="keyword">continue</span>;</span><br><span class="line">    request(nest, neighbor, <span class="string">"connections"</span>, &#123;</span><br><span class="line">      name,</span><br><span class="line">      neighbors: nest.state.connections.get(name)</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 对网络中的所有节点进行的操作</span></span><br><span class="line">everywhere(<span class="function"><span class="params">nest</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// 在每个节点的state对象上新增一个connections属性，并将其初始化为一个map</span></span><br><span class="line">  nest.state.connections = <span class="keyword">new</span> <span class="built_in">Map</span>;</span><br><span class="line">  <span class="comment">// 在节点的connections map上新增本身的name和neighbors键值对</span></span><br><span class="line">  nest.state.connections.set(nest.name, nest.neighbors);</span><br><span class="line">  <span class="comment">// 从自己开始广播connections，由于每个节点从自身开始，这一步不包含exceptFor</span></span><br><span class="line">  broadcastConnections(nest, nest.name);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>比较使用了<code>JSON.stringify</code>由于==，在对象或者数组只在两个是一样的引用的时候才返回true，并不是我们在这里想要的结果。而比较JSON字符串是一种简单高效的比较内容的方法。</p>
+<p>节点立刻开始广播它们的连接，除非有些巢穴完全不可达，否则很快就使得每个巢穴获得当前网络图的结构。</p>
+<p>如同我们在第七章看到的一样，你可以用图来做的一件事就是在图中寻找路由。如果我们有一个朝着消息终点的路由，我们知道要把它发送到哪个方向。</p>
+<p>这个<code>findRoute</code>函数，非常类似第七章的<code>findRoute</code>函数，寻找到达网络中一个给定节点的路径。但是代替返回整个路由，它仅仅返回下一跳。下一跳是用自己当前关于整个网络的信息得到的。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// BFS找路径</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">findRoute</span>(<span class="params">from, to, connections</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> work = [&#123;<span class="attr">at</span>: <span class="keyword">from</span>, <span class="attr">via</span>: <span class="literal">null</span>&#125;];</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; work.length; i++) &#123;</span><br><span class="line">    <span class="keyword">let</span> &#123;at, via&#125; = work[i];</span><br><span class="line">    <span class="comment">// 如果不存在at的connections信息，用[],不加这个或会导致这种情况报错</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> next <span class="keyword">of</span> connections.get(at) || []) &#123;</span><br><span class="line">      <span class="comment">// 如果已经找到一个路径</span></span><br><span class="line">      <span class="keyword">if</span>(next == to) <span class="keyword">return</span> via;</span><br><span class="line">      <span class="comment">// 如果有一个邻居没有访问过，就加到向外生长的队列中</span></span><br><span class="line">      <span class="keyword">if</span>(!work.some(<span class="function"><span class="params">w</span> =&gt;</span> w.at == next)) &#123;</span><br><span class="line">        <span class="comment">// 初始情况via为null，所以这种情况下的via为next</span></span><br><span class="line">        work.push(&#123;<span class="attr">at</span>: next, <span class="attr">via</span>: via || next&#125;);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>现在我们构建了一个可以发送长距离消息的函数。如果这个消息的终点是直接邻居，那么就正常投递。否则，被包装到一个对象中，并且发送到一个靠近终点的邻居，使用”route”请求类型，这个行为会导致邻居重复相同的行为。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 在看过前面几个代码例子后，我们发现就是我们每次增加需求的时候，都需要定义两个函数</span></span><br><span class="line"><span class="comment">// 一个就是定义消息类型的函数</span></span><br><span class="line"><span class="comment">// 另一个就是发送这种消息请求的函数</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 发送一个路由请求</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">routeRequest</span>(<span class="params">nest, target, type, content</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 当要发送的终点节点是直接邻居时，正常发送request即可</span></span><br><span class="line">  <span class="keyword">if</span>(nest.neighbors.includes(target)) &#123;</span><br><span class="line">    <span class="keyword">return</span> request(nest, target, type, content);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">// 否则我们需要利用findRoute寻找下一跳</span></span><br><span class="line">    <span class="keyword">let</span> via = findRoute(nest.name, target, nest.state.connections);</span><br><span class="line">    <span class="comment">// 有可能找不到这样的路由，需要抛出错误</span></span><br><span class="line">    <span class="keyword">if</span>(!via) <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">`No such route to <span class="subst">$&#123;target&#125;</span>`</span>);</span><br><span class="line">    <span class="comment">// 否则向下一跳发送包装过后的content。消息类型为route</span></span><br><span class="line">    <span class="keyword">return</span> request(nest, via, <span class="string">"route"</span>, &#123;target, type, content&#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义route消息类型，直接调用routeRequest</span></span><br><span class="line">requestType(<span class="string">"route"</span>, (nest, &#123;target, type, content&#125;) =&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> routeRequest(nest, target, type, content);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>我们现在可以向church tower巢穴发送一个消息了，有四跳那么远。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">routeRequest(bigOak, <span class="string">"Church Tower"</span>, <span class="string">"note"</span>, <span class="string">"Incoming jackdaws!"</span>);</span><br></pre></td></tr></table></figure>
+
+<p>我们已经在原始通讯系统上构建了几层的功能来使他更容易使用。这是一个很好（虽然简化了）的真实计算机网络工作模型。</p>
+<p>计算机网络的不同的地方在于它们是不可依赖的——构建在它们上边的抽象并不能帮到什么忙，但是你不能将网络失败抽象走。所以网络编程通常是关于预测和处理失败。</p>
+<h2 id="async函数"><a href="#async函数" class="headerlink" title="async函数"></a>async函数</h2><p>为了存储重要的信息，乌鸦们可以在巢穴间复制信息。以这种方式，就不怕老鹰过来破坏他们的巢穴而致使信息丢失了。</p>
+<p>为了检索自己巢穴没有储存的信息，一个巢穴计算机不得不随机向网络中的其他巢穴寻求帮助直到它们找到一个拥有这个信息的巢穴。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 我们定义一个storage的消息类型，handler只需要name参数即可，第一个nest为接收方节点对象，然后返回调用storage函数的结果。</span></span><br><span class="line">requestType(<span class="string">"storage"</span>, (nest, name) =&gt; storage(nest, name));</span><br><span class="line"></span><br><span class="line"><span class="comment">// 前面将storage封装为了promise版本，接收到返回结果后，执行then中的函数，如果当前节点找得到，那么直接返回，否则调用findRemoteStorage</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">findInStorage</span>(<span class="params">nest, name</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> storage(nest, name).then(<span class="function"><span class="params">found</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (found != <span class="literal">null</span>) <span class="keyword">return</span> found;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">return</span> findInRemoteStorage(nest, name);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// connections是一个map对象，keys方法返回一个iterator，用Array.from可以将其包装为一个数组。</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">network</span>(<span class="params">nest</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Array</span>.from(nest.state.connections.keys());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">findInRemoteStorage</span>(<span class="params">nest, name</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 将connections对象中等于当前nest name的筛选掉，只剩下非当前nest的其他nest的connections信息</span></span><br><span class="line">  <span class="keyword">let</span> sources = network(nest).filter(<span class="function"><span class="params">n</span> =&gt;</span> n != nest.name);</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">next</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 如果全被筛选掉了，直接reject到findInStorage</span></span><br><span class="line">    <span class="keyword">if</span> (sources.length == <span class="number">0</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(<span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">"Not found"</span>));</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="comment">// 随机选中一个source，将其筛选出去，留下其余</span></span><br><span class="line">      <span class="keyword">let</span> source = sources[<span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random() * sources.length)];</span><br><span class="line">      sources = sources.filter(<span class="function"><span class="params">n</span> =&gt;</span> n != source);</span><br><span class="line">      <span class="comment">// 从当前节点向随机出去的节点发送storage类型的消息，如果返回值为null，则继续调用next直到reject或者找到一个非nulll的值</span></span><br><span class="line">      <span class="keyword">return</span> routeRequest(nest, source, <span class="string">"storage"</span>, name).then(<span class="function"><span class="params">value</span> =&gt;</span> value != <span class="literal">null</span> ? value : next(), next);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> next();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>因为connections是一个map。Object.keys在map不能用。map有个keys方法，但是这返回一个itertor而不是一个数组。一个iterator（或者iterable）可以通过<code>Array.from</code>转换成数组。</p>
+<p>即便是用promise这段代码也比较笨拙的。多个异步动作以一种不明显的方式链到一起。我们再一次需要一个递归函数（next）来为在这些巢穴间的循环建模。</p>
+<p>代码实际上做的事完全线性的，他总是等待前面的行动完成才开始下一次行动。用一种同步的编程模型，这可能更容易去表达。</p>
+<p>好消息是JS允许你书写伪同步代码去描述异步计算。<code>async</code>函数是隐式返回promise的函数，并且它可以在函数体内以一种看上去像同步的方式<code>await</code>其他promises。</p>
+<p>我们可以像这样重写<code>findInStorage</code>函数。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">findInStorage</span>(<span class="params">nest, name</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> local = <span class="keyword">await</span> storage(nest, name);</span><br><span class="line">  <span class="keyword">if</span> (local != <span class="literal">null</span>) <span class="keyword">return</span> local;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> sources = network(nest).filter(<span class="function"><span class="params">n</span> =&gt;</span> n != nest.name);</span><br><span class="line">  <span class="keyword">while</span> (sources.length &gt; <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> source = sources[<span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random() * sources.length)];</span><br><span class="line">    sources = sources.filter(<span class="function"><span class="params">n</span> =&gt;</span> n != source;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="keyword">let</span> found = <span class="keyword">await</span> routeRequest(nest, source, <span class="string">"storage"</span>, name);</span><br><span class="line">      <span class="keyword">if</span> (found != <span class="literal">null</span>) <span class="keyword">return</span> found;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (_) &#123;&#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">"Not found"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>async</code>函数通过在<code>function</code>关键字之前加一个<code>async</code>单词标记。方法也可以成为<code>async</code>的通过在它们的名字之前写一个<code>async</code>。当这样的函数或者方法调用时，它返回一个promise。函数体一返回什么的时候，这个promise就被resolve了。如果抛出异常，则promise被reject。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">findInStorage(bigOak, <span class="string">"events on 2017-12-21"</span>).then(<span class="built_in">console</span>.log);</span><br></pre></td></tr></table></figure>
+
+<p>在一个<code>async</code>函数中，<code>await</code>单词可以放在一个表达式之前用来等待一个promise去resolve并且只有那样才继续执行函数。</p>
+<p>这样的函数不再像一个普通的JS函数，从头运行到尾。法案二，他可以在任何有<code>await</code>的地方被冻结，并且可在之后继续执行。</p>
+<p>对于重要的异步代码，这种改变通常比直接使用promise更方便。即使你需要做一些不遵循同步模型的事情，例如在同一时刻采取多个行动，组合<code>await</code>和promise的直接使用是很容易的。</p>
+<h2 id="Generators"><a href="#Generators" class="headerlink" title="Generators"></a>Generators</h2><p>这种可以暂停并再次继续函数的能力不是<code>async</code>专有的。JS还有一个叫做<code>generator</code>函数的特性。它们是相似的，但是generator没有promise。</p>
+<p>当你用<code>function*</code>定义函数的时候（在关键字function后添加一个*），它就变成了一个generator。当你调用一个generator的时候，它返回一个iterator，我们在第六章已经说明过。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">powers</span>(<span class="params">n</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">let</span> current = n;; current *= n) &#123;</span><br><span class="line">    <span class="keyword">yield</span> current;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> power <span class="keyword">of</span> powers(<span class="number">3</span>)) &#123;</span><br><span class="line">  <span class="keyword">if</span>(power &gt; <span class="number">50</span>) <span class="keyword">break</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(power);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// -&gt; 3</span></span><br><span class="line"><span class="comment">// -&gt; 9</span></span><br><span class="line"><span class="comment">// -&gt; 27</span></span><br></pre></td></tr></table></figure>
+
+<p>初始情况下，当你调用<code>powers</code>的时候，这个函数开始被冻结。每一次在iterator上调用<code>next</code>的时候，函数运行直到遇见一个<code>yield</code>表达式，暂停并导致<code>yield</code>的值成为iterator下一个产生的值。当函数返回的时候（例子中并没有返回），iterator结束。</p>
+<p>当使用generator函数时更容易书写iterator。<code>Group</code>类的iterator（第六章练习）可以用这个generator来写。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Group.prototype[<span class="built_in">Symbol</span>.iterator] = <span class="function"><span class="keyword">function</span>*(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="keyword">this</span>.members.length; i++) &#123;</span><br><span class="line">    <span class="keyword">yield</span> <span class="keyword">this</span>.members[i];</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>不再需要创建一个对象来保存迭代状态了，generators每一次yield的时候自动保存他们的局部状态。</p>
+<p>这样的yield表达式只会直接出现在generator函数本身中，而不会在你在其内部定义的函数。当yield的时候，generator保存的状态只是它的局部环境和yield的位置。</p>
+<p>一个<code>async</code>函数是一种特殊类型的generator。当调用的时候产出一个promise， 当返回（完成）的时候被resolve，当抛出异常的时候reject。无论什么时候它yield（await）一个promise，那个promise（值或者抛出的异常）的结果就是<code>await</code>表达式的结果。</p>
+<h2 id="事件循环"><a href="#事件循环" class="headerlink" title="事件循环"></a>事件循环</h2><p>异步程序是一块接一块执行的。当行动结束或者失败时每一块都可能开始执行一些行为和schedule代码。在这些块之间，程序处于空闲状态，等待下一次行动。</p>
+<p>所以回调并没有被schedule他们的代码直接调用。如果我在一个函数内部调用<code>setTimeout</code>，直到回调函数调用时，那个函数可能已经返回了。当回调返回的时候，控制并没有回到调用它的那个函数。</p>
+<p>异步行为发生在它自己的空的函数调用栈。这是没有promise时，在异步代码间管理异常困难的原因之一。因为每一个回调开始于一个空的栈，你的<code>catch</code>处理程序将不会在它们抛出异常的那个栈。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">  setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">"Woosh"</span>);</span><br><span class="line">  &#125;, <span class="number">20</span>);</span><br><span class="line">&#125; <span class="keyword">catch</span> (_) &#123;</span><br><span class="line">  <span class="comment">// This will not run</span></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"Caught"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>不管事件有多密集地发生，如超时或者到来的请求事件，一个JS环境一次只能运行一个程序。你可以将这个想象为在整个程序运行一个大的循环，叫做事件循环。当没有事情要做的时候，那个循环就停止了。但是随着事件不断来临，它们被添加到队列中，并且他们的代码一个挨一个的执行。因为不可能有两件事情同时运行，执行慢的代码可能延迟其他事件的处理。</p>
+<p>这个例子设置了一个超时，但是一直拖到超时的预定时间点之后，导致超时延迟。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> start = <span class="built_in">Date</span>.now();</span><br><span class="line">setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"Timeout ran at"</span>, <span class="built_in">Date</span>.now() - start);</span><br><span class="line">&#125;, <span class="number">20</span>);</span><br><span class="line"><span class="keyword">while</span> (<span class="built_in">Date</span>.now() &lt; start + <span class="number">50</span>) &#123;&#125;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"Wasted time until"</span>, <span class="built_in">Date</span>.now() - start);</span><br><span class="line"><span class="comment">// → Wasted time until 50</span></span><br><span class="line"><span class="comment">// → Timeout ran at 55</span></span><br></pre></td></tr></table></figure>
+<p>promise总是作为一个新事件resolve或者reject。即便一个promise已经resolve了，等待它将会导致你的回调在当前脚本完成之后运行，而不是立刻运行。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Promise</span>.resolve(<span class="string">"Done"</span>).then(<span class="built_in">console</span>.log);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"Me first"</span>);</span><br><span class="line"><span class="comment">// -&gt; Me first</span></span><br><span class="line"><span class="comment">// -&gt; Done</span></span><br></pre></td></tr></table></figure>
+
+<p>在之后的章节里，我们将会看到运行在事件循环上的各种各样类型的其他事件。</p>
+<h2 id="异步bug"><a href="#异步bug" class="headerlink" title="异步bug"></a>异步bug</h2><p>当你的程序同步运行的时候，再一次运行中，除了那些程序所做的状态改变没有其他的状态改变。对于异步程序，这是不同的，它们可能在执行过程中有其他代码可以运行的间隙。</p>
+<p>让我们看个例子。我们的乌鸦的兴趣之一就是查每年在村子里孵化小鸡的数量。巢穴在让门的存储灯泡中储存这个数量。下面的代码尝试从给定年份所有的巢穴中枚举这个数量。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">anyStorage</span>(<span class="params">nest, source, name</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (source == nest.name) <span class="keyword">return</span> storage(nest, name);</span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">return</span> routeRequest(nest, source, <span class="string">"storage"</span>, name);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">chicks</span>(<span class="params">nest, year</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> list = <span class="string">""</span>;</span><br><span class="line">  <span class="keyword">await</span> <span class="built_in">Promise</span>.all(network(nest).map(<span class="keyword">async</span> name =&gt; &#123;</span><br><span class="line">    list += <span class="string">`<span class="subst">$&#123;name&#125;</span>: <span class="subst">$&#123;</span></span></span><br><span class="line"><span class="string"><span class="subst">      <span class="keyword">await</span> anyStorage(nest, name, <span class="string">`chicks in <span class="subst">$&#123;year&#125;</span>`</span>)</span></span></span><br><span class="line"><span class="string"><span class="subst">    &#125;</span>\n`</span>;</span><br><span class="line">  &#125;));</span><br><span class="line">  <span class="keyword">return</span> list;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>async name =&gt;</code>部分说明可以在箭头函数前面加<code>async</code>来使得其成为async的函数。</p>
+<p>这段代码乍一看没有可疑之处…它在巢穴集合上映射<code>async</code>函数，创造了一个promise数组，并且在返回构建的list之前用<code>Promise.all</code>等待他们中的所有resolve或是reject。</p>
+<p>但是确实有严重的错误。他将总是返回一个单行的输出，列出最慢响应的巢穴。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chicks(bigOak, <span class="number">2017</span>).then(<span class="built_in">console</span>.log);</span><br></pre></td></tr></table></figure>
+<p>你能发现原因吗？</p>
+<p>问题就是<code>+=</code>操作符，接收语句开始执行时候的list的当前值，然后再await完成的时候，将list绑定设置为加上added字符串的值。</p>
+<p>但是在语句开始的时间和完成的时间有一个异步的空子。这个<code>map</code>表达式在任何东西被添加到列表之前运行，所以每一个<code>+=</code>操作符开始于一个空字符串并且当存储解锁完成终止，将<code>list</code>设置为一个单行的list——添加这一行到空字符串的结果。</p>
+<p>这通过从映射的promise返回一行和在<code>Promise.all</code>的结果上调用<code>join</code>可以很容易地避免，而不是通过改变绑定来构建列表。像往常一样，计算新值比起改变存在的值更不宜产生错误。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">chicks</span>(<span class="params">nest, year</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> lines = network(nest).map(<span class="keyword">async</span> name =&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> name + <span class="string">": "</span> +</span><br><span class="line">      <span class="keyword">await</span> anyStorage(nest, name, <span class="string">`chicks in <span class="subst">$&#123;year&#125;</span>`</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="keyword">return</span> (<span class="keyword">await</span> <span class="built_in">Promise</span>.all(lines)).join(<span class="string">"\n"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>类似这样的错误容易制造，尤其是使用<code>await</code>的时候，你应该意识到你的代码中哪里有gap存在。一个JS明确异步性（不管是通过回调，promise还是await）的好处就是识别这些gap相对容易。</p>
+<h2 id="附录：crow-tech代码"><a href="#附录：crow-tech代码" class="headerlink" title="附录：crow-tech代码"></a>附录：crow-tech代码</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 仍然以from-to的形式指明图结构</span></span><br><span class="line">  <span class="keyword">const</span> connections = [</span><br><span class="line">    <span class="string">"Church Tower-Sportsgrounds"</span>, <span class="string">"Church Tower-Big Maple"</span>, <span class="string">"Big Maple-Sportsgrounds"</span>,</span><br><span class="line">    <span class="string">"Big Maple-Woods"</span>, <span class="string">"Big Maple-Fabienne's Garden"</span>, <span class="string">"Fabienne's Garden-Woods"</span>,</span><br><span class="line">    <span class="string">"Fabienne's Garden-Cow Pasture"</span>, <span class="string">"Cow Pasture-Big Oak"</span>, <span class="string">"Big Oak-Butcher Shop"</span>,</span><br><span class="line">    <span class="string">"Butcher Shop-Tall Poplar"</span>, <span class="string">"Tall Poplar-Sportsgrounds"</span>, <span class="string">"Tall Poplar-Chateau"</span>,</span><br><span class="line">    <span class="string">"Chateau-Great Pine"</span>, <span class="string">"Great Pine-Jacques' Farm"</span>, <span class="string">"Jacques' Farm-Hawthorn"</span>,</span><br><span class="line">    <span class="string">"Great Pine-Hawthorn"</span>, <span class="string">"Hawthorn-Gilles' Garden"</span>, <span class="string">"Great Pine-Gilles' Garden"</span>,</span><br><span class="line">    <span class="string">"Gilles' Garden-Big Oak"</span>, <span class="string">"Gilles' Garden-Butcher Shop"</span>, <span class="string">"Chateau-Butcher Shop"</span></span><br><span class="line">  ]</span><br><span class="line"></span><br><span class="line">  <span class="comment">//storageFor返回一个和给定name对象存储相关的对象。键为字符串，值为json字符串（对于值为数组或者对象方便我们处理）</span></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">storageFor</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> storage = <span class="built_in">Object</span>.create(<span class="literal">null</span>)</span><br><span class="line">    storage[<span class="string">"food caches"</span>] = [<span class="string">"cache in the oak"</span>, <span class="string">"cache in the meadow"</span>, <span class="string">"cache under the hedge"</span>]</span><br><span class="line">    storage[<span class="string">"cache in the oak"</span>] = <span class="string">"A hollow above the third big branch from the bottom. Several pieces of bread and a pile of acorns."</span></span><br><span class="line">    storage[<span class="string">"cache in the meadow"</span>] = <span class="string">"Buried below the patch of nettles (south side). A dead snake."</span></span><br><span class="line">    storage[<span class="string">"cache under the hedge"</span>] = <span class="string">"Middle of the hedge at Gilles' garden. Marked with a forked twig. Two bottles of beer."</span></span><br><span class="line">    storage[<span class="string">"enemies"</span>] = [<span class="string">"Farmer Jacques' dog"</span>, <span class="string">"The butcher"</span>, <span class="string">"That one-legged jackdaw"</span>, <span class="string">"The boy with the airgun"</span>]</span><br><span class="line">    <span class="keyword">if</span> (name == <span class="string">"Church Tower"</span> || name == <span class="string">"Hawthorn"</span> || name == <span class="string">"Chateau"</span>)</span><br><span class="line">      storage[<span class="string">"events on 2017-12-21"</span>] = <span class="string">"Deep snow. Butcher's garbage can fell over. We chased off the ravens from Saint-Vulbas."</span></span><br><span class="line">    <span class="keyword">let</span> hash = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; name.length; i++) hash += name.charCodeAt(i)</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> y = <span class="number">1985</span>; y &lt;= <span class="number">2018</span>; y++) &#123;</span><br><span class="line">      storage[<span class="string">`chicks in <span class="subst">$&#123;y&#125;</span>`</span>] = hash % <span class="number">6</span></span><br><span class="line">      hash = <span class="built_in">Math</span>.abs((hash &lt;&lt; <span class="number">2</span>) ^ (hash + y))</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (name == <span class="string">"Big Oak"</span>) storage.scalpel = <span class="string">"Gilles' Garden"</span></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (name == <span class="string">"Gilles' Garden"</span>) storage.scalpel = <span class="string">"Woods"</span></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (name == <span class="string">"Woods"</span>) storage.scalpel = <span class="string">"Chateau"</span></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (name == <span class="string">"Chateau"</span> || name == <span class="string">"Butcher Shop"</span>) storage.scalpel = <span class="string">"Butcher Shop"</span></span><br><span class="line">    <span class="keyword">else</span> storage.scalpel = <span class="string">"Big Oak"</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> prop <span class="keyword">of</span> <span class="built_in">Object</span>.keys(storage)) storage[prop] = <span class="built_in">JSON</span>.stringify(storage[prop])</span><br><span class="line">    <span class="keyword">return</span> storage</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="class"><span class="keyword">class</span> <span class="title">Network</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>(connections, storageFor) &#123;</span><br><span class="line">      <span class="comment">// reachable包含图拓扑，为一个对象，键为巢穴名字，值为邻居巢穴字符串数组</span></span><br><span class="line">      <span class="keyword">let</span> reachable = <span class="built_in">Object</span>.create(<span class="literal">null</span>)</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">let</span> [<span class="keyword">from</span>, to] <span class="keyword">of</span> connections.map(<span class="function"><span class="params">conn</span> =&gt;</span> conn.split(<span class="string">"-"</span>))) &#123;</span><br><span class="line">        ;(reachable[<span class="keyword">from</span>] || (reachable[<span class="keyword">from</span>] = [])).push(to)</span><br><span class="line">        ;(reachable[to] || (reachable[to] = [])).push(<span class="keyword">from</span>)</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="comment">// 创建的network实例有一个nodes对象，键为网络节点名字，值为node实例对象</span></span><br><span class="line">      <span class="keyword">this</span>.nodes = <span class="built_in">Object</span>.create(<span class="literal">null</span>)</span><br><span class="line">      <span class="comment">// Object.keys只返回对象本身的键</span></span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">let</span> name <span class="keyword">of</span> <span class="built_in">Object</span>.keys(reachable))</span><br><span class="line">        <span class="comment">// 传入当前处理节点名字，邻居巢穴字符串数组， 网络实例和对应name的存储相关对象</span></span><br><span class="line">        <span class="keyword">this</span>.nodes[name] = <span class="keyword">new</span> Node(name, reachable[name], <span class="keyword">this</span>, storageFor(name))</span><br><span class="line">      <span class="keyword">this</span>.types = <span class="built_in">Object</span>.create(<span class="literal">null</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 定义请求类型，接收节点名字，和一个处理函数</span></span><br><span class="line">    defineRequestType(name, handler) &#123;</span><br><span class="line">      <span class="keyword">this</span>.types[name] = handler</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 对于网络实例中的nodes对象，在其上调用同一个函数</span></span><br><span class="line">    everywhere(f) &#123;</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">let</span> node <span class="keyword">of</span> <span class="built_in">Object</span>.values(<span class="keyword">this</span>.nodes)) f(node)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 后面用symbol作键</span></span><br><span class="line">  <span class="keyword">const</span> $storage = <span class="built_in">Symbol</span>(<span class="string">"storage"</span>), $network = <span class="built_in">Symbol</span>(<span class="string">"network"</span>)</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 如是null或者undefined，则返回null，否则将值变为JSON字符串再进行解析，原因暂时还不清楚（19.1.13）？</span></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">ser</span>(<span class="params">value</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> value == <span class="literal">null</span> ? <span class="literal">null</span> : <span class="built_in">JSON</span>.parse(<span class="built_in">JSON</span>.stringify(value))</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="class"><span class="keyword">class</span> <span class="title">Node</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 每个节点包含名字，邻居，网络，状态和存储相关属性</span></span><br><span class="line">    <span class="keyword">constructor</span>(name, neighbors, network, storage) &#123;</span><br><span class="line">      <span class="keyword">this</span>.name = name</span><br><span class="line">      <span class="keyword">this</span>.neighbors = neighbors</span><br><span class="line">      <span class="keyword">this</span>[$network] = network</span><br><span class="line">      <span class="keyword">this</span>.state = <span class="built_in">Object</span>.create(<span class="literal">null</span>)</span><br><span class="line">      <span class="keyword">this</span>[$storage] = storage</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 向其他节点发送消息，参数包括终点节点，消息类型，消息内容以及回调函数</span></span><br><span class="line">    send(to, type, message, callback) &#123;</span><br><span class="line">      <span class="comment">// 获取终点节点实例</span></span><br><span class="line">      <span class="keyword">let</span> toNode = <span class="keyword">this</span>[$network].nodes[to]</span><br><span class="line">      <span class="comment">// 不存在这个节点或者不是直接邻居节点，那么结束函数，并传递error到回调函数，参数为一个说明性的字符串</span></span><br><span class="line">      <span class="keyword">if</span> (!toNode || !<span class="keyword">this</span>.neighbors.includes(to))</span><br><span class="line">        <span class="keyword">return</span> callback(<span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">`<span class="subst">$&#123;to&#125;</span> is not reachable from <span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span>`</span>))</span><br><span class="line">      <span class="comment">// 是邻居节点我们获取到这种类型消息的处理函数（handler）</span></span><br><span class="line">      <span class="keyword">let</span> handler = <span class="keyword">this</span>[$network].types[type]</span><br><span class="line">      <span class="comment">// 如果没有注册这种消息类型，我们结束函数，传递未知请求类型错误到回调</span></span><br><span class="line">      <span class="keyword">if</span> (!handler)</span><br><span class="line">        <span class="keyword">return</span> callback(<span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">"Unknown request type "</span> + type))</span><br><span class="line">      <span class="comment">// 有这种消息类型，有3%概率发送失败</span></span><br><span class="line">      <span class="keyword">if</span> (<span class="built_in">Math</span>.random() &gt; <span class="number">0.03</span>) setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">          handler(toNode, ser(message), <span class="keyword">this</span>.name, (error, response) =&gt; &#123;</span><br><span class="line">            setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> callback(error, ser(response)), <span class="number">10</span>)</span><br><span class="line">          &#125;)</span><br><span class="line">        &#125; <span class="keyword">catch</span>(e) &#123;</span><br><span class="line">          callback(e)</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;, <span class="number">10</span> * <span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random() * <span class="number">10</span>))</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 读取该节点中storage的属性，并在获取JSON字符串值后将其解析为JS常规值传入回调函数，当要读取的属性不存在时，将其传入回调，若存在（不为undefined，则因其存储为JSON字符串，需要解析后传入回调函数）。</span></span><br><span class="line">    readStorage(name, callback) &#123;</span><br><span class="line">      <span class="keyword">let</span> value = <span class="keyword">this</span>[$storage][name]</span><br><span class="line">      setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> callback(value &amp;&amp; <span class="built_in">JSON</span>.parse(value)), <span class="number">20</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 直接将键值对写入$storage属性对象，注意值要存入JSON字符串形式，然后空参调用回调</span></span><br><span class="line">    writeStorage(name, value, callback) &#123;</span><br><span class="line">      setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>[$storage][name] = <span class="built_in">JSON</span>.stringify(value)</span><br><span class="line">        callback()</span><br><span class="line">      &#125;, <span class="number">20</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 构建一个网络对象，传入connections数组以及storageFor函数</span></span><br><span class="line">  <span class="keyword">let</span> network = <span class="keyword">new</span> Network(connections, storageFor)</span><br><span class="line">  <span class="comment">// 对外暴露三个接口，bigOak表示bigOak节点实例</span></span><br><span class="line">  exports.bigOak = network.nodes[<span class="string">"Big Oak"</span>]</span><br><span class="line">  <span class="comment">// 将network绑定到everywhere函数中的this</span></span><br><span class="line">  exports.everywhere = network.everywhere.bind(network)</span><br><span class="line">  <span class="comment">// 将defineRequestType中的this绑定到该network实例</span></span><br><span class="line">  exports.defineRequestType = network.defineRequestType.bind(network)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> __sandbox != <span class="string">"undefined"</span>) &#123;</span><br><span class="line">    __sandbox.handleDeps = <span class="literal">false</span></span><br><span class="line">    __sandbox.notify.onLoad = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="comment">// Kludge to make sure some functions are delayed until the</span></span><br><span class="line">      <span class="comment">// nodes have been running for 500ms, to give them a chance to</span></span><br><span class="line">      <span class="comment">// propagate network information.</span></span><br><span class="line">      <span class="keyword">let</span> waitFor = <span class="built_in">Date</span>.now() + <span class="number">500</span></span><br><span class="line">      <span class="function"><span class="keyword">function</span> <span class="title">wrapWaiting</span>(<span class="params">f</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">...args</span>) </span>&#123;</span><br><span class="line">          <span class="keyword">let</span> wait = waitFor - <span class="built_in">Date</span>.now()</span><br><span class="line">          <span class="keyword">if</span> (wait &lt;= <span class="number">0</span>) <span class="keyword">return</span> f(...args)</span><br><span class="line">          <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="params">ok</span> =&gt;</span> setTimeout(ok, wait)).then(<span class="function"><span class="params">()</span> =&gt;</span> f(...args))</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">let</span> n <span class="keyword">of</span> [<span class="string">"routeRequest"</span>, <span class="string">"findInStorage"</span>, <span class="string">"chicks"</span>])</span><br><span class="line">        <span class="built_in">window</span>[n] = wrapWaiting(<span class="built_in">window</span>[n])</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="built_in">window</span> != <span class="string">"undefined"</span>) &#123;</span><br><span class="line">    <span class="built_in">window</span>.require = <span class="function"><span class="params">name</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> (name != <span class="string">"./crow-tech"</span>) <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">"Crow nests can only require \"./crow-tech\""</span>)</span><br><span class="line">      <span class="keyword">return</span> exports</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="built_in">module</span> != <span class="string">"undefined"</span> &amp;&amp; <span class="built_in">module</span>.exports) &#123;</span><br><span class="line">    <span class="built_in">module</span>.exports = exports</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)()</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/01/08/EJ10/" rel="prev" title="EJ10">
+      <i class="fa fa-chevron-left"></i> EJ10
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/01/14/EJ13/" rel="next" title="EJ13">
+      EJ13 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#异步编程"><span class="nav-number">1.</span> <span class="nav-text">异步编程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#异步性"><span class="nav-number">1.1.</span> <span class="nav-text">异步性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#乌鸦科技"><span class="nav-number">1.2.</span> <span class="nav-text">乌鸦科技</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#回调"><span class="nav-number">1.3.</span> <span class="nav-text">回调</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Promises"><span class="nav-number">1.4.</span> <span class="nav-text">Promises</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#失败"><span class="nav-number">1.5.</span> <span class="nav-text">失败</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网络很难"><span class="nav-number">1.6.</span> <span class="nav-text">网络很难</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#promise集合"><span class="nav-number">1.7.</span> <span class="nav-text">promise集合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网络洪泛"><span class="nav-number">1.8.</span> <span class="nav-text">网络洪泛</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#消息路由"><span class="nav-number">1.9.</span> <span class="nav-text">消息路由</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#async函数"><span class="nav-number">1.10.</span> <span class="nav-text">async函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Generators"><span class="nav-number">1.11.</span> <span class="nav-text">Generators</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#事件循环"><span class="nav-number">1.12.</span> <span class="nav-text">事件循环</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#异步bug"><span class="nav-number">1.13.</span> <span class="nav-text">异步bug</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#附录：crow-tech代码"><span class="nav-number">1.14.</span> <span class="nav-text">附录：crow-tech代码</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Guohang Ma</p>
+  <div class="site-description" itemprop="description">developer blog</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">136</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">38</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Guohang Ma</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

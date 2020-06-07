@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Lecture Code1234567def fib_iter(n):    i &#x3D; 0    curr, next &#x3D; 0, 1    while i &lt; n:        curr, next &#x3D; next, curr + next    	   i +&#x3D; 1    return curr 12345678910111213141516171819# Rational arithmet">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cs61a-hw04">
+<meta property="og:url" content="http://yoursite.com/2018/10/07/cs61a-hw04/index.html">
+<meta property="og:site_name" content="Giancarlo&#39;s Blog">
+<meta property="og:description" content="Lecture Code1234567def fib_iter(n):    i &#x3D; 0    curr, next &#x3D; 0, 1    while i &lt; n:        curr, next &#x3D; next, curr + next    	   i +&#x3D; 1    return curr 12345678910111213141516171819# Rational arithmet">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://yoursite.com/2018/10/07/cs61a-hw04/hanoi.png">
+<meta property="article:published_time" content="2018-10-07T09:51:19.000Z">
+<meta property="article:modified_time" content="2020-06-07T02:09:33.470Z">
+<meta property="article:author" content="Guohang Ma">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="SICP">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2018/10/07/cs61a-hw04/hanoi.png">
+
+<link rel="canonical" href="http://yoursite.com/2018/10/07/cs61a-hw04/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>cs61a-hw04 | Giancarlo's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Giancarlo's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Code Life</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/07/cs61a-hw04/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Guohang Ma">
+      <meta itemprop="description" content="developer blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Giancarlo's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          cs61a-hw04
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-10-07 17:51:19" itemprop="dateCreated datePublished" datetime="2018-10-07T17:51:19+08:00">2018-10-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-06-07 10:09:33" itemprop="dateModified" datetime="2020-06-07T10:09:33+08:00">2020-06-07</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CS61A/" itemprop="url" rel="index"><span itemprop="name">CS61A</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Lecture-Code"><a href="#Lecture-Code" class="headerlink" title="Lecture Code"></a>Lecture Code</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fib_iter</span><span class="params">(n)</span>:</span></span><br><span class="line">    i = <span class="number">0</span></span><br><span class="line">    curr, next = <span class="number">0</span>, <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> i &lt; n:</span><br><span class="line">        curr, next = next, curr + next</span><br><span class="line">    	   i += <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> curr</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Rational arithmetic</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add_rational</span><span class="params">(x, y)</span>:</span></span><br><span class="line">    <span class="string">"""The sum of rational numbers X and Y."""</span></span><br><span class="line">    nx, dx = numer(x), denom(x)</span><br><span class="line">    ny, dy = numer(y), denom(y)</span><br><span class="line">    <span class="keyword">return</span> rational(nx * dy + ny * dx, dx * dy)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">mul_rational</span><span class="params">(x, y)</span>:</span></span><br><span class="line">    <span class="string">"""The product of rational numbers X and Y."""</span></span><br><span class="line">    <span class="keyword">return</span> rational(numer(x) * numer(y), denom(x) * denom(y))</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">rationals_are_equal</span><span class="params">(x, y)</span>:</span></span><br><span class="line">    <span class="string">"""True iff rational numbers X and Y are equal."""</span></span><br><span class="line">    <span class="keyword">return</span> numer(x) * denom(y) == numer(y) * denom(x)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">print_rational</span><span class="params">(x)</span>:</span></span><br><span class="line">    <span class="string">"""Print rational X."""</span></span><br><span class="line">    print(numer(x), <span class="string">"/"</span>, denom(x))</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Constructor and selectors</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">rational</span><span class="params">(n, d)</span>:</span></span><br><span class="line">    <span class="string">"""A representation of the rational number N/D."""</span></span><br><span class="line">    <span class="keyword">return</span> [n, d]</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">numer</span><span class="params">(x)</span>:</span></span><br><span class="line">    <span class="string">"""Return the numerator of rational number X."""</span></span><br><span class="line">    <span class="keyword">return</span> x[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">denom</span><span class="params">(x)</span>:</span></span><br><span class="line">    <span class="string">"""Return the denominator of rational number X."""</span></span><br><span class="line">    <span class="keyword">return</span> x[<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Improved specification</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> fractions <span class="keyword">import</span> gcd</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">rational</span><span class="params">(n, d)</span>:</span></span><br><span class="line">    <span class="string">"""A representation of the rational number N/D."""</span></span><br><span class="line">    g = gcd(n, d)</span><br><span class="line">    <span class="keyword">return</span> [n//g, d//g]</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">numer</span><span class="params">(x)</span>:</span></span><br><span class="line">    <span class="string">"""Return the numerator of rational number X in lowest terms and having</span></span><br><span class="line"><span class="string">    the sign of X."""</span></span><br><span class="line">    <span class="keyword">return</span> x[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">denom</span><span class="params">(x)</span>:</span></span><br><span class="line">    <span class="string">"""Return the denominator of rational number X in lowest terms and positive."""</span></span><br><span class="line">    <span class="keyword">return</span> x[<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Functional implementation</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">rational</span><span class="params">(n, d)</span>:</span></span><br><span class="line">    <span class="string">"""A representation of the rational number N/D."""</span></span><br><span class="line">    g = gcd(n, d)</span><br><span class="line">    n, d = n//g, d//g</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">select</span><span class="params">(name)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> name == <span class="string">'n'</span>:</span><br><span class="line">            <span class="keyword">return</span> n</span><br><span class="line">        <span class="keyword">elif</span> name == <span class="string">'d'</span>:</span><br><span class="line">            <span class="keyword">return</span> d</span><br><span class="line">    <span class="keyword">return</span> select</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">numer</span><span class="params">(x)</span>:</span></span><br><span class="line">    <span class="string">"""Return the numerator of rational number X in lowest terms and having</span></span><br><span class="line"><span class="string">    the sign of X."""</span></span><br><span class="line">    <span class="keyword">return</span> x(<span class="string">'n'</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">denom</span><span class="params">(x)</span>:</span></span><br><span class="line">    <span class="string">"""Return the denominator of rational number X in lowest terms and positive."""</span></span><br><span class="line">    <span class="keyword">return</span> x(<span class="string">'d'</span>)</span><br></pre></td></tr></table></figure>
+
+<p>Containers</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Lists</span></span><br><span class="line"></span><br><span class="line">odds = [<span class="number">41</span>, <span class="number">43</span>, <span class="number">47</span>, <span class="number">49</span>]</span><br><span class="line">len(odds)</span><br><span class="line">odds[<span class="number">1</span>]</span><br><span class="line">odds[<span class="number">0</span>] - odds[<span class="number">3</span>] + len(odds)</span><br><span class="line">odds[odds[<span class="number">3</span>]-odds[<span class="number">2</span>]]</span><br><span class="line"></span><br><span class="line"><span class="comment"># Containers</span></span><br><span class="line"></span><br><span class="line">digits = [<span class="number">1</span>, <span class="number">8</span>, <span class="number">2</span>, <span class="number">8</span>]</span><br><span class="line"><span class="number">1</span> <span class="keyword">in</span> digits</span><br><span class="line"><span class="string">'1'</span> <span class="keyword">in</span> digits</span><br><span class="line">[<span class="number">1</span>, <span class="number">8</span>] <span class="keyword">in</span> digits</span><br><span class="line">[<span class="number">1</span>, <span class="number">2</span>] <span class="keyword">in</span> [[<span class="number">1</span>, <span class="number">2</span>], <span class="number">3</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># For statements</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">count_while</span><span class="params">(s, value)</span>:</span></span><br><span class="line">    <span class="string">"""Count the number of occurrences of value in sequence s.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; count_while(digits, 8)</span></span><br><span class="line"><span class="string">    2</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    total, index = <span class="number">0</span>, <span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> index &lt; len(s):</span><br><span class="line">        <span class="keyword">if</span> s[index] == value:</span><br><span class="line">            total = total + <span class="number">1</span></span><br><span class="line">        index = index + <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> total</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">count_for</span><span class="params">(s, value)</span>:</span></span><br><span class="line">    <span class="string">"""Count the number of occurrences of value in sequence s.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; count_for(digits, 8)</span></span><br><span class="line"><span class="string">    2</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    total = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> elem <span class="keyword">in</span> s:</span><br><span class="line">        <span class="keyword">if</span> elem == value:</span><br><span class="line">            total = total + <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> total</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">count_same</span><span class="params">(pairs)</span>:</span></span><br><span class="line">    <span class="string">"""Return how many pairs have the same element repeated.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; pairs = [[1, 2], [2, 2], [2, 3], [4, 4]]</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; count_same(pairs)</span></span><br><span class="line"><span class="string">    2</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    same_count = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> x, y <span class="keyword">in</span> pairs:</span><br><span class="line">        <span class="keyword">if</span> x == y:</span><br><span class="line">            same_count = same_count + <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> same_count</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Ranges</span></span><br><span class="line"></span><br><span class="line">list(range(<span class="number">5</span>, <span class="number">8</span>))</span><br><span class="line">list(range(<span class="number">4</span>))</span><br><span class="line">len(range(<span class="number">4</span>))</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sum_below</span><span class="params">(n)</span>:</span></span><br><span class="line">    total = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(n):</span><br><span class="line">        total += i</span><br><span class="line">    <span class="keyword">return</span> total</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">cheer</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">for</span> _ <span class="keyword">in</span> range(<span class="number">3</span>):</span><br><span class="line">        print(<span class="string">'Go Bears!'</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># List comprehensions</span></span><br><span class="line"></span><br><span class="line">odds = [<span class="number">1</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">7</span>, <span class="number">9</span>]</span><br><span class="line">[x+<span class="number">1</span> <span class="keyword">for</span> x <span class="keyword">in</span> odds]</span><br><span class="line">[x <span class="keyword">for</span> x <span class="keyword">in</span> odds <span class="keyword">if</span> <span class="number">25</span> % x == <span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">divisors</span><span class="params">(n)</span>:</span></span><br><span class="line">    <span class="string">"""Return the integers that evenly divide n.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; divisors(4)</span></span><br><span class="line"><span class="string">    [1, 2]</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; divisors(12)</span></span><br><span class="line"><span class="string">    [1, 2, 3, 4, 6]</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; [n for n in range(1, 1000) if sum(divisors(n)) == n]</span></span><br><span class="line"><span class="string">    [6, 28, 496]</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="keyword">return</span> [x <span class="keyword">for</span> x <span class="keyword">in</span> range(<span class="number">1</span>, n) <span class="keyword">if</span> n % x == <span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># Dicts</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">dict_demos</span><span class="params">()</span>:</span></span><br><span class="line">    numerals = &#123;<span class="string">'I'</span>: <span class="number">1</span>, <span class="string">'V'</span>: <span class="number">5</span>, <span class="string">'X'</span>: <span class="number">10</span>&#125;</span><br><span class="line">    numerals[<span class="string">'X'</span>]</span><br><span class="line">    numerals.values()</span><br><span class="line">    list(numerals.values())</span><br><span class="line">    sum(numerals.values())</span><br><span class="line">    dict([(<span class="number">3</span>, <span class="number">9</span>), (<span class="number">4</span>, <span class="number">16</span>), (<span class="number">5</span>, <span class="number">25</span>)])</span><br><span class="line">    numerals.get(<span class="string">'X'</span>, <span class="number">0</span>)</span><br><span class="line">    numerals.get(<span class="string">'X-ray'</span>, <span class="number">0</span>)</span><br><span class="line">    &#123;x: x*x <span class="keyword">for</span> x <span class="keyword">in</span> range(<span class="number">3</span>,<span class="number">6</span>)&#125;</span><br><span class="line"></span><br><span class="line">    &#123;<span class="number">1</span>: <span class="number">2</span>, <span class="number">1</span>: <span class="number">3</span>&#125;</span><br><span class="line">    &#123;[<span class="number">1</span>]: <span class="number">2</span>&#125;</span><br><span class="line">    &#123;<span class="number">1</span>: [<span class="number">2</span>]&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="Q1-Taxicab-Distance"><a href="#Q1-Taxicab-Distance" class="headerlink" title="Q1: Taxicab Distance"></a>Q1: Taxicab Distance</h1><p>An intersection in midtown Manhattan can be identified by an avenue and a street, which are both indexed by positive integers. The Manhattan distance or taxicab distance between two intersections is the number of blocks that must be traversed to reach one from the other, ignoring one-way street restrictions and construction. For example, Times Square is on 46th Street and 7th Avenue. Ess-a-Bagel is on 51st Street and 3rd Avenue. The taxicab distance between them is 9 blocks (5 blocks from 46th to 51st street and 4 blocks from 7th avenue to 3rd avenue). Taxicabs cannot cut diagonally through buildings to reach their destination!</p>
+<p>Implement taxicab, which computes the taxicab distance between two intersections using the following data abstraction. <em>Hint</em>: You don’t need to know what a Cantor pairing function is; just use the abstraction.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">intersection</span><span class="params">(st, ave)</span>:</span></span><br><span class="line">    <span class="string">"""Represent an intersection using the Cantor pairing function."""</span></span><br><span class="line">    <span class="keyword">return</span> (st+ave)*(st+ave+<span class="number">1</span>)//<span class="number">2</span> + ave</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">street</span><span class="params">(inter)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> w(inter) - avenue(inter)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">avenue</span><span class="params">(inter)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> inter - (w(inter) ** <span class="number">2</span> + w(inter)) // <span class="number">2</span></span><br><span class="line"></span><br><span class="line">w = <span class="keyword">lambda</span> z: int(((<span class="number">8</span>*z+<span class="number">1</span>)**<span class="number">0.5</span><span class="number">-1</span>)/<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">taxicab</span><span class="params">(a, b)</span>:</span></span><br><span class="line">    <span class="string">"""Return the taxicab distance between two intersections.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; times_square = intersection(46, 7)</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; ess_a_bagel = intersection(51, 3)</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; taxicab(times_square, ess_a_bagel)</span></span><br><span class="line"><span class="string">    9</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; taxicab(ess_a_bagel, times_square)</span></span><br><span class="line"><span class="string">    9</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="string">"*** YOUR CODE HERE ***"</span></span><br><span class="line">    <span class="keyword">return</span> abs(street(a) - street(b)) + abs(avenue(a) - avenue(b))</span><br></pre></td></tr></table></figure>
+<h1 id="Q2-Squares-only"><a href="#Q2-Squares-only" class="headerlink" title="Q2:Squares only"></a>Q2:Squares only</h1><p>Implement the function <code>squares</code>, which takes in a list of positive integers. It returns a list that contains the square roots of the elements of the original list that are perfect squares. Try using a list comprehension.</p>
+<p>You may find the round function useful.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>round(<span class="number">10.5</span>)</span><br><span class="line"><span class="number">10</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>round(<span class="number">10.51</span>)</span><br><span class="line"><span class="number">11</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> math <span class="keyword">import</span> sqrt</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">squares</span><span class="params">(s)</span>:</span></span><br><span class="line">    <span class="string">"""Returns a new list containing square roots of the elements of the</span></span><br><span class="line"><span class="string">    original list that are perfect squares.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; seq = [8, 49, 8, 9, 2, 1, 100, 102]</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; squares(seq)</span></span><br><span class="line"><span class="string">    [7, 3, 1, 10]</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; seq = [500, 30]</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; squares(seq)</span></span><br><span class="line"><span class="string">    []</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="string">"*** YOUR CODE HERE ***"</span></span><br><span class="line">    <span class="keyword">return</span> [sqrt(x) <span class="keyword">for</span> x <span class="keyword">in</span> seq <span class="keyword">if</span> x == round(sqrt(x)) ** <span class="number">2</span>]</span><br><span class="line">    <span class="comment"># return [round(x ** 0.5) for x in seq if x == round(x ** 0.5) ** 2]</span></span><br></pre></td></tr></table></figure>
+<p>It might be helpful to construct a skeleton list comprehension to begin with:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[sqrt(x) <span class="keyword">for</span> x <span class="keyword">in</span> s <span class="keyword">if</span> is_perfect_square(x)]</span><br></pre></td></tr></table></figure>
+<p>This is great, but it requires that we have an is_perfect_square function. How might we check if something is a perfect square?</p>
+<p>If the square root of a number is a whole number, then it is a perfect square. For example, sqrt(61) = 7.81024… (not a perfect square) and sqrt(49) = 7 (perfect square).<br>Once we obtain the square root of the number, we just need to check if something is a whole number. The is_perfect_square function might look like:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">is_perfect_square</span><span class="params">(x)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> is_whole(sqrt(x))</span><br></pre></td></tr></table></figure>
+
+<p>One last piece of the puzzle: to check if a number is whole, we just need to see if it has a decimal or not. The way we’ve chosen to do it in the solution is to compare the original number to the round version (thus removing all decimals), but a technique employing floor division (//) or something else entirely could work too.<br>We’ve written all these helper functions to solve this problem, but they are actually all very short. Therefore, we can just copy the body of each into the original list comprehension, arriving at the solution we finally present.</p>
+<p>Video walkthrough: <a href="https://youtu.be/YwLFB9paET0" target="_blank" rel="noopener">https://youtu.be/YwLFB9paET0</a></p>
+<p>We can also use <code>pow</code> function to calculate the power of some number. And <code>int(pow(n, 0.5)) == pow(n, 0.5)</code> can judge whether or nor n is perfect square number.</p>
+<h1 id="Q3-G-function"><a href="#Q3-G-function" class="headerlink" title="Q3:G function"></a>Q3:G function</h1><p>A mathematical function <code>G</code> on positive integers is defined by two cases:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">G(n) &#x3D; n,                                       if n &lt;&#x3D; 3</span><br><span class="line">G(n) &#x3D; G(n - 1) + 2 * G(n - 2) + 3 * G(n - 3),  if n &gt; 3</span><br></pre></td></tr></table></figure>
+<p>Write a recursive function <code>g</code> that computes <code>G(n)</code>. Then, write an iterative function <code>g_iter</code> that also computes <code>G(n)</code>:<br><em>Hint: The <code>fibonacci</code> example in the tree recursion lecture is a good illustration of the relationship between the recursive and iterative definitions of a tree recursive problem.</em></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"> <span class="function"><span class="keyword">def</span> <span class="title">g</span><span class="params">(n)</span>:</span></span><br><span class="line">    <span class="string">"""Return the value of G(n), computed recursively.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; g(1)</span></span><br><span class="line"><span class="string">    1</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; g(2)</span></span><br><span class="line"><span class="string">    2</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; g(3)</span></span><br><span class="line"><span class="string">    3</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; g(4)</span></span><br><span class="line"><span class="string">    10</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; g(5)</span></span><br><span class="line"><span class="string">    22</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; from construct_check import check</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; check(HW_SOURCE_FILE, 'g', ['While', 'For'])</span></span><br><span class="line"><span class="string">    True</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="string">"*** YOUR CODE HERE ***"</span></span><br><span class="line">    <span class="keyword">if</span> n &lt;= <span class="number">3</span>: <span class="comment"># n in (1,2,3)</span></span><br><span class="line">        <span class="keyword">return</span> n</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> g(n - <span class="number">1</span>) + <span class="number">2</span> * g(n - <span class="number">2</span>) + <span class="number">3</span> * g(n - <span class="number">3</span>)</span><br><span class="line"><span class="comment"># My solution which is like the lecture code(fibnacci sequence iteration)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">g_iter</span><span class="params">(n)</span>:</span></span><br><span class="line">    <span class="string">"""Return the value of G(n), computed iteratively.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; g_iter(1)</span></span><br><span class="line"><span class="string">    1</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; g_iter(2)</span></span><br><span class="line"><span class="string">    2</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; g_iter(3)</span></span><br><span class="line"><span class="string">    3</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; g_iter(4)</span></span><br><span class="line"><span class="string">    10</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; g_iter(5)</span></span><br><span class="line"><span class="string">    22</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; from construct_check import check</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; check(HW_SOURCE_FILE, 'g_iter', ['Recursion'])</span></span><br><span class="line"><span class="string">    True</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="string">"*** YOUR CODE HERE ***"</span></span><br><span class="line">    i = <span class="number">1</span></span><br><span class="line">    current, middle, next = <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span></span><br><span class="line">    <span class="keyword">while</span> i &lt; n:</span><br><span class="line">        current, middle, next = middle, next, next + middle * <span class="number">2</span> + current * <span class="number">3</span></span><br><span class="line">        i += <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> current</span><br></pre></td></tr></table></figure>
+<p>The PDF solution</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">g_iter2</span><span class="params">(n)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> n == <span class="number">1</span> <span class="keyword">or</span> n == <span class="number">2</span> <span class="keyword">or</span> n == <span class="number">3</span>:</span><br><span class="line">        <span class="keyword">return</span> n</span><br><span class="line">    a, b, c = <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span></span><br><span class="line">    <span class="keyword">while</span> n &gt; <span class="number">3</span>:</span><br><span class="line">        a, b, c = b, c, c + <span class="number">2</span>*b + <span class="number">3</span>*a</span><br><span class="line">        n = n - <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> c</span><br></pre></td></tr></table></figure>
+<p>This is an example of how a function might be easier to write recursively versus iteratively. Since we have defined the g function in terms of older versions of itself, the solution tends very naturally towards recursion.</p>
+<p>The iterative solution is trickier, since we can only track a finite amount of state at a given time. We need to pick our variables carefully so that we have just the information we need to calculate the next step. In a sense, this problem is very similar to the Fibonacci sequence (assuming we start at the 0th Fibonacci number):</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">f(n) = n,               <span class="keyword">if</span> n &lt;= <span class="number">2</span></span><br><span class="line">f(n) = f(n<span class="number">-1</span>) + f(n<span class="number">-2</span>), <span class="keyword">if</span> n &gt; <span class="number">2</span></span><br></pre></td></tr></table></figure>
+<p>As you may recall, the solution for Fibonacci carried two variables around for the two previous values.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fib_iter</span><span class="params">(n)</span>:</span></span><br><span class="line">    prev, curr = <span class="number">0</span>, <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> n &gt; <span class="number">0</span>:</span><br><span class="line">        prev, curr = curr, prev + curr</span><br><span class="line">    <span class="keyword">return</span> prev</span><br></pre></td></tr></table></figure>
+<p>Since the g function depends on the three previous values, it might make sense that we might have to track three values instead!</p>
+<p>Consider the three previous values old, older, and oldest. To do an update, the older value ages and becomes oldest, the old value ages and becomes older. Finally, old gets the new value which is derived from the three previous values: old + 2 * older + 3 * oldest.</p>
+<p><span style="color:red">Video walkthrough: <a href="https://youtu.be/pltx7u2kGGE" target="_blank" rel="noopener">https://youtu.be/pltx7u2kGGE</a></span></p>
+<h1 id="Q4-Count-change"><a href="#Q4-Count-change" class="headerlink" title="Q4: Count change"></a>Q4: Count change</h1><p>Once the machines take over, the denomination of every coin will be a power of two: 1-cent, 2-cent, 4-cent, 8-cent, 16-cent, etc. There will be no limit to how much a coin can be worth.</p>
+<p>Given a positive integer <code>amount</code>, a set of coins makes change for <code>amount</code> if the sum of the values of the coins is <code>amount</code>. For example, the following sets make change for <code>7</code>:</p>
+<ul>
+<li>7 1-cent coins</li>
+<li>5 1-cent, 1 2-cent coins</li>
+<li>3 1-cent, 2 2-cent coins</li>
+<li>3 1-cent, 1 4-cent coins</li>
+<li>1 1-cent, 3 2-cent coins</li>
+<li>1 1-cent, 1 2-cent, 1 4-cent coins<br>Thus, there are 6 ways to make change for <code>7</code>. Write a recursive function <code>count_change</code> that takes a positive integer <code>amount</code> and returns the number of ways to make change for <code>amount</code> using these coins of the future.</li>
+</ul>
+<p><em>Hint: Refer the implementation of <code>count_partitions</code> for an example of how to count the ways to sum up to an amount with smaller parts. If you need to keep track of more than one value across recursive calls, consider writing a helper function.</em></p>
+<p><span style="color:red">My solution: First find the largest denomination in our change, which is implemented by a while loop, then we find that the program is so like the count_partitions program, we think about this problem as either having the largest denomination or not having it. Then we use tree recursion to calculate the result.</span></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">count_change</span><span class="params">(amount)</span>:</span></span><br><span class="line">    <span class="string">"""Return the number of ways to make change for amount.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; count_change(7)</span></span><br><span class="line"><span class="string">    6</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; count_change(10)</span></span><br><span class="line"><span class="string">    14</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; count_change(20)</span></span><br><span class="line"><span class="string">    60</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; count_change(100)</span></span><br><span class="line"><span class="string">    9828</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; from construct_check import check</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; check(HW_SOURCE_FILE, 'count_change', ['While', 'For'])</span></span><br><span class="line"><span class="string">    True</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="string">"*** YOUR CODE HERE ***"</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">lessThanN</span><span class="params">(n)</span>:</span></span><br><span class="line">        i = <span class="number">1</span></span><br><span class="line">        <span class="keyword">while</span> i &lt;= n:</span><br><span class="line">            i *= <span class="number">2</span></span><br><span class="line">        <span class="keyword">return</span> i // <span class="number">2</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">change</span><span class="params">(amount, m)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> amount &lt; <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        <span class="keyword">elif</span> m == <span class="number">1</span> <span class="keyword">or</span> amount == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> change(amount - m, m) + change(amount, m // <span class="number">2</span>)</span><br><span class="line">    <span class="keyword">return</span> change(amount, lessthanN(amount))</span><br></pre></td></tr></table></figure>
+<p><span style="color:red">PDF solution, I think PDF solution is cleverer than mine, it uses the smallest denomination, which needn’t to implement a <code>lessThanN</code> function, but the intrinsic mind is the same.</span></p>
+<p>This is remarkably similar to the count_partitions problem, with a few minor differences:</p>
+<ul>
+<li>A maximum partition size m is not given, so we need to create a helper function that takes in two arguments and also create another helper function to find the max coin.</li>
+<li>Partition size is not linear, but rather multiples of two. To get the next partition you need to divide by two instead of subtracting one.<br>One other implementation detail here is that we enforce a maximum partition size, rather than a minimum coin. Many students attempted to start at 1 and work there way up. That will also work, but is less similar to count_partitions. As long as there is some ordering on the coins being enforced, we ensure we cover all the combinations of coins without any duplicates.</li>
+</ul>
+<p>See the walkthrough for a more thorough explanation and a visual of the recursive calls. Video walkthrough: <a href="https://youtu.be/EgZJPNFnoxM" target="_blank" rel="noopener">https://youtu.be/EgZJPNFnoxM</a>.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">count_change</span><span class="params">(amount)</span>:</span></span><br><span class="line">    <span class="string">"""Return the number of ways to make change for amount.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; count_change(7)</span></span><br><span class="line"><span class="string">    6</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; count_change(10)</span></span><br><span class="line"><span class="string">    14</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; count_change(20)</span></span><br><span class="line"><span class="string">    60</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; count_change(100)</span></span><br><span class="line"><span class="string">    9828</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; from construct_check import check</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; check(HW_SOURCE_FILE, 'count_change', ['While', 'For'])</span></span><br><span class="line"><span class="string">    True</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">constrained_count</span><span class="params">(amount, smallest_coin)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> amount == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> smallest_coin &gt; amount:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        without_coin = constrained_count(amount, smallest_coin * <span class="number">2</span>)</span><br><span class="line">        with_coin = constrained_count(amount - smallest_coin, smallest_coin)</span><br><span class="line">        <span class="keyword">return</span> without_coin + with_coin</span><br><span class="line">    <span class="keyword">return</span> constrained_count(amount, <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+
+<h1 id="Q5-Towers-of-Hanoi"><a href="#Q5-Towers-of-Hanoi" class="headerlink" title="Q5: Towers of Hanoi"></a>Q5: Towers of Hanoi</h1><p>A classic puzzle called the Towers of Hanoi is a game that consists of three rods, and a number of disks of different sizes which can slide onto any rod. The puzzle starts with <code>n</code> disks in a neat stack in ascending order of size on a <code>start</code> rod, the smallest at the top, forming a conical shape.</p>
+<img src="/2018/10/07/cs61a-hw04/hanoi.png" class="">
+
+<p>The objective of the puzzle is to move the entire stack to an <code>end</code> rod, obeying the following rules:</p>
+<ul>
+<li>Only one disk may be moved at a time.</li>
+<li>Each move consists of taking the top (smallest) disk from one of the rods and sliding it onto another rod, on top of the other disks that may already be present on that rod.</li>
+<li>No disk may be placed on top of a smaller disk.<br>Complete the definition of <code>move_stack</code>, which prints out the steps required to move <code>n</code> disks from the <code>start</code> rod to the <code>end</code> rod without violating the rules. The provided <code>print_move</code> function will print out the step to move a single disk from the given <code>origin</code> to the given <code>destination</code>.</li>
+</ul>
+<p><em>Hint: Draw out a few games with various <code>n</code> on a piece of paper and try to find a pattern of disk movements that applies to any <code>n</code>. In your solution, take the recursive leap of faith whenever you need to move any amount of disks less than <code>n</code> from one rod to another.</em></p>
+<p><span style="color:red">My solution: We can simply think this question as recursion. The base case is when n is 1, then we only need to move the disk from start to end, otherwise we first need to move n - 1 disks from start to median, which is calculated by 6 - start - end. Then we need to move the largest disk to the end rod. Last we need to move the median n - 1 disks to end rod.</span></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">print_move</span><span class="params">(origin, destination)</span>:</span></span><br><span class="line">    <span class="string">"""Print instructions to move a disk."""</span></span><br><span class="line">    print(<span class="string">"Move the top disk from rod"</span>, origin, <span class="string">"to rod"</span>, destination)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">move_stack</span><span class="params">(n, start, end)</span>:</span></span><br><span class="line">    <span class="string">"""Print the moves required to move n disks on the start pole to the end</span></span><br><span class="line"><span class="string">    pole without violating the rules of Towers of Hanoi.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    n -- number of disks</span></span><br><span class="line"><span class="string">    start -- a pole position, either 1, 2, or 3</span></span><br><span class="line"><span class="string">    end -- a pole position, either 1, 2, or 3</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    There are exactly three poles, and start and end must be different. Assume</span></span><br><span class="line"><span class="string">    that the start pole has at least n disks of increasing size, and the end</span></span><br><span class="line"><span class="string">    pole is either empty or has a top disk larger than the top n start disks.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; move_stack(1, 1, 3)</span></span><br><span class="line"><span class="string">    Move the top disk from rod 1 to rod 3</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; move_stack(2, 1, 3)</span></span><br><span class="line"><span class="string">    Move the top disk from rod 1 to rod 2</span></span><br><span class="line"><span class="string">    Move the top disk from rod 1 to rod 3</span></span><br><span class="line"><span class="string">    Move the top disk from rod 2 to rod 3</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; move_stack(3, 1, 3)</span></span><br><span class="line"><span class="string">    Move the top disk from rod 1 to rod 3</span></span><br><span class="line"><span class="string">    Move the top disk from rod 1 to rod 2</span></span><br><span class="line"><span class="string">    Move the top disk from rod 3 to rod 2</span></span><br><span class="line"><span class="string">    Move the top disk from rod 1 to rod 3</span></span><br><span class="line"><span class="string">    Move the top disk from rod 2 to rod 1</span></span><br><span class="line"><span class="string">    Move the top disk from rod 2 to rod 3</span></span><br><span class="line"><span class="string">    Move the top disk from rod 1 to rod 3</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="keyword">assert</span> <span class="number">1</span> &lt;= start &lt;= <span class="number">3</span> <span class="keyword">and</span> <span class="number">1</span> &lt;= end &lt;= <span class="number">3</span> <span class="keyword">and</span> start != end, <span class="string">"Bad start/end"</span></span><br><span class="line">    <span class="string">"*** YOUR CODE HERE ***"</span></span><br><span class="line">    <span class="keyword">if</span> n == <span class="number">1</span>:</span><br><span class="line">        print_move(start, end)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    median = <span class="number">6</span> - start - end</span><br><span class="line">    move_stack(n - <span class="number">1</span>, start, median)</span><br><span class="line">    move_stack(<span class="number">1</span>, start, end)</span><br><span class="line">    move_stack(n - <span class="number">1</span>, median, end)</span><br></pre></td></tr></table></figure>
+<p><span style="color: red">The pdf solution:</span><br>To solve the Towers of Hanoi problem for n disks, we need to do three steps:</p>
+<p>Move everything but the last disk (n-1 disks) to someplace in the middle (not the start nor the end rod).<br>Move the last disk (a single disk) to the end rod. This must occur after step 1 (we have to move everything above it away first)!<br>Move everything but the last disk (the disks from step 1) from the middle on top of the end rod.<br>We take advantage of the fact that the recursive function move_stack is guaranteed to move n disks from start to end while obeying the rules of Towers of Hanoi. The only thing that remains is to make sure that we have set up the playing board to make that possible.</p>
+<p>Since we move a disk to end rod, we run the risk of move_stack doing an improper move (big disk on top of small disk). But since we’re moving the biggest disk possible, nothing in the n-1 disks above that is bigger. Therefore, even though we do not explicitly state the Towers of Hanoi constraints, we can still carry out the correct steps.</p>
+<p>Video walkthrough: <a href="https://youtu.be/VwynGQiCTFM" target="_blank" rel="noopener">https://youtu.be/VwynGQiCTFM</a></span></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">print_move</span><span class="params">(origin, destination)</span>:</span></span><br><span class="line">    <span class="string">"""Print instructions to move a disk."""</span></span><br><span class="line">    print(<span class="string">"Move the top disk from rod"</span>, origin, <span class="string">"to rod"</span>, destination)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">move_stack</span><span class="params">(n, start, end)</span>:</span></span><br><span class="line">    <span class="string">"""Print the moves required to move n disks on the start pole to the end</span></span><br><span class="line"><span class="string">    pole without violating the rules of Towers of Hanoi.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    n -- number of disks</span></span><br><span class="line"><span class="string">    start -- a pole position, either 1, 2, or 3</span></span><br><span class="line"><span class="string">    end -- a pole position, either 1, 2, or 3</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    There are exactly three poles, and start and end must be different. Assume</span></span><br><span class="line"><span class="string">    that the start pole has at least n disks of increasing size, and the end</span></span><br><span class="line"><span class="string">    pole is either empty or has a top disk larger than the top n start disks.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; move_stack(1, 1, 3)</span></span><br><span class="line"><span class="string">    Move the top disk from rod 1 to rod 3</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; move_stack(2, 1, 3)</span></span><br><span class="line"><span class="string">    Move the top disk from rod 1 to rod 2</span></span><br><span class="line"><span class="string">    Move the top disk from rod 1 to rod 3</span></span><br><span class="line"><span class="string">    Move the top disk from rod 2 to rod 3</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; move_stack(3, 1, 3)</span></span><br><span class="line"><span class="string">    Move the top disk from rod 1 to rod 3</span></span><br><span class="line"><span class="string">    Move the top disk from rod 1 to rod 2</span></span><br><span class="line"><span class="string">    Move the top disk from rod 3 to rod 2</span></span><br><span class="line"><span class="string">    Move the top disk from rod 1 to rod 3</span></span><br><span class="line"><span class="string">    Move the top disk from rod 2 to rod 1</span></span><br><span class="line"><span class="string">    Move the top disk from rod 2 to rod 3</span></span><br><span class="line"><span class="string">    Move the top disk from rod 1 to rod 3</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="keyword">assert</span> <span class="number">1</span> &lt;= start &lt;= <span class="number">3</span> <span class="keyword">and</span> <span class="number">1</span> &lt;= end &lt;= <span class="number">3</span> <span class="keyword">and</span> start != end, <span class="string">"Bad start/end"</span></span><br><span class="line">    <span class="keyword">if</span> n == <span class="number">1</span>:</span><br><span class="line">        print_move(start, end)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        other = <span class="number">6</span> - start - end</span><br><span class="line">        move_stack(n<span class="number">-1</span>, start, other)</span><br><span class="line">        print_move(start, end)</span><br><span class="line">        move_stack(n<span class="number">-1</span>, other, end)</span><br></pre></td></tr></table></figure>
+
+<h1 id="Q6-Anonymous-factorial"><a href="#Q6-Anonymous-factorial" class="headerlink" title="Q6: Anonymous factorial"></a>Q6: Anonymous factorial</h1><p>The recursive factorial function can be written as a single expression by using a conditional expression.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; fact &#x3D; lambda n: 1 if n &#x3D;&#x3D; 1 else mul(n, fact(sub(n, 1)))</span><br><span class="line">&gt;&gt;&gt; fact(5)</span><br><span class="line">120</span><br></pre></td></tr></table></figure>
+<p>However, this implementation relies on the fact (no pun intended) that <code>fact</code> has a name, to which we refer in the body of <code>fact</code>. To write a recursive function, we have always given it a name using a <code>def</code> or assignment statement so that we can refer to the function within its own body. In this question, your job is to define fact recursively without giving it a name!</p>
+<p>Write an expression that computes <code>n</code> factorial using only call expressions, conditional expressions, and lambda expressions (no assignment or def statements). Note in particular that you are not allowed to use <code>make_anonymous_factorial</code> in your return expression. The <code>sub</code> and <code>mul</code> functions from the <code>operator</code> module are the only built-in functions required to solve this problem:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> operator <span class="keyword">import</span> sub, mul</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">make_anonymous_factorial</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="string">"""Return the value of an expression that computes factorial.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; make_anonymous_factorial()(5)</span></span><br><span class="line"><span class="string">    120</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; from construct_check import check</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; check(HW_SOURCE_FILE, 'make_anonymous_factorial', ['Assign', 'AugAssign', 'FunctionDef', 'Recursion'])</span></span><br><span class="line"><span class="string">    True</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="keyword">return</span> (<span class="keyword">lambda</span> f: <span class="keyword">lambda</span> k: f(f, k))(<span class="keyword">lambda</span> f, k: k <span class="keyword">if</span> k == <span class="number">1</span> <span class="keyword">else</span> mul(k, f(f, sub(k, <span class="number">1</span>))))</span><br><span class="line">    <span class="comment"># Alternate solution:</span></span><br><span class="line">    <span class="comment">#   return (lambda f: f(f))(lambda f: lambda x: 1 if x == 0 else x * f(f)(x - 1))</span></span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/python/" rel="tag"># python</a>
+              <a href="/tags/SICP/" rel="tag"># SICP</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/10/07/cs61a-guerrilla02/" rel="prev" title="cs61a-guerrilla02">
+      <i class="fa fa-chevron-left"></i> cs61a-guerrilla02
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/10/08/cs61a-lab04/" rel="next" title="cs61a-lab04">
+      cs61a-lab04 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Lecture-Code"><span class="nav-number">1.</span> <span class="nav-text">Lecture Code</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Q1-Taxicab-Distance"><span class="nav-number">2.</span> <span class="nav-text">Q1: Taxicab Distance</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Q2-Squares-only"><span class="nav-number">3.</span> <span class="nav-text">Q2:Squares only</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Q3-G-function"><span class="nav-number">4.</span> <span class="nav-text">Q3:G function</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Q4-Count-change"><span class="nav-number">5.</span> <span class="nav-text">Q4: Count change</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Q5-Towers-of-Hanoi"><span class="nav-number">6.</span> <span class="nav-text">Q5: Towers of Hanoi</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Q6-Anonymous-factorial"><span class="nav-number">7.</span> <span class="nav-text">Q6: Anonymous factorial</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Guohang Ma</p>
+  <div class="site-description" itemprop="description">developer blog</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">136</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">38</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Guohang Ma</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

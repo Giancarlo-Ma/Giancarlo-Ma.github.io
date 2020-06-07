@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Q1: Has SevenWrite a recursive function has_seven that takes a positive integer n and returns whether n contains the digit 7. Use recursion - the tests will fail if you use any assignment statements.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cs61a-hw03">
+<meta property="og:url" content="http://yoursite.com/2018/08/30/cs61a-hw03/index.html">
+<meta property="og:site_name" content="Giancarlo&#39;s Blog">
+<meta property="og:description" content="Q1: Has SevenWrite a recursive function has_seven that takes a positive integer n and returns whether n contains the digit 7. Use recursion - the tests will fail if you use any assignment statements.">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2018-08-30T14:05:10.000Z">
+<meta property="article:modified_time" content="2020-06-07T02:09:33.420Z">
+<meta property="article:author" content="Guohang Ma">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="SICP">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2018/08/30/cs61a-hw03/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>cs61a-hw03 | Giancarlo's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Giancarlo's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Code Life</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/30/cs61a-hw03/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Guohang Ma">
+      <meta itemprop="description" content="developer blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Giancarlo's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          cs61a-hw03
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-08-30 22:05:10" itemprop="dateCreated datePublished" datetime="2018-08-30T22:05:10+08:00">2018-08-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-06-07 10:09:33" itemprop="dateModified" datetime="2020-06-07T10:09:33+08:00">2020-06-07</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CS61A/" itemprop="url" rel="index"><span itemprop="name">CS61A</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Q1-Has-Seven"><a href="#Q1-Has-Seven" class="headerlink" title="Q1: Has Seven"></a>Q1: Has Seven</h1><p>Write a recursive function has_seven that takes a positive integer n and returns whether n contains the digit 7. Use recursion - the tests will fail if you use any assignment statements.</p>
+<a id="more"></a>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">has_seven</span><span class="params">(k)</span>:</span></span><br><span class="line">   <span class="string">"""Returns True if at least one of the digits of k is a 7, False otherwise.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">   &gt;&gt;&gt; has_seven(3)</span></span><br><span class="line"><span class="string">   False</span></span><br><span class="line"><span class="string">   &gt;&gt;&gt; has_seven(7)</span></span><br><span class="line"><span class="string">   True</span></span><br><span class="line"><span class="string">   &gt;&gt;&gt; has_seven(2734)</span></span><br><span class="line"><span class="string">   True</span></span><br><span class="line"><span class="string">   &gt;&gt;&gt; has_seven(2634)</span></span><br><span class="line"><span class="string">   False</span></span><br><span class="line"><span class="string">   &gt;&gt;&gt; has_seven(734)</span></span><br><span class="line"><span class="string">   True</span></span><br><span class="line"><span class="string">   &gt;&gt;&gt; has_seven(7777)</span></span><br><span class="line"><span class="string">   True</span></span><br><span class="line"><span class="string">   &gt;&gt;&gt; from construct_check import check</span></span><br><span class="line"><span class="string">   &gt;&gt;&gt; check(HW_SOURCE_FILE, 'has_seven',</span></span><br><span class="line"><span class="string">   ...       ['Assign', 'AugAssign'])</span></span><br><span class="line"><span class="string">   True</span></span><br><span class="line"><span class="string">   """</span></span><br><span class="line">   <span class="string">"*** YOUR CODE HERE ***"</span></span><br><span class="line">   <span class="keyword">if</span> k % <span class="number">10</span> == <span class="number">7</span>:</span><br><span class="line">       <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">   <span class="keyword">elif</span> k == <span class="number">0</span>:</span><br><span class="line">       <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">   <span class="keyword">else</span>:</span><br><span class="line">       <span class="keyword">return</span> has_seven(k // <span class="number">10</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># iteration</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">has_seven</span><span class="params">(k)</span>:</span></span><br><span class="line">    <span class="keyword">while</span> k &gt; <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">if</span> k % <span class="number">10</span> == <span class="number">7</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        k //= <span class="number">10</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="Q2-Ping-pong"><a href="#Q2-Ping-pong" class="headerlink" title="Q2: Ping-pong"></a>Q2: Ping-pong</h1><p>The ping-pong sequence counts up starting from 1 and is always either counting up or counting down. At element k, the direction switches if k is a multiple of 7 or contains the digit 7. The first 30 elements of the ping-pong sequence are listed below, with direction swaps marked using brackets at the 7th, 14th, 17th, 21st, 27th, and 28th elements:</p>
+<p>1 2 3 4 5 6 [7] 6 5 4 3 2 1 [0] 1 2 [3] 2 1 0 [-1] 0 1 2 3 4 [5] [4] 5 6<br>Implement a function pingpong that returns the nth element of the ping-pong sequence without using any assignment statements.</p>
+<p>You may use the function has_seven from the previous problem.</p>
+<p>Hint: If you’re stuck, first try implementing pingpong using assignment statements and a while statement. Then, to convert this into a recursive solution, write a helper function that has a parameter for each variable that changes values in the body of the while loop.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">pingpong</span><span class="params">(n)</span>:</span></span><br><span class="line">    <span class="string">"""Return the nth element of the ping-pong sequence.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; pingpong(7)</span></span><br><span class="line"><span class="string">    7</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; pingpong(8)</span></span><br><span class="line"><span class="string">    6</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; pingpong(15)</span></span><br><span class="line"><span class="string">    1</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; pingpong(21)</span></span><br><span class="line"><span class="string">    -1</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; pingpong(22)</span></span><br><span class="line"><span class="string">    0</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; pingpong(30)</span></span><br><span class="line"><span class="string">    6</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; pingpong(68)</span></span><br><span class="line"><span class="string">    2</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; pingpong(69)</span></span><br><span class="line"><span class="string">    1</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; pingpong(70)</span></span><br><span class="line"><span class="string">    0</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; pingpong(71)</span></span><br><span class="line"><span class="string">    1</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; pingpong(72)</span></span><br><span class="line"><span class="string">    0</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; pingpong(100)</span></span><br><span class="line"><span class="string">    2</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; from construct_check import check</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; check(HW_SOURCE_FILE, 'pingpong', ['Assign', 'AugAssign'])</span></span><br><span class="line"><span class="string">    True</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="string">"*** YOUR CODE HERE ***"</span></span><br><span class="line">    <span class="keyword">return</span> helper(n, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">helper</span><span class="params">(n, i, curr, direction)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> i == n:</span><br><span class="line">        <span class="keyword">return</span> curr</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">if</span> i % <span class="number">7</span> == <span class="number">0</span> <span class="keyword">or</span> has_seven(i):</span><br><span class="line">            <span class="keyword">return</span> helper(n, i + <span class="number">1</span>, curr - direction, -direction)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> helper(n, i + <span class="number">1</span>, curr + direction, direction)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># iteration</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">pingpong</span><span class="params">(n)</span>:</span></span><br><span class="line">    i, curr, direction = <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> i &lt; n:</span><br><span class="line">        <span class="keyword">if</span> i % <span class="number">7</span> == <span class="number">0</span> <span class="keyword">or</span> has_seven(i):</span><br><span class="line">            direction = -direction</span><br><span class="line">        curr += direction</span><br><span class="line">        i += <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> curr</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Alternate solution 1</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">pingpong_next</span><span class="params">(x, i, step)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> i == n:</span><br><span class="line">        <span class="keyword">return</span> x</span><br><span class="line">    <span class="keyword">return</span> pingpong_next(x + step, i + <span class="number">1</span>, next_dir(step, i+<span class="number">1</span>))</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">next_dir</span><span class="params">(step, i)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> i % <span class="number">7</span> == <span class="number">0</span> <span class="keyword">or</span> has_seven(i):</span><br><span class="line">        <span class="keyword">return</span> -step</span><br><span class="line">    <span class="keyword">return</span> step</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> pingpong_next(<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Alternate solution 2</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">pingpong</span><span class="params">(n)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> n &lt;= <span class="number">7</span>:</span><br><span class="line">        <span class="keyword">return</span> n</span><br><span class="line">    <span class="keyword">return</span> direction(n) + pingpong(n<span class="number">-1</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">direction</span><span class="params">(n)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> n &lt; <span class="number">7</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">    <span class="keyword">if</span> (n<span class="number">-1</span>) % <span class="number">7</span> == <span class="number">0</span> <span class="keyword">or</span> has_seven(n<span class="number">-1</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span> * direction(n<span class="number">-1</span>)</span><br><span class="line">    <span class="keyword">return</span> direction(n<span class="number">-1</span>)</span><br></pre></td></tr></table></figure>
+<p>This is a fairly involved recursion problem, which we will first solve through iteration and then convert to a recursive solution.</p>
+<p>Note that at any given point in the sequence, we need to keep track of the current value of the sequence (this is the value that might be output) as well as the current index of the sequence (how many items we have seen so far, not actually output).</p>
+<p>For example, 14th element has value 0, but it’s the 14th index in the sequence. We will refer to the value as x and the index as i. An iterative solution may look something like this:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">pingpong</span><span class="params">(n)</span>:</span></span><br><span class="line">    i = <span class="number">1</span></span><br><span class="line">    x = <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> i &lt; n:</span><br><span class="line">        x += <span class="number">1</span></span><br><span class="line">        i += <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> x</span><br></pre></td></tr></table></figure>
+<p>Hopefully, it is clear to you that this has a big problem. This doesn’t account for changes in directions at all! It will work for the first seven values of the sequence, but then fail after that. To fix this, we can add in a check for direction, and then also keep track of the current direction to make our lives a bit easier (it’s possible to compute the direction from scratch at each step, see the direction function in the alternate solution).</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">pingpong</span><span class="params">(n)</span>:</span></span><br><span class="line">    i = <span class="number">1</span></span><br><span class="line">    x = <span class="number">1</span></span><br><span class="line">    is_up = <span class="literal">True</span></span><br><span class="line">    <span class="keyword">while</span> i &lt; n:</span><br><span class="line">        is_up = next_dir(...)</span><br><span class="line">        <span class="keyword">if</span> is_up:</span><br><span class="line">            x += <span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            x -= <span class="number">1</span></span><br><span class="line">        i += <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> x</span><br></pre></td></tr></table></figure>
+<p>All that’s left to do is to write the next_dir function, which will take in the current direction and index and then tell us what direction to go in next (which could be the same direction):</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">next_dir</span><span class="params">(is_up, i)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> i % <span class="number">7</span> == <span class="number">0</span> <span class="keyword">or</span> has_seven(i):</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">not</span> is_up</span><br><span class="line">    <span class="keyword">return</span> is_up</span><br></pre></td></tr></table></figure>
+<p>There’s a tiny optimization we can make here. Instead of calculating an increment based on the value of is_up, we can make it directly store the direction of change into the variable (next_dir is also updated, see the solution for the new version):</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">pingpong</span><span class="params">(n)</span>:</span></span><br><span class="line">    i = <span class="number">1</span></span><br><span class="line">    x = <span class="number">1</span></span><br><span class="line">    step = <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> i &lt; n:</span><br><span class="line">        step = next_dir(step, i)</span><br><span class="line">        x += step</span><br><span class="line">        i += <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> x</span><br></pre></td></tr></table></figure>
+<p>This will work, but it uses assignment. To convert it to an equivalent recursive version without assignment, make each local variable into a parameter of a new helper function, and then add an appropriate base case. Lastly, we seed the helper function with appropriate starting values by calling it with the values we had in the iterative version.</p>
+<p>You should be able to convince yourself that the version of pingpong in the solutions has the same logic as the iterative version of pingpong above.</p>
+<p>Video walkthrough: <a href="https://youtu.be/74gwPjgrN_k" target="_blank" rel="noopener">https://youtu.be/74gwPjgrN_k</a></p>
+<p>Several doctests refer to these functions:<br>from operator import add, mul, sub</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">square = <span class="keyword">lambda</span> x: x * x</span><br><span class="line"></span><br><span class="line">identity = <span class="keyword">lambda</span> x: x</span><br><span class="line"></span><br><span class="line">triple = <span class="keyword">lambda</span> x: <span class="number">3</span> * x</span><br><span class="line"></span><br><span class="line">increment = <span class="keyword">lambda</span> x: x + <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<h1 id="Q3-Filtered-Accumulate"><a href="#Q3-Filtered-Accumulate" class="headerlink" title="Q3: Filtered Accumulate"></a>Q3: Filtered Accumulate</h1><p>Extend the accumulate function from homework 2 to allow for filtering the results produced by its term argument by filling in the implementation for the filtered_accumulate function:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">filtered_accumulate</span><span class="params">(combiner, base, pred, n, term)</span>:</span></span><br><span class="line">    <span class="string">"""Return the result of combining the terms in a sequence of N terms</span></span><br><span class="line"><span class="string">    that satisfy the predicate pred. combiner is a two-argument function.</span></span><br><span class="line"><span class="string">    If v1, v2, ..., vk are the values in term(1), term(2), ..., term(N)</span></span><br><span class="line"><span class="string">    that satisfy pred, then the result is</span></span><br><span class="line"><span class="string">         base combiner v1 combiner v2 ... combiner vk</span></span><br><span class="line"><span class="string">    (treating combiner as if it were a binary operator, like +). The</span></span><br><span class="line"><span class="string">    implementation uses accumulate.</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; filtered_accumulate(add, 0, lambda x: True, 5, identity)  # 0 + 1 + 2 + 3 + 4 + 5</span></span><br><span class="line"><span class="string">    15</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; filtered_accumulate(add, 11, lambda x: False, 5, identity) # 11</span></span><br><span class="line"><span class="string">    11</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; filtered_accumulate(add, 0, odd, 5, identity)   # 0 + 1 + 3 + 5</span></span><br><span class="line"><span class="string">    9</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; filtered_accumulate(mul, 1, greater_than_5, 5, square)  # 1 * 9 * 16 * 25</span></span><br><span class="line"><span class="string">    3600</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; # Do not use while/for loops or recursion</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; from construct_check import check</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; check(HW_SOURCE_FILE, 'filtered_accumulate',</span></span><br><span class="line"><span class="string">    ...       ['While', 'For', 'Recursion'])</span></span><br><span class="line"><span class="string">    True</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">combine_if</span><span class="params">(x, y)</span>:</span></span><br><span class="line">        <span class="string">"*** YOUR CODE HERE ***"</span></span><br><span class="line">        <span class="keyword">if</span> pred(y):</span><br><span class="line">            <span class="keyword">return</span> combiner(x, y)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> x</span><br><span class="line">    <span class="keyword">return</span> accumulate(combine_if, base, n, term)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">odd</span><span class="params">(x)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> x % <span class="number">2</span> == <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">greater_than_5</span><span class="params">(x)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> x &gt; <span class="number">5</span></span><br></pre></td></tr></table></figure>
+<p>filtered_accumulate has the following parameters:</p>
+<p>combiner, base, term and n: the same arguments as accumulate.<br>pred: a one-argument predicate function applied to the values of term(k) for each k from 1 to n. Only values for which pred returns a true value are included in the accumulated total. If no values satisfy pred, then base is returned.<br>For example, the result of filtered_accumulate(add, 0, is_prime, 11, identity) is</p>
+<p>0 + 2 + 3 + 5 + 7 + 11<br>for a valid definition of is_prime.</p>
+<p>Implement filtered_accumulate by defining the combine_if function. Exactly what this function does is something for you to discover. Do not use any loops or make any recursive calls to filtered_accumulate.</p>
+<p>Hint: The order in which you pass the arguments to combiner in your solution to accumulate matters here.</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/python/" rel="tag"># python</a>
+              <a href="/tags/SICP/" rel="tag"># SICP</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/08/29/cs61a-disc03/" rel="prev" title="cs61a-disc03">
+      <i class="fa fa-chevron-left"></i> cs61a-disc03
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/09/01/cs61b-disc01&disc02/" rel="next" title="cs61b-disc01&disc02">
+      cs61b-disc01&disc02 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Q1-Has-Seven"><span class="nav-number">1.</span> <span class="nav-text">Q1: Has Seven</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Q2-Ping-pong"><span class="nav-number">2.</span> <span class="nav-text">Q2: Ping-pong</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Q3-Filtered-Accumulate"><span class="nav-number">3.</span> <span class="nav-text">Q3: Filtered Accumulate</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Guohang Ma</p>
+  <div class="site-description" itemprop="description">developer blog</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">136</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">38</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Guohang Ma</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

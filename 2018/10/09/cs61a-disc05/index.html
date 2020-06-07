@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="1 MutationLet’s imagine you order a mushroom and cheese pizza from La Val’s, and that they represent your order as a list: 1&gt;&gt;&gt; pizza &#x3D; [&#39;cheese&#39;, mushrooms&#39;] A couple minute">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cs61a-disc05">
+<meta property="og:url" content="http://yoursite.com/2018/10/09/cs61a-disc05/index.html">
+<meta property="og:site_name" content="Giancarlo&#39;s Blog">
+<meta property="og:description" content="1 MutationLet’s imagine you order a mushroom and cheese pizza from La Val’s, and that they represent your order as a list: 1&gt;&gt;&gt; pizza &#x3D; [&#39;cheese&#39;, mushrooms&#39;] A couple minute">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://yoursite.com/2018/10/09/cs61a-disc05/en.png">
+<meta property="article:published_time" content="2018-10-09T03:57:28.000Z">
+<meta property="article:modified_time" content="2020-06-07T02:09:33.380Z">
+<meta property="article:author" content="Guohang Ma">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="SICP">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2018/10/09/cs61a-disc05/en.png">
+
+<link rel="canonical" href="http://yoursite.com/2018/10/09/cs61a-disc05/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>cs61a-disc05 | Giancarlo's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Giancarlo's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Code Life</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/09/cs61a-disc05/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Guohang Ma">
+      <meta itemprop="description" content="developer blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Giancarlo's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          cs61a-disc05
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-10-09 11:57:28" itemprop="dateCreated datePublished" datetime="2018-10-09T11:57:28+08:00">2018-10-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-06-07 10:09:33" itemprop="dateModified" datetime="2020-06-07T10:09:33+08:00">2020-06-07</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CS61A/" itemprop="url" rel="index"><span itemprop="name">CS61A</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="1-Mutation"><a href="#1-Mutation" class="headerlink" title="1 Mutation"></a>1 Mutation</h1><p>Let’s imagine you order a mushroom and cheese pizza from La Val’s, and that they represent your order as a list:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; pizza &#x3D; [&#39;cheese&#39;, mushrooms&#39;]</span><br></pre></td></tr></table></figure>
+<p>A couple minutes later, you realize that you really want onions on the pizza. Based on what we know so far, La Val’s would have to build an entirely new list to add onions:</p>
+<a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; pizza &#x3D; [&#39;cheese&#39;, mushrooms&#39;]</span><br><span class="line">&gt;&gt;&gt; new_pizza &#x3D; pizza + [&#39;onions&#39;] # creates a new python list</span><br><span class="line">&gt;&gt;&gt; new_pizza</span><br><span class="line">[&#39;cheese&#39;, mushrooms&#39;, &#39;onions&#39;]</span><br><span class="line">&gt;&gt;&gt; pizza # the original list is unmodified</span><br><span class="line">[&#39;cheese&#39;, &#39;mushrooms&#39;]</span><br></pre></td></tr></table></figure>
+<p>This is silly, considering that all La Val’s had to do was add onions on top of pizza instead of making an entirely new pizza.<br>We can fix this issue with <strong>list mutation</strong>. In Python, some objects, such as lists and dictionaries, are <strong>mutable</strong>, meaning that their contents or state can be changed over the course of program execution. Therefore, instead of building a new pizza, we can just mutate pizza to add some onions!</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; pizza.append(&#39;onions&#39;)</span><br><span class="line">&gt;&gt;&gt; pizza</span><br><span class="line">[&#39;cheese&#39;, &#39;mushrooms&#39;, &#39;onions&#39;]</span><br></pre></td></tr></table></figure>
+<p><code>append</code> is what’s known as a method, or a function that belongs to an object, so we have to call it using dot notation. Don’t worry too much about the details of methods; we will talk more about them later on in the course. For now, here’s a list of useful list mutation methods:</p>
+<ol>
+<li><code>append(el)</code>: Adds <code>el</code> to the end of the list</li>
+<li><code>extend(lst)</code>: Extends the list by concatenating it with <code>lst</code></li>
+<li><code>insert(i, el)</code>: Insert <code>el</code> at index <code>i</code> (does not replace element but adds a new one)</li>
+<li><code>remove(el)</code>: Removes the first occurrence of <code>el</code> in list, otherwise errors</li>
+<li><code>pop(i)</code>: Removes and returns the element at index <code>i</code><br>We can also use the familiar indexing operator with an assignment statement to change an existing element in a list. For example, let’s say you want to replace mushrooms on your pizza with tomatoes. We can index into the list at index 1 and reassign it to ’tomatoes’ like so:<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; pizza[1] &#x3D; &#39;tomatoes&#39;</span><br><span class="line">&gt;&gt;&gt; pizza</span><br><span class="line">[&#39;cheese&#39;, &#39;tomatoes&#39;, &#39;onions&#39;]</span><br></pre></td></tr></table></figure>
+Although lists and dictionaries are mutable, many other objects, such as numeric types, tuples, and strings, are immutable, meaning they cannot be changed once they are created.</li>
+</ol>
+<h2 id="Question"><a href="#Question" class="headerlink" title="Question"></a>Question</h2><p>1.1 What would Python display? In addition to giving the output, draw the box and pointer diagrams for each list to the right.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; lst1 &#x3D; [1, 2, 3]</span><br><span class="line">&gt;&gt;&gt; lst2 &#x3D; lst1</span><br><span class="line">&gt;&gt;&gt; lst1 is lst2</span><br><span class="line">True</span><br><span class="line">&gt;&gt;&gt; lst2.extend([5, 6])</span><br><span class="line">&gt;&gt;&gt; lst1[4]</span><br><span class="line">6</span><br><span class="line">&gt;&gt;&gt; lst1.append([-1, 0, 1])</span><br><span class="line">&gt;&gt;&gt; -1 in lst2</span><br><span class="line">False</span><br><span class="line">&gt;&gt;&gt; lst2[5]</span><br><span class="line">[-1, 0, 1]</span><br><span class="line">&gt;&gt;&gt; lst3 &#x3D; lst2[:]</span><br><span class="line">&gt;&gt;&gt; lst3.insert(3, lst2.pop(3))</span><br><span class="line">&gt;&gt;&gt; len(lst1)</span><br><span class="line">5</span><br><span class="line">&gt;&gt;&gt; lst1[4] is lst3[6]</span><br><span class="line">True</span><br><span class="line">&gt;&gt;&gt; lst3[lst2[4][1]]</span><br><span class="line">1</span><br><span class="line">&gt;&gt;&gt; lst1[:3] is lst2[:3]</span><br><span class="line">False</span><br><span class="line">&gt;&gt;&gt; lst1[:3] &#x3D;&#x3D; lst3[:3]</span><br><span class="line">True</span><br></pre></td></tr></table></figure>
+<p>1.2 Write a function that takes in a value <code>x</code>, a value <code>el</code>, and a list and adds as many <code>el</code>’s to the end of the list as there are <code>x</code>’s. <strong>Make sure to modify the original list using list mutation techniques.</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add_this_many</span><span class="params">(x, el, lst)</span>:</span></span><br><span class="line">    <span class="string">""" Adds el to the end of lst the number of times x occurs</span></span><br><span class="line"><span class="string">    in lst.</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; lst = [1, 2, 4, 2, 1]</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; add_this_many(1, 5, lst)</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; lst</span></span><br><span class="line"><span class="string">    [1, 2, 4, 2, 1, 5, 5]</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; add_this_many(2, 2, lst)</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; lst</span></span><br><span class="line"><span class="string">    [1, 2, 4, 2, 1, 5, 5, 2, 2]</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    count = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> e <span class="keyword">in</span> lst:</span><br><span class="line">        <span class="keyword">if</span> e == x:</span><br><span class="line">            count += <span class="number">1</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(count):</span><br><span class="line">        lst.append(el)</span><br></pre></td></tr></table></figure>
+
+<h1 id="2-Nonlocal"><a href="#2-Nonlocal" class="headerlink" title="2 Nonlocal"></a>2 Nonlocal</h1><p>Until now, you’ve been able to access names in parent frames, but you have not been able to modify them. The nonlocal keyword can be used to modify a binding in a parent frame. For example, consider stepper, which uses nonlocal to modify num:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">stepper</span><span class="params">(num)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">step</span><span class="params">()</span>:</span></span><br><span class="line">        <span class="keyword">nonlocal</span> num <span class="comment"># declares num as a nonlocal name</span></span><br><span class="line">        num = num + <span class="number">1</span> <span class="comment"># modifies num in the stepper frame</span></span><br><span class="line">        <span class="keyword">return</span> num</span><br><span class="line">    <span class="keyword">return</span> step</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>step1 = stepper(<span class="number">10</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>step1() <span class="comment"># Modifies and returns num</span></span><br><span class="line"><span class="number">11</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>step1() <span class="comment"># num is maintained across separate calls to step</span></span><br><span class="line"><span class="number">12</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>step2 = stepper(<span class="number">10</span>) <span class="comment"># Each returned step function keeps its own state</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>step2()</span><br><span class="line"><span class="number">11</span></span><br></pre></td></tr></table></figure>
+<p>As illustrated in this example, <code>nonlocal</code> is useful for maintaining state across different calls to the same function.<br>However, there are two important caveats with nonlocal names:</p>
+<ul>
+<li><strong>Global names</strong> cannot be modified using the nonlocal keyword.</li>
+<li><strong>Names in the current frame</strong> cannot be overridden using the nonlocal keyword.<br>This means we cannot have both a local and nonlocal binding with the same name in a single frame.<br>Because <code>nonlocal</code> lets you modify bindings in parent frames, we call functions that use it <strong>mutable functions</strong>.</li>
+</ul>
+<h2 id="Question-1"><a href="#Question-1" class="headerlink" title="Question"></a>Question</h2><p>2.1 Draw the environment diagram for the following code.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">stepper</span><span class="params">(num)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">step</span><span class="params">()</span>:</span></span><br><span class="line">        <span class="keyword">nonlocal</span> num</span><br><span class="line">        num = num + <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> num</span><br><span class="line">    <span class="keyword">return</span> step</span><br><span class="line"></span><br><span class="line">s = stepper(<span class="number">3</span>)</span><br><span class="line">s()</span><br><span class="line">s()</span><br></pre></td></tr></table></figure>
+<img src="/2018/10/09/cs61a-disc05/en.png" class="">
+
+<p>2.2 The bathtub below simulates an epic battle between Finn and Kylo Ren over a populace of rubber duckies. Fill in the body of ducky so that all doctests pass.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">bathtub</span><span class="params">(n)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; annihilator = bathtub(500) # the force awakens...</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; kylo_ren = annihilator(10)</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; kylo_ren()</span></span><br><span class="line"><span class="string">    490 rubber duckies left</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; rey = annihilator(-20)</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; rey()</span></span><br><span class="line"><span class="string">    510 rubber duckies left</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; kylo_ren()</span></span><br><span class="line"><span class="string">    500 rubber duckies left</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">ducky_annihilator</span><span class="params">(rate)</span>:</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">ducky</span><span class="params">()</span>:</span></span><br><span class="line">            <span class="keyword">nonlocal</span> n</span><br><span class="line">            n -= rate</span><br><span class="line">            print(n + <span class="string">" rubber duckies left"</span>)</span><br><span class="line">        <span class="keyword">return</span> ducky</span><br><span class="line">    <span class="keyword">return</span> ducky_annihilator</span><br></pre></td></tr></table></figure>
+
+<h1 id="3-Iterators-and-Generators"><a href="#3-Iterators-and-Generators" class="headerlink" title="3 Iterators and Generators"></a>3 Iterators and Generators</h1><p>An <strong>iterable</strong> is a data type which contains a collection of values which can be processed one by one sequentially. Some examples of iterables we’ve seen include lists, tuples, strings, and dictionaries. In general, any object that can be iterated over in a <strong>for</strong> loop can be considered an iterable.<br>While an iterable contains values that can be iterated over, we need another type of object called an <strong>iterator</strong> to actually retrieve values contained in an iterable. Calling the <strong>iter</strong> function on an iterable will create an iterator over that iterable. Each iterator keeps track of its position within the iterable. Calling the <strong>next</strong> function on an iterator will give the current value in the iterable and move the iterator’s position to the next value.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; a &#x3D; [1, 2]</span><br><span class="line">&gt;&gt;&gt; a_iter &#x3D; iter(a)</span><br><span class="line">&gt;&gt;&gt; next(a_iter)</span><br><span class="line">1</span><br><span class="line">&gt;&gt;&gt; next(a_iter)</span><br><span class="line">2</span><br><span class="line">&gt;&gt;&gt; next(a_iter)</span><br><span class="line">StopIteration</span><br></pre></td></tr></table></figure>
+<p>In this way, the relationship between an iterable and an iterator is analogous to the relationship between a book and a bookmark - an iterable contains the data that is being iterated over, and an iterator keeps track of your position within that data.<br>Once an iterator has returned all the values in an iterable, subsequent calls to next on that iterable will result in a <strong>StopIteration</strong> exception. In order to be able to access the values in the iterable a second time, you would have to create a second iterator.</p>
+<p>One important application of iterables and iterators is the <strong>for</strong> loop. We’ve seen how we can use <strong>for</strong> loops to iterate over iterables like lists and dictionaries.<br>This only works because the <strong>for</strong> loop implicitly creates an iterator using the builtin <strong>iter</strong> function. Python then calls <strong>next</strong> repeatedly on the iterator, until it raises <code>StopIteration</code>.<br>The code shows how we can mimic the behavior of <strong>for</strong> loops using <strong>while</strong> loops.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">counts = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> counts:</span><br><span class="line">    print(i)</span><br><span class="line">items = iter(counts)</span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        i = next(items)</span><br><span class="line">        print(i)</span><br><span class="line">    <span class="keyword">except</span> StopIteration:</span><br><span class="line">        <span class="keyword">break</span> <span class="comment">#Exit the while loop</span></span><br></pre></td></tr></table></figure>
+<p>Note that most iterators are also iterables - that is, calling <strong>iter</strong> on them will return an iterator. This means that we can use them inside <strong>for</strong> loops. However, calling <strong>iter</strong> on most iterators will not create a new iterator - instead, it will simply return<br>the same iterator.<br>We can also iterate over iterables in a list comprehension or pass in an iterable to the built-in function <strong>list</strong> in order to put the items of an iterable into a list.<br>In addition to the sequences we’ve learned, Python has some built-in ways to create iterables and iterators. Here are a few useful ones:</p>
+<ul>
+<li><strong>range(start, end)</strong> returns an iterable containing numbers from start to end1. If <code>start</code> is not provided, it defaults to 0.</li>
+<li><strong>map(f, iterable)</strong> returns a new iterator containing the values resulting from applying f to each value in <code>iterable</code>.</li>
+<li><strong>filter(f, iterable)</strong> returns a new iterator containing only the values in iterable for which f returns <code>True</code></li>
+</ul>
+<h2 id="Question-2"><a href="#Question-2" class="headerlink" title="Question"></a>Question</h2><p>3.1 What would Python display? If a StopIteration Exception occurs, write StopIteration, and if another error occurs, write Error.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; lst &#x3D; [6, 1, &quot;a&quot;]</span><br><span class="line">&gt;&gt;&gt; next(lst)</span><br><span class="line">Error</span><br><span class="line">&gt;&gt;&gt; lst_iter &#x3D; iter(lst)</span><br><span class="line">&gt;&gt;&gt; next(lst_iter)</span><br><span class="line">6</span><br><span class="line">&gt;&gt;&gt; next(lst_iter)</span><br><span class="line">1</span><br><span class="line">&gt;&gt;&gt; next(iter(lst))</span><br><span class="line">6</span><br><span class="line">&gt;&gt;&gt; [x for x in lst_iter]</span><br><span class="line">[&quot;a&quot;]</span><br></pre></td></tr></table></figure>
+<h2 id="Generators"><a href="#Generators" class="headerlink" title="Generators"></a>Generators</h2><p>A <strong>generator function</strong> is a special kind of Python function that uses a <strong>yield</strong> statement instead of a <strong>return</strong> statement to report values. <em>When a generator function is called, it returns an iterator.</em> To the right, you can see a function that returns an iterator over the natural numbers.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">gen_naturals</span><span class="params">()</span>:</span></span><br><span class="line"><span class="meta">... </span>current = <span class="number">0</span></span><br><span class="line"><span class="meta">... </span><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line"><span class="meta">... </span><span class="keyword">yield</span> current</span><br><span class="line"><span class="meta">... </span>current += <span class="number">1</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>gen = gen_naturals()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>gen</span><br><span class="line">&lt;generator object gen at ...&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>next(gen)</span><br><span class="line"><span class="number">0</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>next(gen)</span><br><span class="line"><span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p>The <strong>yield</strong> statement is similar to a <strong>return</strong> statement. However, while a <strong>return</strong> statement closes the current frame<br>after the function exits, a <strong>yield</strong> statement causes the frame to be saved until the next time <strong>next</strong> is called, which allows the generator to automatically keep track of the iteration state.<br>Once <strong>next</strong> is called again, execution resumes where it last stopped and continues until the next <strong>yield</strong> statement or the end of the function. A generator function can have multiple <strong>yield</strong> statements.<br>Including a <strong>yield</strong> statement in a function automatically tells Python that this function will create a generator. When we call the function, it returns a generator object instead of executing the body. When the generator’s <strong>next</strong> method is called, the body is executed until the next <strong>yield</strong> statement is executed.<br>When <strong>yield from</strong> is called on an iterator, it will <strong>yield</strong> every value from that iterator. It’s similar to doing the following:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> x <span class="keyword">in</span> an_iterator:</span><br><span class="line">    <span class="keyword">yield</span> x</span><br></pre></td></tr></table></figure>
+<p>The example to the right demonstrates different ways of computing the same result.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>square = <span class="keyword">lambda</span> x: x*x</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">many_squares</span><span class="params">(s)</span>:</span></span><br><span class="line"><span class="meta">... </span><span class="keyword">for</span> x <span class="keyword">in</span> s:</span><br><span class="line"><span class="meta">... </span><span class="keyword">yield</span> square(x)</span><br><span class="line"><span class="meta">... </span><span class="keyword">yield</span> <span class="keyword">from</span> map(square, s)</span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>list(many_squares([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]))</span><br><span class="line">[<span class="number">1</span>, <span class="number">4</span>, <span class="number">9</span>, <span class="number">1</span>, <span class="number">4</span>, <span class="number">9</span>]</span><br></pre></td></tr></table></figure>
+<h2 id="Questions"><a href="#Questions" class="headerlink" title="Questions"></a>Questions</h2><p>3.2 What would Python display? If a StopIteration Exception occurs, write <code>StopIteration</code>, or if another error occurs, write <code>Error</code>.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">weird_gen</span><span class="params">(x)</span>:</span></span><br><span class="line"><span class="meta">... </span>    <span class="keyword">if</span> x % <span class="number">2</span> == <span class="number">0</span>:</span><br><span class="line"><span class="meta">... </span>        <span class="keyword">yield</span> x * <span class="number">2</span></span><br><span class="line"><span class="meta">... </span>    <span class="keyword">else</span>:</span><br><span class="line"><span class="meta">... </span>        <span class="keyword">yield</span> x</span><br><span class="line"><span class="meta">... </span>        <span class="keyword">yield</span> <span class="keyword">from</span> weird_gen(x - <span class="number">1</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>next(weird_gen(<span class="number">2</span>))</span><br><span class="line"><span class="number">4</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>list(weird_gen(<span class="number">3</span>))</span><br><span class="line">[<span class="number">3</span>, <span class="number">4</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">greeter</span><span class="params">(x)</span>:</span></span><br><span class="line"><span class="meta">... </span>    <span class="keyword">while</span> x % <span class="number">2</span> != <span class="number">0</span>:</span><br><span class="line"><span class="meta">... </span>        print(<span class="string">'hello!'</span>)</span><br><span class="line"><span class="meta">... </span>        <span class="keyword">yield</span> x</span><br><span class="line"><span class="meta">... </span>        print(<span class="string">'goodbye!'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>greeter(<span class="number">5</span>)</span><br><span class="line">&lt;generator object greeter at ...&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>gen = greeter(<span class="number">5</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>next(gen)</span><br><span class="line">hello!</span><br><span class="line"><span class="number">5</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>next(gen)</span><br><span class="line">goodbye!</span><br><span class="line">hello!</span><br><span class="line"><span class="number">5</span></span><br></pre></td></tr></table></figure>
+<p>3.3 Write a generator function <code>gen_all_items</code> that takes a list of iterators and yields items from all of them in order.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">gen_all_items</span><span class="params">(lst)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; nums = [[1, 2], [3, 4], [[5, 6]]]</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; num_iters = [iter(l) for l in nums]</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; list(gen_all_items(num_iters))</span></span><br><span class="line"><span class="string">    [1, 2, 3, 4, [5, 6]]</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> lst:</span><br><span class="line">        <span class="keyword">yield</span> <span class="keyword">from</span> i</span><br></pre></td></tr></table></figure>
+<p>The yield from solution is nice and short. But this can also be done with just yield:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> it <span class="keyword">in</span> lst:</span><br><span class="line">    <span class="keyword">for</span> x <span class="keyword">in</span> it:</span><br><span class="line">        <span class="keyword">yield</span> x</span><br></pre></td></tr></table></figure>
+<p><span style="color:red">Notice that this function will not yield out of deep lists. That is, it will keep the brackets around deep lists and yield them together instead of one element at a time.</span><br>For an extra challenge, figure out how to yield deep list items! (so the example in the doctest would return [1, 2, 3, 4, 5, 6])</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/python/" rel="tag"># python</a>
+              <a href="/tags/SICP/" rel="tag"># SICP</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/10/08/cs61a-lab05/" rel="prev" title="cs61a-lab05">
+      <i class="fa fa-chevron-left"></i> cs61a-lab05
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/10/09/cs61a-guerrilla03/" rel="next" title="cs61a-guerrilla03">
+      cs61a-guerrilla03 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-Mutation"><span class="nav-number">1.</span> <span class="nav-text">1 Mutation</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Question"><span class="nav-number">1.1.</span> <span class="nav-text">Question</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-Nonlocal"><span class="nav-number">2.</span> <span class="nav-text">2 Nonlocal</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Question-1"><span class="nav-number">2.1.</span> <span class="nav-text">Question</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-Iterators-and-Generators"><span class="nav-number">3.</span> <span class="nav-text">3 Iterators and Generators</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Question-2"><span class="nav-number">3.1.</span> <span class="nav-text">Question</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Generators"><span class="nav-number">3.2.</span> <span class="nav-text">Generators</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Questions"><span class="nav-number">3.3.</span> <span class="nav-text">Questions</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Guohang Ma</p>
+  <div class="site-description" itemprop="description">developer blog</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">136</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">38</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Guohang Ma</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

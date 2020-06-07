@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="模块理想的程序有一个如水晶般清澈的结构。他工作的方式很容易去解释，并且每部分都扮演着精心定义的角色。 一个典型的真正的程序是有机增长的。随着新需求的诞生新功能被添加。结构和保留结构是额外的工作。只有在未来，下一次某人继续这项工作的时候才会有回报。所以很容易忽视它并让程序的部分陷入困境。 这导致了两个实践上的问题。首先，理解这样的系统是苦难你的。如果所有事物可以触碰所有其他的事物，很难孤立地去看待某">
+<meta property="og:type" content="article">
+<meta property="og:title" content="EJ10">
+<meta property="og:url" content="http://yoursite.com/2019/01/08/EJ10/index.html">
+<meta property="og:site_name" content="Giancarlo&#39;s Blog">
+<meta property="og:description" content="模块理想的程序有一个如水晶般清澈的结构。他工作的方式很容易去解释，并且每部分都扮演着精心定义的角色。 一个典型的真正的程序是有机增长的。随着新需求的诞生新功能被添加。结构和保留结构是额外的工作。只有在未来，下一次某人继续这项工作的时候才会有回报。所以很容易忽视它并让程序的部分陷入困境。 这导致了两个实践上的问题。首先，理解这样的系统是苦难你的。如果所有事物可以触碰所有其他的事物，很难孤立地去看待某">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2019-01-08T15:30:19.000Z">
+<meta property="article:modified_time" content="2020-06-07T02:09:33.030Z">
+<meta property="article:author" content="Guohang Ma">
+<meta property="article:tag" content="technology software development blog">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2019/01/08/EJ10/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>EJ10 | Giancarlo's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Giancarlo's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Code Life</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/08/EJ10/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Guohang Ma">
+      <meta itemprop="description" content="developer blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Giancarlo's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          EJ10
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-01-08 23:30:19" itemprop="dateCreated datePublished" datetime="2019-01-08T23:30:19+08:00">2019-01-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-06-07 10:09:33" itemprop="dateModified" datetime="2020-06-07T10:09:33+08:00">2020-06-07</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Eloquent-JavaScript/" itemprop="url" rel="index"><span itemprop="name">Eloquent JavaScript</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="模块"><a href="#模块" class="headerlink" title="模块"></a>模块</h1><p>理想的程序有一个如水晶般清澈的结构。他工作的方式很容易去解释，并且每部分都扮演着精心定义的角色。</p>
+<p>一个典型的真正的程序是有机增长的。随着新需求的诞生新功能被添加。结构和保留结构是额外的工作。只有在未来，下一次某人继续这项工作的时候才会有回报。所以很容易忽视它并让程序的部分陷入困境。</p>
+<p>这导致了两个实践上的问题。首先，理解这样的系统是苦难你的。如果所有事物可以触碰所有其他的事物，很难孤立地去看待某个给定的部分。你被迫要构建对于整个事物的全盘的理解。其次，如果你想要在其他的环境下从这样的程序中使用任何的功能，重写它可能比将其从它的上下文中抽离出来更加容易。</p>
+<p>短语“一个大泥球”经常被用于这样巨大无结构的程序。任何事物粘连在一起，当你想要抽取其中一部分时，整个东西就散了，你的手就会变脏。</p>
+<a id="more"></a>
+
+<h2 id="模块-1"><a href="#模块-1" class="headerlink" title="模块"></a>模块</h2><p>模块是一种避免这些问题的尝试。一个模块就是一小段程序，指明它所依赖的其他部分以及它可以给别的模块提供的功能（它的接口）。</p>
+<p>模块接口和对象接口有很多类似之处，如同我们第六章看到的那样。它们使得模块的部分可以对外界公开，并保持其余部分私有。通过限制模块与彼此交互的方式，这个系统表现得就像乐高，每一块通过精心定义的连接器彼此交互，不像泥巴，所有的东西混在了一起。</p>
+<p>模块之间的关系叫做依赖。当一个模块需要另一个模块的部分时，我们说它依赖那个模块。当这个事实清晰地在模块本身中指明时，他可以被用作当使用给定模块时哪一个模块需要被呈现出来并且自动加载依赖项。</p>
+<p>为了以那种方式分离模块，每一个需要它自己的私有作用域。</p>
+<p>仅仅将你的JS代码分散在不同的文件不能满足这个要求。文件仍然共享同样的命名空间。它们可以有意的或者意外地，与彼此的绑定冲突。并且依赖结构变得不清晰。我们可以做的更好，如同我们后面看到的那样。</p>
+<p>为程序设计一个适合的模块结构是很困难的。在你仍然探索问题的阶段，尝试不同的东西去看看什么工作，你可能不想过分担心这个问题因为这使人严重分神。一旦你感觉基础很坚实了，那就是回头看看并且组织它的好时机。</p>
+<h2 id="包"><a href="#包" class="headerlink" title="包"></a>包</h2><p>从独立的部分构建一个程序，并且实际上可以独立运行这些部分的优点之一就是你可以在不同的程序中使用相同的部分。</p>
+<p>但是你怎么操作这个呢？假设我想要在另外的程序中使用第九章的<code>parseINI</code>函数。如果我已经知道这个函数明确依赖什么，那么我就可以复制所有必要的代码到我的项目中并且使用它。但是如果我发现了那个代码中的错误，我将可能要修复任何使用它的程序并可能会遗忘某个程序。</p>
+<p>一旦你开始写重复的代码了，你将很快发现自己在重复复制并且让他们与时俱进上浪费太多时间精力。</p>
+<p>这就是包大显身手的地方。一个包就是一大块可以被分发的代码（复制和粘贴）。它可能包含一个或者模块并且拥有它所依赖包的信息。一个包也通常和文档一起出现，文档解释包的用途并使得非包作者也能知道如何使用这个包。</p>
+<p>当包中出现问题或者新特性被添加的时候，这个包被升级。现在依赖它的程序（也可能是包）可以升级到新版本。</p>
+<p>以这种方式工作需要基础设施。我们需要一个存储和发现包的地方和一种便捷的方式去安装和升级他们。在JS的世界，这个基础设施由<em>NPM</em>提供。</p>
+<p>NPM是有两种含义：一个在线服务让别人下载或者上传包，以及一个程序（和Node.js打包）帮助你安装和管理它们。</p>
+<p>在写作的时候，可在NPM上获取超过五十万个不同的包。我不得不说它们中的大部分都是垃圾，但是差不多所有有用的公共可获取的包都可以在上面找到。例如，<em>INI</em>文件解析器，相似于我们第九章构建的那个。可在包名为<em>ini</em>下获得。</p>
+<p>第20章将会给你展示如何在本地使用<em>npm</em>命令行程序安装这些包。</p>
+<p>拥有可供下载的高质量软件包是非常有价值的。这意味着通常我们只需要按几个键就可以避免重新造一个100个人可能已经写过的程序并且得到一个稳定的测试良好的实现。</p>
+<p>软件的复制成本很低，所以一旦有人已经写过了，将其分发给别人是一个高效的过程。但是首先书写代码就需要经历，并且回应那些在代码中发现问题的人或者那些想要提议新功能的人要花费更多的精力。</p>
+<p>默认地，你拥有你所写代码的版权，并且其他人只有获得你的许可才可以使用它。但是因为有些人特别好并且因为发布一个好的软件可以使你在程序员圈中更有名气，所以许多包在一个明确允许其他人使用的许可下发布。</p>
+<p>大多数在NPM上的包以这种方式被授权。有些许可证还要求您发布在同一许可证下的包之上构建的代码。其他的就没有这么苛求，仅仅需要你分发代码的时候保持授权。JS社区大多数使用后者的许可。当使用其他人的包的时候，确保你意识到它们的许可。</p>
+<h2 id="即兴的模块"><a href="#即兴的模块" class="headerlink" title="即兴的模块"></a>即兴的模块</h2><p>直到2015年，JS还没有内建的模块系统。尽管人们已经通过JS构建大型系统十几年了，它们确实需要模块。</p>
+<p>所以他们在其他语言之上设计了他们的模块系统。你可以使用JS函数去创建本地作用域，使用对象表示模块接口。</p>
+<p>这是一个在星期和数字之间转换的模块（Date的getDay方法）。它的接口包含<code>weekDay.name</code>和<code>weekday.number</code>，并且在立即执行的函数表达式作用域中隐藏了局部绑定<code>names</code>。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> weekDay = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> names = [<span class="string">"Sunday"</span>, <span class="string">"Monday"</span>, <span class="string">"Tuesday"</span>, <span class="string">"Wednesday"</span>, <span class="string">"Thursday"</span>, <span class="string">"Friday"</span>, <span class="string">"Saturday"</span>];</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        name(number) &#123;<span class="keyword">return</span> names[number];&#125;,</span><br><span class="line">        number(name) &#123;<span class="keyword">return</span> names.indexOf(name);&#125;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;();</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(weekDay.name(weekDay.number(<span class="string">"Sunday"</span>)));</span><br><span class="line"><span class="comment">// → Sunday</span></span><br></pre></td></tr></table></figure>
+
+<p>这种风格的模块在一定程度上提供了隔离，但它没有声明依赖关系。相反，它只是将接口置于了全局作用域并期望它如果有任何依赖的话，做相同的事情。很长一段时间里，这都是web编程的主要方法，但是现在大多已淘汰了。</p>
+<p>如果我们想使得依赖关系成为代码的一部分，我们必须空值加载依赖（loading dependencies）。做这个需要能够将字符串执行为代码。JS可以这么做。</p>
+<h2 id="将数据作为代码执行"><a href="#将数据作为代码执行" class="headerlink" title="将数据作为代码执行"></a>将数据作为代码执行</h2><p>有几种方式将数据（一串代码）作为程序部分运行。</p>
+<p>最显而易见的方式就是特殊操作符<code>eval</code>，将会在当前作用域执行一个字符串。这通常是一个坏主意，因为它打破了作用域通常具有的一些属性，例如很容易预测给定绑定的引用。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> x = <span class="number">1</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">evalAndReturnX</span>(<span class="params">code</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">eval</span>(code);</span><br><span class="line">    <span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(evalAndReturnX(<span class="string">"var x = 2"</span>));</span><br><span class="line"><span class="comment">// -&gt; 2</span></span><br><span class="line"><span class="built_in">console</span>.log(x);</span><br><span class="line"><span class="comment">// -&gt; 1</span></span><br></pre></td></tr></table></figure>
+<p>一种不那么可怕的将数据翻译为代码的方式是使用<code>Function</code>构造器。它接受两个参数：一个包含逗号分隔的参数名字列表符串和一个包含函数体的字符串。它将代码包装在函数值种，如此一来它获得自己的作用域并且不会对其他作用域做奇怪的事情。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> plusOne = <span class="built_in">Function</span>(<span class="string">"n"</span>, <span class="string">"return n + 1;"</span>);</span><br><span class="line"><span class="built_in">console</span>.log(plusOne(<span class="number">4</span>));</span><br></pre></td></tr></table></figure>
+
+<p>这就是我们想在模块系统中想要的东西。我们可以将模块代码包装在函数中并且使用那个函数作用域作为模块作用域。</p>
+<h2 id="CommonJS"><a href="#CommonJS" class="headerlink" title="CommonJS"></a>CommonJS</h2><p>最广泛使用的JS模块方法被叫做CommonJS模块。Node.js使用它并且也是NPM上大多数包采用的模块系统。</p>
+<p>CommonJS模块的主要概念是一个叫做<code>require</code>的函数。当用一个依赖的模块名字调用这个函数时，他将确保模块被加载并返回它的接口。</p>
+<p>因为加载器在函数中包装模块代码，模块自动获取它们自己的全局作用域。他们需要做的就是调用<code>require</code>来获得它们的依赖并将他们的接口绑定到<code>exports</code>对象。</p>
+<p>例子模块提供了一个日期格式化函数。它使用了NPM上的两个包，<em>ordinal</em>来转换数字到类似于”1st”和”2nd”之类的字符串，以及<em>date-names</em>来获得平日和月份的英语名字。它输出一个函数，<code>formatDate</code>接受一个<code>Date</code>对象和一个模板字符串。</p>
+<p>模板字符串包含指导格式的代码，如<code>YYYY</code>获取全年和<code>Do</code>来获取月份的天。你可以给定一个类似<code>MMMM Do YYYY</code>来获得这样的输出”November 22nd 2017”。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> ordinal = <span class="built_in">require</span>(<span class="string">"ordinal"</span>);</span><br><span class="line"><span class="keyword">const</span> &#123;days, months&#125; = <span class="built_in">require</span>(<span class="string">"date-names"</span>);</span><br><span class="line"></span><br><span class="line">exports.formatDate = <span class="function"><span class="keyword">function</span>(<span class="params">date, format</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> format.replace(<span class="regexp">/YYYY|M(MMM)?|Do?|dddd/g</span>, tag =&gt; &#123;</span><br><span class="line">    <span class="keyword">if</span> (tag == <span class="string">"YYYY"</span>) <span class="keyword">return</span> date.getFullYear();</span><br><span class="line">    <span class="keyword">if</span> (tag == <span class="string">"M"</span>) <span class="keyword">return</span> date.getMonth();</span><br><span class="line">    <span class="comment">// 获得的月份刚好做数组索引</span></span><br><span class="line">    <span class="keyword">if</span> (tag == <span class="string">"MMMM"</span>) <span class="keyword">return</span> months[date.getMonth()];</span><br><span class="line">    <span class="keyword">if</span> (tag == <span class="string">"D"</span>) <span class="keyword">return</span> date.getDate();</span><br><span class="line">    <span class="comment">// 获得的日子传递给ordinal函数可以获得类似1st,4th这样的形式</span></span><br><span class="line">    <span class="keyword">if</span> (tag == <span class="string">"Do"</span>) <span class="keyword">return</span> ordinal(date.getDate());</span><br><span class="line">    <span class="comment">// 获得的星期数刚好传递给days数组，因为英语第一天的星期日，也即是0索引，其他正常。</span></span><br><span class="line">    <span class="keyword">if</span> (tag == <span class="string">"dddd"</span>) <span class="keyword">return</span> days[date.getDay()];</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p><code>ordinal</code>的接口是单个函数，而<code>date-names</code>输出一个包含多个东西的对象，<code>days</code>和<code>months</code>是名字数组。当对引入的接口创造绑定时解构是非常方便的方式。</p>
+<p>模块将它的接口函数添加到<code>exports</code>来让依赖它的模块可以获取到它。我们可以这样使用模块。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123;formatDate&#125; = <span class="built_in">require</span>(<span class="string">"./format-date"</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(formatDate(<span class="keyword">new</span> <span class="built_in">Date</span>(<span class="number">2017</span>, <span class="number">9</span>, <span class="number">13</span>), <span class="string">"dddd the Do"</span>));</span><br><span class="line"><span class="comment">// -&gt; Friday the 13th</span></span><br></pre></td></tr></table></figure>
+
+<p>我们可以像这样定义<code>require</code>函数的最简形式：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创造一个纯对象，不以Object.prototype为原型</span></span><br><span class="line"><span class="built_in">require</span>.cache = <span class="built_in">Object</span>.create(<span class="literal">null</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// name为引入的模块名</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">require</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 要加载的模块不在缓存中</span></span><br><span class="line">    <span class="keyword">if</span>(!(name <span class="keyword">in</span> <span class="built_in">require</span>.cache)) &#123;</span><br><span class="line">        <span class="comment">// 将文件内容以字符串格式返回</span></span><br><span class="line">        <span class="keyword">let</span> code = readFile(name);</span><br><span class="line">        <span class="comment">// 最终对外所见的对象，包含exports属性</span></span><br><span class="line">        <span class="keyword">let</span> <span class="built_in">module</span> = &#123;<span class="attr">exports</span>: &#123;&#125;&#125;;</span><br><span class="line">        <span class="comment">// 置于cache中</span></span><br><span class="line">        <span class="built_in">require</span>.cache[name] = <span class="built_in">module</span>;</span><br><span class="line">        <span class="comment">// 包装器函数接收三个参数，执行函数体中字符串代码</span></span><br><span class="line">        <span class="keyword">let</span> wrapper = <span class="built_in">Function</span>(<span class="string">"require, exports, module"</span>, code);</span><br><span class="line">        wrapper(<span class="built_in">require</span>, <span class="built_in">module</span>.exports, <span class="built_in">module</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 在缓存中直接返回对应属性对象的exports属性</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">require</span>.cache[name].exports;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这段代码种，<code>readFile</code>是一个捏造的读取文件并将其内容作为字符串返回的函数。标准JS没有提供这样的功能，但是不同的JS环境，如浏览器和Node，提供了他们自己的获取文件的方式。这个例子仅仅是假装<code>readFile</code>是存在的。</p>
+<p>为了避免多次加载同样的模块，<code>require</code>保存一个已经加载的模块的商店（缓存）。当被调用的时候，首先检查是否请求的模块已经被加载了，如果没有的话才加载它。这涉及到读取模块的代码，将其包装在一个函数中，并且调用它。</p>
+<p>我们之前看到的<code>ordinal</code>包的接口不是一个对象而是一个函数。CommonJS的一个怪癖就是即便模块系统可以创建一个空的接口对象（绑定到<code>exports</code>），你也可以通过重写<code>module.exports</code>来用任何值代替它。许多模块输出单个值而不是一个接口对象都是这么做的。</p>
+<p>通过定义<code>require</code>，<code>exports</code>和<code>module</code>作为生成的包装器函数的参数（并且调用她的时候传递适当的参数），加载器确保在模块作用域中这些绑定可以获取到。</p>
+<p><code>require</code>的参数字符串在不同的系统中解释为实际的文件名或者web地址方式是不同的。当开始于”./“或者”../“，它通常被解释为相对于当前模块文件名的。所以”./format-date”将会是相同文件夹下的叫做”format-date.js”的文件。</p>
+<p>当名字不是相对的时，Node.js会通过这个名字找到一个被安装的包。在这章的例子代码中，我们将会把这样的名字作为NPM包解释。我们将在20章涉及更多安装和使用NPM模块的细节。</p>
+<p>现在，代替写我们自己的INI文件解析器，我们可以从NPM中获取一个。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123;parse&#125; = <span class="built_in">require</span>(<span class="string">"ini"</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(parse(<span class="string">"x = 10\ny = 20"</span>));</span><br><span class="line"><span class="comment">// → &#123;x: "10", y: "20"&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="ECMASCRIPT模块"><a href="#ECMASCRIPT模块" class="headerlink" title="ECMASCRIPT模块"></a>ECMASCRIPT模块</h2><p>CommonJS模块工作的非常好，并且组合NPM，允许JS社区开始大规模共享代码。</p>
+<p>但是它们保留了一些管道胶带hack。记号有点尴尬，如你对<code>exports</code>添加的东西在局部作用域无法获取。并且因为<code>require</code>是一个接受任何类型参数的普通函数调用，不只是字符串字面量，在不运行代码的时候很难确定模块的依赖。</p>
+<p>这就是JS标准在2015年引入了内建的不同的模块系统的原因。它通常被叫做ES模块，ES代表ECMAScript。主要的依赖和接口的概念保持一致，但是细节有所区别。首先，标记已经集成到语言本身了。代替通过调用函数获取依赖，你可以使用特殊的<code>import</code>关键字。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> ordinal <span class="keyword">from</span> <span class="string">"ordinal"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;days, months&#125; <span class="keyword">from</span> <span class="string">"date-names"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">formatDate</span>(<span class="params">date, name</span>) </span>&#123; <span class="comment">/* ... */</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<p>相似地，<code>export</code>关键字被用于输出东西。它可以在函数，类或者绑定定义（let，var或者const）前出现。</p>
+<p>一个ES模块的接口不是单个值而是一组命名的绑定。前面的模块将<code>formatDate</code>绑定到一个函数。当你从另外的模块引入时，你引入了绑定，而不是只，也意味着一个输出模块可能在任何时候改变绑定的值，并且引入它的模块能够看见它的新值。</p>
+<p>当有一个叫做<code>default</code>的绑定时，他被当作模块默认的主要的输出值。如果你引入一个类似例子中的<code>ordinal</code>模块，在绑定名字周围没有括号，你将获得一个默认绑定。这样的模块仍然可以输出其他名字的绑定。</p>
+<p>为了创造一个默认输出，你在表达式前书写<code>export default</code>，一个函数声明或者一个类声明。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> [<span class="string">"Winter"</span>, <span class="string">"Spring"</span>, <span class="string">"Summer"</span>, <span class="string">"Autumn"</span>];</span><br></pre></td></tr></table></figure>
+<p>可使用<code>as</code>关键字重命名引入的绑定：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;days <span class="keyword">as</span> dayNames&#125; <span class="keyword">from</span> <span class="string">"date-names"</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(dayNames.length);</span><br><span class="line"><span class="comment">// -&gt; 7</span></span><br></pre></td></tr></table></figure>
+
+<p>另一个重要的区别是ES模块的import发生在模块脚本运行之前。那意味着<code>import</code>声明不会出现在函数或者块中，并且依赖的名字必须是引用的字符串，而不是任意表达式。</p>
+<p>在写作的时候，JS社区正处在接纳这种模块风格的过程中。但这是一个缓慢的过程。在格式被指定之后要花费几年的时间让浏览器和Node开始支持它。即使他们大多都正在支持，但是这种支持仍然存在问题，并且对这样的模块应该怎样通过NPM分发的讨论仍在进行。</p>
+<p>许多使用ES模块写的项目在发行时自动转换为其他格式。我们正处在两种不同的模块系统肩并肩的使用的过渡时期，能够在任何一种模块系统下读取和写代码是很有用的。</p>
+<h2 id="构建和打包"><a href="#构建和打包" class="headerlink" title="构建和打包"></a>构建和打包</h2><p>事实上，许多JS项目技术上甚至不是用JS写的。例如第八章提及的类型检查扩展。被广泛使用。人们也经常开始使用对语言的计划的扩展，即便是在这些扩展还没有添加到实际运行JS的平台。</p>
+<p>为了使这个成为可能，它们编译它们的代码，将他们选择的JS方言解释为平实的古老的JS，或者甚至是过去版本的JS，以让旧的浏览器可以运行。</p>
+<p>在一个web页面包含200个不同文件的模块程序会产生它本身的问题。如果通过网络获取单个文件需要花费50毫秒，那么加载整个程序要花费10秒时间，或者如果可以同时加载几个文件这个时间会减半。那确实有点浪费时间。因为获取一个单个大文件要比获取许多不同的小文件更快，web开发者已经开始使用工具，这些工具在它们将项目发行到web之前，将它们的程序（费力的分割的模块）卷成一个单个大文件。这样的工具叫做打包器。</p>
+<p>我们可以更进一步。除了文件的数量，文件的大小也决定了它们可以在网络上以多块的速度传输。因此，JS社区发明了缩小器（minifier）。这些工具接收一个JS程序，并通过移除空白和注释，重命名绑定和用等价占据更少空间的代码替换成块的代码来使得JS程序更小。</p>
+<p>所以对于你在NPM包中发现的代码或者运行在网页上的代码，已经经历过多个转换阶段是很常见的。从现代JS到历史的JS，从ES模块格式到CommonJS，打包，压缩…我们将不会在本书中涉及过多细节因为这些工具特别枯燥并且日新月异。仅仅意识到你运行的JS代码通常不是它所写时候的代码了。</p>
+<h2 id="模块设计"><a href="#模块设计" class="headerlink" title="模块设计"></a>模块设计</h2><p>程序的结构化式编程的一个更微妙的方面。任何重要的功能可以用多种方式去建模。</p>
+<p>好的程序设计是主观的，涉及到折衷以及口味。学习定义良好结构的设计的价值的最佳方式就是读或者致力于一些程序来观察什么在工作，什么不工作。不要一位痛苦的混乱就本该是这样。你可以通过多加思索来改善结构。</p>
+<p>模块设计的一个方面就是简单易用。如果你正在设计要被很多人使用的东西，或者仅仅供自己使用，三个月之后你不记得自己所写的细节时，如果你的接口简单并且可预测那么是很有帮助的。</p>
+<p>这意味着遵循存在的规范。一个好的例子就是ini包。这个模块通过提供<code>parse</code>和<code>stringify</code>(写入INI文件)函数，并且像JSON一样，在字符串和普通对象之间转换。所以接口小而熟悉，并且在和它工作一次之后就很容易记得如何使用它。</p>
+<p>即使没有标准函数或广泛被使用的包供你模仿，你也可以通过使用简单的数据结构并且只做单一职能的东西来是你的模块可预测。例如许多INI文件解析模块提供一个函数从硬盘中直接读取这样的文件并且解析它。这使得在浏览器中不能够使用这样的模块，因为浏览器不能做直接的文件系统获取，并且增加了复杂性，如果使用一些文件读取函数来组合这些模块问题可能会很好的解决。</p>
+<p>这指出了另一个模块设计的有益的方面，可以很容易与其他代码协同工作。与执行带有副作用的复杂行为的较大模块相比，专注计算值的程序更具有普适性。在文件内容来自其他源的时候，坚持从硬盘读取文件的INI文件阅读器是没用的。</p>
+<p>相关地，有状态的对象有时有用，甚至是必要的，但是如果可以用函数完成某些事情，就用函数吧。NPM上的一些INI文件阅读器提供一个需要你首先创建对象的接口，然后将文件装载进你的对象中，并最终使用专门的方法去获取结果。这种类型的东西在面向对象编程中很常见，并且很糟糕。代替做单次函数调用，你不得不按照惯例的使你的对象在多种状态间游走。因为数据包装在专用的对象类型，所有的和他交互的代码必须知道那个类型，从而创造了不必要的相互依赖。</p>
+<p>通常定义新的数据结构是不可避免地，因为只有一些基础的数据结构由语言标准提供，并且许多类型的数据要比一个数组或一个map复杂。但是当数组够用的时候，就使用数组。</p>
+<p>一个稍微复杂的数据结构就是第七章中的图。没有一种显而易见的在JS中表示图的方式。在哪一章，我们使用了对象的属性来保存字符串数组，从那个结点可以到达的结点。</p>
+<p>在NPM上有几种不同的寻路包，但是它们当中没有使用这种图格式的。它们通常允许图的边拥有一个权重，也就是和它关联的代价或者距离。在我们的表示中是不可能的。</p>
+<p>例如，有一个<code>dijkstrajs</code>包。一个众所周知的寻路算法，非常类似于我们的<code>findRoute</code>函数，被叫做<em>Dijkstra’s algorithm</em>，以Edsger Dijkstra命名，也是首位写下这个算法的人。<em>js</em>后缀经常被加到包名中以表明它们是用JS书写的。这个<code>dijkstrajs</code>包使用一个类似于我们图格式的图格式，但是没有使用数组，它使用了对象，对象的属性值是数字也就是边的权重。</p>
+<p>所以如果我们想要使用那个包，我们将确保我们的图存储在它期望的格式。由于我们的简化模型对待每一条路都是相同的代价所以所有边都获得相同的权重。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123;find_path&#125; = <span class="built_in">require</span>(<span class="string">"dijkstrajs"</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> graph = &#123;&#125;;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> node <span class="keyword">of</span> <span class="built_in">Object</span>.keys(roadGraph)) &#123;</span><br><span class="line">    <span class="keyword">let</span> edges = graph[node] = &#123;&#125;;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> dest <span class="keyword">of</span> roadGraph[node]) &#123;</span><br><span class="line">        edges[dest] = <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(find_path(graph, <span class="string">"Post Office"</span>, <span class="string">"Cabin"</span>));</span><br><span class="line"><span class="comment">// -&gt; ["Post Office", "Alice's House", "Cabin"]</span></span><br></pre></td></tr></table></figure>
+
+<p>这可能是个创作的屏障，当多个包用不同的数据结构去描述相似的事物，将他们组合起来是困难的。因此，如果你想要为面向可组合性设计，看看别人是用什么数据结构，如果可能的话，用它们的例子。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>模块通过将代码分离为具有清晰接口和依赖的小块为较大的程序提供结构性。接口时模块对外可见的一部分，依赖是它所使用的其他模块。</p>
+<p>因为JS历史上没有提供一个模块系统，CommonJS是在它上面构建的模块系统。然后在某个时刻确实有了内建的模块系统，不那么容易和CommonJS系统和谐共处。</p>
+<p>一个包就是一块独立的可以自由分发的代码。NPM是JS包仓库。你可以从它下载各种有用的（无用的）包。</p>
+<h2 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h2><h3 id="一个模块化的机器人"><a href="#一个模块化的机器人" class="headerlink" title="一个模块化的机器人"></a>一个模块化的机器人</h3><p>这些是第七章项目创造的绑定：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">roads</span><br><span class="line">buildGraph</span><br><span class="line">roadGraph</span><br><span class="line">VillageState</span><br><span class="line">runRobot</span><br><span class="line">randomPick</span><br><span class="line">randomRobot</span><br><span class="line">mailRoute</span><br><span class="line">routeRobot</span><br><span class="line">findRoute</span><br><span class="line">goalOrientedRobot</span><br></pre></td></tr></table></figure>
+
+<p>如果你想要将这个项目写作模块化的程序，你需要创建什么模块？哪一个模块要依赖其他的模块，它们的接口又应该是怎样的？</p>
+<p>哪部分可能在NPM获得？你喜欢使用NPM包还是自己写一个？</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/01/05/EJ9/" rel="prev" title="EJ9">
+      <i class="fa fa-chevron-left"></i> EJ9
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/01/09/EJ11/" rel="next" title="EJ11">
+      EJ11 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#模块"><span class="nav-number">1.</span> <span class="nav-text">模块</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#模块-1"><span class="nav-number">1.1.</span> <span class="nav-text">模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#包"><span class="nav-number">1.2.</span> <span class="nav-text">包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#即兴的模块"><span class="nav-number">1.3.</span> <span class="nav-text">即兴的模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#将数据作为代码执行"><span class="nav-number">1.4.</span> <span class="nav-text">将数据作为代码执行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CommonJS"><span class="nav-number">1.5.</span> <span class="nav-text">CommonJS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ECMASCRIPT模块"><span class="nav-number">1.6.</span> <span class="nav-text">ECMASCRIPT模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#构建和打包"><span class="nav-number">1.7.</span> <span class="nav-text">构建和打包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模块设计"><span class="nav-number">1.8.</span> <span class="nav-text">模块设计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">1.9.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#练习"><span class="nav-number">1.10.</span> <span class="nav-text">练习</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一个模块化的机器人"><span class="nav-number">1.10.1.</span> <span class="nav-text">一个模块化的机器人</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Guohang Ma</p>
+  <div class="site-description" itemprop="description">developer blog</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">136</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">38</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Guohang Ma</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Compiling and Running a C ProgramIn this lab, we will be using the command line program gcc to compile programs in C. The simplest way to run gcc is as follows (note that there is no file called progr">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cs61c-lab01">
+<meta property="og:url" content="http://yoursite.com/2018/09/25/cs61c-lab01/index.html">
+<meta property="og:site_name" content="Giancarlo&#39;s Blog">
+<meta property="og:description" content="Compiling and Running a C ProgramIn this lab, we will be using the command line program gcc to compile programs in C. The simplest way to run gcc is as follows (note that there is no file called progr">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2018-09-25T01:39:44.000Z">
+<meta property="article:modified_time" content="2020-06-07T02:09:33.670Z">
+<meta property="article:author" content="Guohang Ma">
+<meta property="article:tag" content="Machine Structure">
+<meta property="article:tag" content="C">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2018/09/25/cs61c-lab01/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>cs61c-lab01 | Giancarlo's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Giancarlo's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Code Life</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/25/cs61c-lab01/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Guohang Ma">
+      <meta itemprop="description" content="developer blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Giancarlo's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          cs61c-lab01
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-09-25 09:39:44" itemprop="dateCreated datePublished" datetime="2018-09-25T09:39:44+08:00">2018-09-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-06-07 10:09:33" itemprop="dateModified" datetime="2020-06-07T10:09:33+08:00">2020-06-07</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CS61C/" itemprop="url" rel="index"><span itemprop="name">CS61C</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Compiling-and-Running-a-C-Program"><a href="#Compiling-and-Running-a-C-Program" class="headerlink" title="Compiling and Running a C Program"></a>Compiling and Running a C Program</h1><p>In this lab, we will be using the command line program gcc to compile programs in C. The simplest way to run gcc is as follows (note that there is no file called program.c given in the lab files, this is just an example for your information).</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ gcc program.c</span><br></pre></td></tr></table></figure>
+<p>This compiles program.c into an executable file named a.out. This file can be run with the following command.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ .&#x2F;a.out</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+<p>gcc has various command line options which you are encouraged to explore. In this lab, however, we will only be using -o, which is used to specify the name of the executable file that gcc creates. Using -o, you would use the following commands to compile program.c into a program named program, and then run it.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ gcc -o program program.c</span><br><span class="line">$ .&#x2F;program</span><br></pre></td></tr></table></figure>
+<h1 id="Exercise-1-Simple-C-Program"><a href="#Exercise-1-Simple-C-Program" class="headerlink" title="Exercise 1: Simple C Program"></a>Exercise 1: Simple C Program</h1><p>In this exercise, we will see an example of preprocessor macro definitions. Macros can be a messy topic, but in general the way they work is that before a C file is compiled, all macro constant names are replaced exactly with the value they refer to.</p>
+<p>In the scope of this exercise, we will be using macro definitions exclusively as global constants. Here we define CONSTANT_NAME to refer to literal_value (an integer literal). Note that there is only a space separating name from value.</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> CONSTANT_NAME literal_value</span></span><br></pre></td></tr></table></figure>
+<p>Now, look at the code contained in <a href="http://inst.eecs.berkeley.edu/~cs61c/sp15/labs/01/eccentric.c" target="_blank" rel="noopener">eccentric.c</a>. We see four different examples of basic C control flow. First compile and run the program to see what it does. Play around with the constant values of the four macro: V0 through V3. See how changing them changes the program output. Modifying only these four values, make the program produce the following output.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ gcc -o eccentric eccentric.c</span><br><span class="line">$ .&#x2F;eccentric</span><br><span class="line">Berkeley eccentrics:</span><br><span class="line">&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</span><br><span class="line">Happy Happy Happy</span><br><span class="line">Yoshua</span><br><span class="line"></span><br><span class="line">Go BEARS!</span><br></pre></td></tr></table></figure>
+<p>There are actually several different combinations of values that can give this output. You should consider what is the minimum number of different values V0 through V3 can have to give this same output. The maximum is four, when they are all distinct from each other.</p>
+<h1 id="Debugger"><a href="#Debugger" class="headerlink" title="Debugger"></a>Debugger</h1><p><a href="http://inst.eecs.berkeley.edu/~cs61c/resources/gdb5-refcard.pdf" target="_blank" rel="noopener">GDB reference card</a></p>
+<ul>
+<li><p>How do you set a breakpoint which only occurs when a set of conditions is true (e.g. when certain variables are a certain value)?</p>
+</li>
+<li><p>How do you execute the next line of C code in the program after stopping at a breakpoint?</p>
+</li>
+<li><p>If the next line of code is a function call, you’ll execute the whole function call at once if you use your answer to #3. How do you tell GDB that you want to debug the code inside the function instead?</p>
+</li>
+<li><p>How do you resume the program after stopping at a breakpoint?</p>
+</li>
+<li><p>How can you see the value of a variable (or even an expression like 1+2) in gdb?</p>
+</li>
+<li><p>How do you configure gdb so it prints the value of a variable after every step?</p>
+</li>
+<li><p>How do you print a list of all variables and their values in the current function?</p>
+</li>
+<li><p>How do you exit out of gdb?</p>
+</li>
+</ul>
+<h1 id="Exercise-3-Debugging-a-buggy-C-program"><a href="#Exercise-3-Debugging-a-buggy-C-program" class="headerlink" title="Exercise 3: Debugging a buggy C program"></a>Exercise 3: Debugging a buggy C program</h1><p>You will now use your newly acquired gdb knowledge to debug a short C program! Consider the program <a href="http://inst.eecs.berkeley.edu/~cs61c/sp15/labs/01/ll_equal.c" target="_blank" rel="noopener">ll_equal.c</a>. Compile and run the program, and experiment with it. It will give you the following result:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ gcc -g -o ll_equal ll_equal.c</span><br><span class="line">$ .&#x2F;ll_equal</span><br><span class="line">equal test 1 result &#x3D; 1</span><br><span class="line">Segmentation fault</span><br></pre></td></tr></table></figure>
+<p>Now, start gdb on the program, following the instructions in exercise 1. Set a breakpoint in the ll_equal() function, and run the program. When the debugger returns at the breakpoint, step through the instructions in the function line by line, and examine the values of the variables. Pay attention to the pointers a and b in the function. Are they always pointed to the right address? Find the bug and fix it.</p>
+<p><strong>By debugging we find that during the second function call, there seems to be have a situation that we want b’s value when b is null!This is null pointer reference, which seems to be totally wrong.So we need to determin whether a or b is null, then compare value with each other.</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">node</span> &#123;</span></span><br><span class="line">	<span class="keyword">int</span> val;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">node</span>* <span class="title">next</span>;</span></span><br><span class="line">&#125; node;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* <span class="doctag">FIXME:</span> this function is buggy. */</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">ll_equal</span><span class="params">(<span class="keyword">const</span> node* a, <span class="keyword">const</span> node* b)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">while</span> (a != <span class="literal">NULL</span>) &#123;</span><br><span class="line">		<span class="keyword">if</span> (b == <span class="literal">NULL</span> || a-&gt;val != b-&gt;val)</span><br><span class="line">			<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">		a = a-&gt;next;</span><br><span class="line">		b = b-&gt;next;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">/* lists are equal if a and b are both null */</span></span><br><span class="line">	<span class="keyword">return</span> a == b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>** argv)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> i;</span><br><span class="line">	node nodes[<span class="number">10</span>];</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> (i=<span class="number">0</span>; i&lt;<span class="number">10</span>; i++) &#123;</span><br><span class="line">		nodes[i].val = <span class="number">0</span>;</span><br><span class="line">		nodes[i].next = <span class="literal">NULL</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	nodes[<span class="number">0</span>].next = &amp;nodes[<span class="number">1</span>];</span><br><span class="line">	nodes[<span class="number">1</span>].next = &amp;nodes[<span class="number">2</span>];</span><br><span class="line">	nodes[<span class="number">2</span>].next = &amp;nodes[<span class="number">3</span>];</span><br><span class="line"></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"equal test 1 result = %d\n"</span>, ll_equal(&amp;nodes[<span class="number">0</span>], &amp;nodes[<span class="number">0</span>]));</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"equal test 2 result = %d\n"</span>, ll_equal(&amp;nodes[<span class="number">0</span>], &amp;nodes[<span class="number">2</span>]));</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="Exercise-4-Pointers-and-Structures-in-C"><a href="#Exercise-4-Pointers-and-Structures-in-C" class="headerlink" title="Exercise 4: Pointers and Structures in C"></a>Exercise 4: Pointers and Structures in C</h1><p>Here’s one to help you in your interviews. In <a href="http://inst.eecs.berkeley.edu/~cs61c/sp15/labs/01/ll_cycle.c" target="_blank" rel="noopener">ll_cycle.c</a>, complete the function ll_has_cycle() to implement the following algorithm for checking if a singly-linked list has a cycle.</p>
+<p>Start with two pointers at the head of the list. We’ll call the first one tortoise and the second one hare.<br>Advance hare by two nodes. If this is not possible because of a null pointer, we have found the end of the list, and therefore the list is acyclic.<br>Advance tortoise by one node. (A null pointer check is unnecessary. Why?)<br>If tortoise and hare point to the same node, the list is cyclic. Otherwise, go back to step 2.<br>After you have correctly implemented ll_has_cycle(), the program you get when you compile ll_cycle.c will tell you that ll_has_cycle() agrees with what the program expected it to output.</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">node</span> &#123;</span></span><br><span class="line">	<span class="keyword">int</span> value;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">node</span> *<span class="title">next</span>;</span></span><br><span class="line">&#125; node;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">ll_has_cycle</span><span class="params">(node *head)</span> </span>&#123;</span><br><span class="line">	<span class="comment">/* your code here */</span></span><br><span class="line">	<span class="keyword">if</span> (head == <span class="literal">NULL</span>) &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	node *tortoise = head;</span><br><span class="line">	node *hare = head;</span><br><span class="line">	<span class="keyword">while</span> (hare -&gt; next != <span class="literal">NULL</span> &amp;&amp; hare -&gt; next -&gt; next != <span class="literal">NULL</span>) &#123;</span><br><span class="line">		tortoise = tortoise -&gt; next;</span><br><span class="line">		hare = hare -&gt; next -&gt; next;</span><br><span class="line">		<span class="keyword">if</span> (tortoise == hare) &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test_ll_has_cycle</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> i;</span><br><span class="line">	node nodes[<span class="number">25</span>]; <span class="comment">//enough to run our tests</span></span><br><span class="line">	<span class="keyword">for</span>(i=<span class="number">0</span>; i &lt; <span class="keyword">sizeof</span>(nodes)/<span class="keyword">sizeof</span>(node); i++) &#123;</span><br><span class="line">		nodes[i].next = <span class="number">0</span>;</span><br><span class="line">		nodes[i].value = <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	nodes[<span class="number">0</span>].next = &amp;nodes[<span class="number">1</span>];</span><br><span class="line">	nodes[<span class="number">1</span>].next = &amp;nodes[<span class="number">2</span>];</span><br><span class="line">	nodes[<span class="number">2</span>].next = &amp;nodes[<span class="number">3</span>];</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"Checking first list for cycles. There should be none, ll_has_cycle says it has %s cycle\n"</span>, ll_has_cycle(&amp;nodes[<span class="number">0</span>])?<span class="string">"a"</span>:<span class="string">"no"</span>);</span><br><span class="line"></span><br><span class="line">	nodes[<span class="number">4</span>].next = &amp;nodes[<span class="number">5</span>];</span><br><span class="line">	nodes[<span class="number">5</span>].next = &amp;nodes[<span class="number">6</span>];</span><br><span class="line">	nodes[<span class="number">6</span>].next = &amp;nodes[<span class="number">7</span>];</span><br><span class="line">	nodes[<span class="number">7</span>].next = &amp;nodes[<span class="number">8</span>];</span><br><span class="line">	nodes[<span class="number">8</span>].next = &amp;nodes[<span class="number">9</span>];</span><br><span class="line">	nodes[<span class="number">9</span>].next = &amp;nodes[<span class="number">10</span>];</span><br><span class="line">	nodes[<span class="number">10</span>].next = &amp;nodes[<span class="number">4</span>];</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"Checking second list for cycles. There should be a cycle, ll_has_cycle says it has %s cycle\n"</span>, ll_has_cycle(&amp;nodes[<span class="number">4</span>])?<span class="string">"a"</span>:<span class="string">"no"</span>);</span><br><span class="line"></span><br><span class="line">	nodes[<span class="number">11</span>].next = &amp;nodes[<span class="number">12</span>];</span><br><span class="line">	nodes[<span class="number">12</span>].next = &amp;nodes[<span class="number">13</span>];</span><br><span class="line">	nodes[<span class="number">13</span>].next = &amp;nodes[<span class="number">14</span>];</span><br><span class="line">	nodes[<span class="number">14</span>].next = &amp;nodes[<span class="number">15</span>];</span><br><span class="line">	nodes[<span class="number">15</span>].next = &amp;nodes[<span class="number">16</span>];</span><br><span class="line">	nodes[<span class="number">16</span>].next = &amp;nodes[<span class="number">17</span>];</span><br><span class="line">	nodes[<span class="number">17</span>].next = &amp;nodes[<span class="number">14</span>];</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"Checking third list for cycles. There should be a cycle, ll_has_cycle says it has %s cycle\n"</span>, ll_has_cycle(&amp;nodes[<span class="number">11</span>])?<span class="string">"a"</span>:<span class="string">"no"</span>);</span><br><span class="line"></span><br><span class="line">	nodes[<span class="number">18</span>].next = &amp;nodes[<span class="number">18</span>];</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"Checking fourth list for cycles. There should be a cycle, ll_has_cycle says it has %s cycle\n"</span>, ll_has_cycle(&amp;nodes[<span class="number">18</span>])?<span class="string">"a"</span>:<span class="string">"no"</span>);</span><br><span class="line"></span><br><span class="line">	nodes[<span class="number">19</span>].next = &amp;nodes[<span class="number">20</span>];</span><br><span class="line">	nodes[<span class="number">20</span>].next = &amp;nodes[<span class="number">21</span>];</span><br><span class="line">	nodes[<span class="number">21</span>].next = &amp;nodes[<span class="number">22</span>];</span><br><span class="line">	nodes[<span class="number">22</span>].next = &amp;nodes[<span class="number">23</span>];</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"Checking fifth list for cycles. There should be none, ll_has_cycle says it has %s cycle\n"</span>, ll_has_cycle(&amp;nodes[<span class="number">19</span>])?<span class="string">"a"</span>:<span class="string">"no"</span>);</span><br><span class="line"></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"Checking length-zero list for cycles. There should be none, ll_has_cycle says it has %s cycle\n"</span>, ll_has_cycle(<span class="literal">NULL</span>)?<span class="string">"a"</span>:<span class="string">"no"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">  test_ll_has_cycle();</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Machine-Structure/" rel="tag"># Machine Structure</a>
+              <a href="/tags/C/" rel="tag"># C</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/09/24/cs61c-hw00/" rel="prev" title="cs61c-hw00">
+      <i class="fa fa-chevron-left"></i> cs61c-hw00
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/10/03/hexo-brief-introduction/" rel="next" title="Hexo Introduction">
+      Hexo Introduction <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Compiling-and-Running-a-C-Program"><span class="nav-number">1.</span> <span class="nav-text">Compiling and Running a C Program</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Exercise-1-Simple-C-Program"><span class="nav-number">2.</span> <span class="nav-text">Exercise 1: Simple C Program</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Debugger"><span class="nav-number">3.</span> <span class="nav-text">Debugger</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Exercise-3-Debugging-a-buggy-C-program"><span class="nav-number">4.</span> <span class="nav-text">Exercise 3: Debugging a buggy C program</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Exercise-4-Pointers-and-Structures-in-C"><span class="nav-number">5.</span> <span class="nav-text">Exercise 4: Pointers and Structures in C</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Guohang Ma</p>
+  <div class="site-description" itemprop="description">developer blog</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">136</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">38</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Guohang Ma</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

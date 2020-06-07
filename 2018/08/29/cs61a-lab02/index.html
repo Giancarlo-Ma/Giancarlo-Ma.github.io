@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Q3: Lambdas and CurryingWe can transform multiple-argument functions into a chain of single-argument, higher order functions by taking advantage of lambda expressions. This is useful when dealing with">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cs61a-lab02">
+<meta property="og:url" content="http://yoursite.com/2018/08/29/cs61a-lab02/index.html">
+<meta property="og:site_name" content="Giancarlo&#39;s Blog">
+<meta property="og:description" content="Q3: Lambdas and CurryingWe can transform multiple-argument functions into a chain of single-argument, higher order functions by taking advantage of lambda expressions. This is useful when dealing with">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2018-08-29T14:05:10.000Z">
+<meta property="article:modified_time" content="2020-06-07T02:09:33.260Z">
+<meta property="article:author" content="Guohang Ma">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="SICP">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2018/08/29/cs61a-lab02/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>cs61a-lab02 | Giancarlo's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Giancarlo's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Code Life</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/29/cs61a-lab02/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Guohang Ma">
+      <meta itemprop="description" content="developer blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Giancarlo's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          cs61a-lab02
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-08-29 22:05:10" itemprop="dateCreated datePublished" datetime="2018-08-29T22:05:10+08:00">2018-08-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-06-07 10:09:33" itemprop="dateModified" datetime="2020-06-07T10:09:33+08:00">2020-06-07</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CS61A/" itemprop="url" rel="index"><span itemprop="name">CS61A</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Q3-Lambdas-and-Currying"><a href="#Q3-Lambdas-and-Currying" class="headerlink" title="Q3: Lambdas and Currying"></a>Q3: Lambdas and Currying</h1><p>We can transform multiple-argument functions into a chain of single-argument, higher order functions by taking advantage of lambda expressions. This is useful when dealing with functions that take only single-argument functions. We will see some examples of these later on.</p>
+<a id="more"></a>
+<p>Write a function lambda_curry2 that will curry any two argument function using lambdas. See the doctest or refer to the textbook if you’re not sure what this means.</p>
+<p>Your solution to this problem should fit entirely on the return line. You can try writing it first without this restriction, but rewrite it after in one line to test your understanding of this topic.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">lambda_curry2</span><span class="params">(func)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    Returns a Curried version of a two-argument function FUNC.</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; from operator import add</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; curried_add = lambda_curry2(add)</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; add_three = curried_add(3)</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; add_three(5)</span></span><br><span class="line"><span class="string">    8</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="string">"*** YOUR CODE HERE ***"</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">lambda</span> x: <span class="keyword">lambda</span> y: func(x, y)</span><br></pre></td></tr></table></figure>
+
+<h1 id="Q4-Make-Adder"><a href="#Q4-Make-Adder" class="headerlink" title="Q4: Make Adder"></a>Q4: Make Adder</h1><p>Draw the environment diagram for the following code:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">n = <span class="number">9</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">make_adder</span><span class="params">(n)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">lambda</span> k: k + n</span><br><span class="line">add_ten = make_adder(n+<span class="number">1</span>)</span><br><span class="line">result = add_ten(n)</span><br></pre></td></tr></table></figure>
+<p>There are 3 frames total (including the Global frame). In addition, consider the following questions:</p>
+<ul>
+<li><p>In the Global frame, the name add_ten points to a function object. What is the intrinsic name of that function object, and what frame is its parent?</p>
+</li>
+<li><p>In frame f2, what name is the frame labeled with (add_ten or λ)? Which frame is the parent of f2?</p>
+</li>
+<li><p>What value is the variable result bound to in the Global frame?</p>
+
+</li>
+<li><p>The intrinsic name of the function object that add_ten points to is λ (specifically, the lambda whose parameter is k). The parent frame of this lambda is f1.</p>
+</li>
+<li><p>f2 is labeled with the name λ the parent frame of f2 is f1, since that is where λ is defined.</p>
+</li>
+<li><p>The variable result is bound to 19.</p>
+</li>
+</ul>
+<h1 id="Q5-Lambda-the-Environment-Diagram"><a href="#Q5-Lambda-the-Environment-Diagram" class="headerlink" title="Q5: Lambda the Environment Diagram"></a>Q5: Lambda the Environment Diagram</h1><p>Try drawing an environment diagram for the following code and predict what Python will output.</p>
+<p>You do not need to submit or unlock this question through Ok. Instead, you can check your work with the Online Python Tutor, but try drawing it yourself first!</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; a &#x3D; lambda x: x * 2 + 1</span><br><span class="line">&gt;&gt;&gt; def b(b, x):</span><br><span class="line">...     return b(x + a(x))</span><br><span class="line">&gt;&gt;&gt; x &#x3D; 3</span><br><span class="line">&gt;&gt;&gt; b(a, x)</span><br><span class="line">21</span><br></pre></td></tr></table></figure>
+
+<h1 id="Q6-Composite-Identity-Function"><a href="#Q6-Composite-Identity-Function" class="headerlink" title="Q6: Composite Identity Function"></a>Q6: Composite Identity Function</h1><p>Write a function that takes in two single-argument functions, f and g, and returns another function that has a single parameter x. The returned function should return True if f(g(x)) is equal to g(f(x)). You can assume the output of g(x) is a valid input for f and vice versa. You may use the compose1 function defined below.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">compose1</span><span class="params">(f, g)</span>:</span></span><br><span class="line">    <span class="string">"""Return the composition function which given x, computes f(g(x)).</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; add_one = lambda x: x + 1        # adds one to x</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; square = lambda x: x**2</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; a1 = compose1(square, add_one)   # (x + 1)^2</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; a1(4)</span></span><br><span class="line"><span class="string">    25</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; mul_three = lambda x: x * 3      # multiplies 3 to x</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; a2 = compose1(mul_three, a1)    # ((x + 1)^2) * 3</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; a2(4)</span></span><br><span class="line"><span class="string">    75</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; a2(5)</span></span><br><span class="line"><span class="string">    108</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">lambda</span> x: f(g(x))</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">composite_identity</span><span class="params">(f, g)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    Return a function with one parameter x that returns True if f(g(x)) is</span></span><br><span class="line"><span class="string">    equal to g(f(x)). You can assume the result of g(x) is a valid input for f</span></span><br><span class="line"><span class="string">    and vice versa.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; add_one = lambda x: x + 1        # adds one to x</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; square = lambda x: x**2</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; b1 = composite_identity(square, add_one)</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; b1(0)                            # (0 + 1)^2 == 0^2 + 1</span></span><br><span class="line"><span class="string">    True</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; b1(4)                            # (4 + 1)^2 != 4^2 + 1</span></span><br><span class="line"><span class="string">    False</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="string">"*** YOUR CODE HERE ***"</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">lambda</span> x: compose1(f, g)(x) == compose1(g, f)(x)</span><br><span class="line">    <span class="comment"># return lambda x: f(g(x)) == g(f(x))</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="Q7-Count-van-Count"><a href="#Q7-Count-van-Count" class="headerlink" title="Q7: Count van Count"></a>Q7: Count van Count</h1><p>Consider the following implementations of count_factors and count_primes:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">count_factors</span><span class="params">(n)</span>:</span></span><br><span class="line">    <span class="string">"""Return the number of positive factors that n has.</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; count_factors(6)</span></span><br><span class="line"><span class="string">    4   # 1, 2, 3, 6</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; count_factors(4)</span></span><br><span class="line"><span class="string">    3   # 1, 2, 4</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    i, count = <span class="number">1</span>, <span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> i &lt;= n:</span><br><span class="line">        <span class="keyword">if</span> n % i == <span class="number">0</span>:</span><br><span class="line">            count += <span class="number">1</span></span><br><span class="line">        i += <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> count</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">count_primes</span><span class="params">(n)</span>:</span></span><br><span class="line">    <span class="string">"""Return the number of prime numbers up to and including n.</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; count_primes(6)</span></span><br><span class="line"><span class="string">    3   # 2, 3, 5</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; count_primes(13)</span></span><br><span class="line"><span class="string">    6   # 2, 3, 5, 7, 11, 13</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    i, count = <span class="number">1</span>, <span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> i &lt;= n:</span><br><span class="line">        <span class="keyword">if</span> is_prime(i):</span><br><span class="line">            count += <span class="number">1</span></span><br><span class="line">        i += <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> count</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">is_prime</span><span class="params">(n)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> count_factors(n) == <span class="number">2</span> <span class="comment"># only factors are 1 and n</span></span><br></pre></td></tr></table></figure>
+<p>The implementations look quite similar! Generalize this logic by writing a function count_cond, which takes in a two-argument predicate function condition(n, i). count_cond returns a one-argument function that counts all the numbers from 1 to n that satisfy condition.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">count_cond</span><span class="params">(condition)</span>:</span></span><br><span class="line">    <span class="string">"""Returns a function with one parameter N that counts all the numbers from</span></span><br><span class="line"><span class="string">    1 to N that satisfy the two-argument predicate function Condition, where</span></span><br><span class="line"><span class="string">    the first argument for Condition is N and the second argument is the</span></span><br><span class="line"><span class="string">    number from 1 to N.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; count_factors = count_cond(lambda n, i: n % i == 0)</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; count_factors(2)   # 1, 2</span></span><br><span class="line"><span class="string">    2</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; count_factors(4)   # 1, 2, 4</span></span><br><span class="line"><span class="string">    3</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; count_factors(12)  # 1, 2, 3, 4, 6, 12</span></span><br><span class="line"><span class="string">    6</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; is_prime = lambda n, i: count_factors(i) == 2</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; count_primes = count_cond(is_prime)</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; count_primes(2)    # 2</span></span><br><span class="line"><span class="string">    1</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; count_primes(3)    # 2, 3</span></span><br><span class="line"><span class="string">    2</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; count_primes(4)    # 2, 3</span></span><br><span class="line"><span class="string">    2</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; count_primes(5)    # 2, 3, 5</span></span><br><span class="line"><span class="string">    3</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; count_primes(20)   # 2, 3, 5, 7, 11, 13, 17, 19</span></span><br><span class="line"><span class="string">    8</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="string">"*** YOUR CODE HERE ***"</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">count_func</span><span class="params">(n)</span>:</span></span><br><span class="line">        i, count = <span class="number">1</span>, <span class="number">0</span></span><br><span class="line">        <span class="keyword">while</span> i &lt;= n:</span><br><span class="line">            <span class="keyword">if</span> condition(n, i):</span><br><span class="line">                count += <span class="number">1</span></span><br><span class="line">            i += <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> count</span><br><span class="line">    <span class="keyword">return</span> count_func</span><br></pre></td></tr></table></figure>
+
+<h1 id="Q8-I-Heard-You-Liked-Functions…"><a href="#Q8-I-Heard-You-Liked-Functions…" class="headerlink" title="Q8: I Heard You Liked Functions…"></a>Q8: I Heard You Liked Functions…</h1><p>Define a function cycle that takes in three functions f1, f2, f3, as arguments. cycle will return another function that should take in an integer argument n and return another function. That final function should take in an argument x and cycle through applying f1, f2, and f3 to x, depending on what n was. Here’s what the final function should do to x for a few values of n:</p>
+<ul>
+<li>n = 0, return x</li>
+<li>n = 1, apply f1 to x, or return f1(x)</li>
+<li>n = 2, apply f1 to x and then f2 to the result of that, or return f2(f1(x))</li>
+<li>n = 3, apply f1 to x, f2 to the result of applying f1, and then f3 to the result of applying f2, or f3(f2(f1(x)))</li>
+<li>n = 4, start the cycle again applying f1, then f2, then f3, then f1 again, or f1(f3(f2(f1(x))))<br>And so forth.<br>Hint: most of the work goes inside the most nested function.</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">cycle</span><span class="params">(f1, f2, f3)</span>:</span></span><br><span class="line">    <span class="string">"""Returns a function that is itself a higher-order function.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; def add1(x):</span></span><br><span class="line"><span class="string">    ...     return x + 1</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; def times2(x):</span></span><br><span class="line"><span class="string">    ...     return x * 2</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; def add3(x):</span></span><br><span class="line"><span class="string">    ...     return x + 3</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; my_cycle = cycle(add1, times2, add3)</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; identity = my_cycle(0)</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; identity(5)</span></span><br><span class="line"><span class="string">    5</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; add_one_then_double = my_cycle(2)</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; add_one_then_double(1)</span></span><br><span class="line"><span class="string">    4</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; do_all_functions = my_cycle(3)</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; do_all_functions(2)</span></span><br><span class="line"><span class="string">    9</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; do_more_than_a_cycle = my_cycle(4)</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; do_more_than_a_cycle(2)</span></span><br><span class="line"><span class="string">    10</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; do_two_cycles = my_cycle(6)</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; do_two_cycles(1)</span></span><br><span class="line"><span class="string">    19</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="string">"*** YOUR CODE HERE ***"</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">g</span><span class="params">(n)</span>:</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">h</span><span class="params">(x)</span>:</span></span><br><span class="line">            i = <span class="number">0</span></span><br><span class="line">            <span class="keyword">while</span> i &lt; n:</span><br><span class="line">                <span class="keyword">if</span> i % <span class="number">3</span> == <span class="number">0</span>:</span><br><span class="line">                    x = f1(x)</span><br><span class="line">                <span class="keyword">elif</span> i % <span class="number">3</span> == <span class="number">1</span>:</span><br><span class="line">                    x = f2(x)</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    x = f3(x)</span><br><span class="line">                i += <span class="number">1</span></span><br><span class="line">            <span class="keyword">return</span> x</span><br><span class="line">        <span class="keyword">return</span> h</span><br><span class="line">    <span class="keyword">return</span> g</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/python/" rel="tag"># python</a>
+              <a href="/tags/SICP/" rel="tag"># SICP</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/08/28/cs61a-disc02/" rel="prev" title="cs61a-disc02">
+      <i class="fa fa-chevron-left"></i> cs61a-disc02
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/08/29/cs61a-guerrilla01/" rel="next" title="cs61a-guerrilla">
+      cs61a-guerrilla <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Q3-Lambdas-and-Currying"><span class="nav-number">1.</span> <span class="nav-text">Q3: Lambdas and Currying</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Q4-Make-Adder"><span class="nav-number">2.</span> <span class="nav-text">Q4: Make Adder</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Q5-Lambda-the-Environment-Diagram"><span class="nav-number">3.</span> <span class="nav-text">Q5: Lambda the Environment Diagram</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Q6-Composite-Identity-Function"><span class="nav-number">4.</span> <span class="nav-text">Q6: Composite Identity Function</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Q7-Count-van-Count"><span class="nav-number">5.</span> <span class="nav-text">Q7: Count van Count</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Q8-I-Heard-You-Liked-Functions…"><span class="nav-number">6.</span> <span class="nav-text">Q8: I Heard You Liked Functions…</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Guohang Ma</p>
+  <div class="site-description" itemprop="description">developer blog</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">136</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">38</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Guohang Ma</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

