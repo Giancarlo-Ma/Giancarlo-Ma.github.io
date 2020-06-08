@@ -2,9 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2018/09/01/cs61b-disc01-disc02/</loc>
+    
+    <lastmod>2020-06-08T17:11:10.548Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2020/06/08/thread-API/</loc>
     
-    <lastmod>2020-06-08T16:22:19.288Z</lastmod>
+    <lastmod>2020-06-08T17:10:43.058Z</lastmod>
     
   </url>
   
@@ -159,13 +166,6 @@
     <loc>http://yoursite.com/2018/05/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%89%A9%E7%90%86%E5%B1%82/</loc>
     
     <lastmod>2020-06-07T02:09:33.750Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/2018/09/01/cs61b-disc01&disc02/</loc>
-    
-    <lastmod>2020-06-07T02:09:33.730Z</lastmod>
     
   </url>
   
@@ -632,14 +632,14 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/2018/05/05/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%BD%91%E7%BB%9C%E5%B1%82/</loc>
+    <loc>http://yoursite.com/2019/03/04/%E8%B7%A8%E5%9F%9F%E7%AE%80%E8%BF%B0/</loc>
     
     <lastmod>2020-06-07T02:09:32.960Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://yoursite.com/2019/03/04/%E8%B7%A8%E5%9F%9F%E7%AE%80%E8%BF%B0/</loc>
+    <loc>http://yoursite.com/2018/05/05/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%BD%91%E7%BB%9C%E5%B1%82/</loc>
     
     <lastmod>2020-06-07T02:09:32.960Z</lastmod>
     
@@ -905,14 +905,14 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/2018/11/05/cs61b-lab10/</loc>
+    <loc>http://yoursite.com/2018/09/22/cs61c-disc01/</loc>
     
     <lastmod>2020-06-07T02:09:32.650Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://yoursite.com/2018/09/22/cs61c-disc01/</loc>
+    <loc>http://yoursite.com/2018/11/05/cs61b-lab10/</loc>
     
     <lastmod>2020-06-07T02:09:32.650Z</lastmod>
     
