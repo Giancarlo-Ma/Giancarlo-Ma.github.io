@@ -29,14 +29,11 @@
 <meta property="og:site_name" content="Giancarlo&#39;s Blog">
 <meta property="og:description" content="Longest Increasing SubsequenceGiven an unsorted array of integers, find the length of longest increasing subsequence. Example: 123Input: [10,9,2,5,3,7,101,18]Output: 4 Explanation: The longest increas">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://yoursite.com/2018/12/23/leetcode-300/300-ep48-2.png">
-<meta property="og:image" content="http://yoursite.com/2018/12/23/leetcode-300/300-ep48-3-1.png">
 <meta property="article:published_time" content="2018-12-22T22:23:54.000Z">
 <meta property="article:modified_time" content="2020-06-07T02:09:33.320Z">
 <meta property="article:author" content="Guohang Ma">
 <meta property="article:tag" content="dynamic programming">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/2018/12/23/leetcode-300/300-ep48-2.png">
 
 <link rel="canonical" href="http://yoursite.com/2018/12/23/leetcode-300/">
 
@@ -233,12 +230,12 @@
 <li>首先是最naive的穷举法，我们设置一个和原数组等长的数组，将所有可能的子序列枚举，体现在我们这个new出来的数组对应位置为1，代表原数组对应位置的元素在这次排列中，于是我们穷举出所有的子序列，判断其递增性，然后每次将计数器加1即可。我们每个位置都有两种可能，取还是不取。那么时间复杂度在这种情况下是2^n。可见这种naive的方法只能是在脑海中想想，实际中一定会超时。需要对该方法利用DP的思想进行改良</li>
 <li>第二种方法的思想是自顶向下的动态规划。(图片摘自花花酱的个人网站)，LIS这个函数，接收一个数组，返回以数组最后一项结尾的LIS长度。所以我们拿到一个数组，这个数组中的每一项都可能是LIS的最后一项，那么我们就分别假定数组中的每一项位LIS的最后一项，然后就会形成若干子问题，如图示的那样。这里面有一个剪枝就是如果数组中前面有某项大于最后一项了，就不要计算这个分支，因为肯定不是递增的一个序列了。所以我们将数组规模减小，递归的求解前面比末尾一项小的各项的LIS长度，然后加1，简单将最后一项加到这个LIS中，就形成了一个LIS，我们计算以每个项结尾的LIS，最后从这些LIS取最大。就可以找到LIS的长度了。但是这个过程有许多重复计算，我们开一个seen数组用来记录我们已经确定的以某项结尾的LIS长度，这样可以节省很多不必要的计算。</li>
 </ul>
-<img src="/2018/12/23/leetcode-300/300-ep48-2.png" class="">
+
 
 <ul>
 <li>第三种是自底向上的动态规划。我们从数组头开始迭代，双重循环，外层表示到哪里结束的子序列，内层对产生的小问题向前查找比外层对应元素小的数字，这样才会形成一个递增序列。然后我们找到最长的那个LIS，将其置于seen数组中。循环结束后返回数组中最大的那个元素。</li>
 </ul>
-<img src="/2018/12/23/leetcode-300/300-ep48-3-1.png" class="">
+
 
 <h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><p>自顶向下</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">lengthOfLIS</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> N = nums.length;</span><br><span class="line">        <span class="keyword">if</span>(N == <span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span>[] seen = <span class="keyword">new</span> <span class="keyword">int</span>[N];</span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; i++)</span><br><span class="line">            res = Math.max(res, lis(seen, nums, i));</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">lis</span><span class="params">(<span class="keyword">int</span>[] seen, <span class="keyword">int</span>[] nums, <span class="keyword">int</span> i)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(i == <span class="number">0</span>) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(seen[i] &gt; <span class="number">0</span>) <span class="keyword">return</span> seen[i];</span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; i; j++)</span><br><span class="line">            <span class="keyword">if</span>(nums[j] &lt; nums[i])</span><br><span class="line">                res = Math.max(res, lis(seen, nums, j) + <span class="number">1</span>);</span><br><span class="line">        seen[i] = res;</span><br><span class="line">        <span class="keyword">return</span> seen[i];</span><br><span class="line">    &#125;</span><br><span class="line">        </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -367,7 +364,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">136</span>
+          <span class="site-state-item-count">138</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -378,7 +375,7 @@
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">38</span>
+        <span class="site-state-item-count">39</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

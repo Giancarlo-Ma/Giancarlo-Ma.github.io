@@ -29,15 +29,11 @@
 <meta property="og:site_name" content="Giancarlo&#39;s Blog">
 <meta property="og:description" content="正则表达式编程工具和技术以一种混乱的，进化的方式生存和传播。并不总是漂亮的或聪明的那些最后会胜出，而是那些在市场中功能良好或者刚好与另一项成功的技术结合在一起的那些。 这一章，我将会讨论一个这样的工具，正则表达式。正则表达式是一种在字符串数据中描述模式的方式。它们是一个小的独立的语言，并且是JS和许多语言和系统的一部分。 正则表达式是难于对付的，同时又是极度有用的。他们的语法看上去比较神秘，并且J">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://yoursite.com/2019/01/05/EJ9/livestock.PNG">
-<meta property="og:image" content="http://yoursite.com/2019/01/05/EJ9/backtrack.png">
-<meta property="og:image" content="http://yoursite.com/2019/01/05/EJ9/many.png">
 <meta property="article:published_time" content="2019-01-05T15:03:36.000Z">
 <meta property="article:modified_time" content="2020-06-07T02:09:32.700Z">
 <meta property="article:author" content="Guohang Ma">
 <meta property="article:tag" content="technology software development blog">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/2019/01/05/EJ9/livestock.PNG">
 
 <link rel="canonical" href="http://yoursite.com/2019/01/05/EJ9/">
 
@@ -316,7 +312,7 @@
 <p>括号可以被用于限制管线操作符应用的范围，你可以将多个这样的操作紧挨着彼此放置来表达在大于两种可供选择的事物之间的选择。</p>
 <h2 id="匹配的机制"><a href="#匹配的机制" class="headerlink" title="匹配的机制"></a>匹配的机制</h2><p>概念上，如果你使用<code>exec</code>或者<code>test</code>，正则表达式引擎首先通过尝试从字符串起始匹配表达式，然后是第二个字符等等，在你的字符串中寻找一个匹配，知道找到了一个匹配或者到达字符串末尾。要么返回第一个匹配或者不能找到任何匹配。</p>
 <p>为了做实际的匹配，引擎对待正则表达式的方式有点像一个流程图。这是上个例子中牲畜表达式的图。</p>
-<img src="/2019/01/05/EJ9/livestock.PNG" class="">
+
 
 <p>如果我们从图的左边到图的右边找到一条路径，我们的正则表达式就会匹配。我们保存字符串中的当前位置，并且每次我们向前穿过一个盒子，我们见擦汗我们当前位置之后的字符串部分是否匹配那个盒子。</p>
 <p>所以我们如果从位置4尝试匹配”the 3 pigs”，我们穿越流程图的过程应该像这样：</p>
@@ -329,14 +325,14 @@
 <li>我们现在在位置10（字符串结尾）并且只可以匹配单词边界。字符串结尾可以算作单词边界，所以我们穿过最后一个盒子并成功匹配了这个字符串。</li>
 </ul>
 <h2 id="回溯"><a href="#回溯" class="headerlink" title="回溯"></a>回溯</h2><p>正则表达式<code>/\b([01]+b|[\da-f]+h|\d+)\b/</code>要么匹配一个二进制数后面跟着b，要么是一个十六进制数后面跟着h，要么是一个十进制数没有后缀。这是对应的图。</p>
-<img src="/2019/01/05/EJ9/backtrack.png" class="">
+
 
 <p>当匹配这个表达式时，经常发生这样的情况，即便输入实际上不包含一个二进制数，上面的二进制分支也会进入。当匹配字符串”103”时，只有到了3我们才知道我们进入了错误的分支。这个字符串确实可以匹配这个表达式，只是不是我们当前所在的分支。</p>
 <p>所以匹配程序回溯。当进入一个分支时，它记得当前的位置（在这个情况下，在字符串的起始，刚好经过图中的第一个边界盒子）所以如果当前分支不可行可以回溯并且尝试另一个分支。对于字符串”103”，在遇到字符3之后，将会开始尝试十六进制数的分支，因为数字之后没有<em>h</em>，所以匹配会再次失败。所以会尝试十进制分支。这一个匹配了，并且最终报告了一个匹配。</p>
 <p>一遇到一个完整的匹配匹配程序就会终止。这意味着如果多个分支可能潜在的匹配字符串，但只有第一个分支（以正则表达式中的分支序为准）会被使用。</p>
 <p>回溯也发生在重复操作符如<code>+</code>和<code>*</code>。如果你匹配<code>/^.*x/</code>和”abcxe”，这个<code>.*</code>部分首先尝试消耗整个字符串。引擎然后意识到他需要一个x来匹配模式。因为字符串末尾没有一个x，所以<code>*</code>操作符尝试去掉一个字符匹配。但是匹配程序在<code>abcx</code>之后依然没有发现x，所以继续回溯，将abc与<code>*</code>操作符进行匹配。现在他发现了一个需要的x并且从位置0到4报告了一次成功的匹配。</p>
 <p>写一个要做很多回溯的正则表达式是可能的。当一个模式可以以许多不同的方式去匹配一部分输入的时候这个问题就会发生。例如，如果我们写二进制数正则表达式的时候比较迷糊，我们可能意外的写类似于这样的<code>/([01]+)+b/</code>。</p>
-<img src="/2019/01/05/EJ9/many.png" class="">
+
 
 <p>如果尝试匹配非常长的01序列并且末尾没有b字符，匹配程序首先经过内循环直到用完所有数字。然后它意识到没有b，所以回溯一个位置。经过一次外循环，并且再次放弃，尝试去再一次回溯内循环。通过这两个循环将继续尝试所有可能的路线。这意味着每一个额外的字符都使工作量翻倍。即便是几十个字符，导致的匹配实际上也需要很长时间。</p>
 <h2 id="replace方法"><a href="#replace方法" class="headerlink" title="replace方法"></a>replace方法</h2><p>字符串值有一个<code>replace</code>方法，可被用于替换掉字符串中的一部分。</p>
@@ -598,7 +594,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">136</span>
+          <span class="site-state-item-count">138</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -609,7 +605,7 @@
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">38</span>
+        <span class="site-state-item-count">39</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

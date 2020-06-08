@@ -29,16 +29,11 @@
 <meta property="og:site_name" content="Giancarlo&#39;s Blog">
 <meta property="og:description" content="归并操作归并排序算法的核心是归并操作，给定两个有序的数组，将其归并为一个更大的有序的数组。以下是归并操作的java实现。 123456789101112131415161718public static void merge(Comparable[] a, int lo, int mid, int hi) &amp;#123;    &#x2F;&#x2F; 辅助数组    Comparable[] aux &#x3D; new Co">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://yoursite.com/2018/12/01/merge-sort/merge-sort-call-trace.png">
-<meta property="og:image" content="http://yoursite.com/2018/12/01/merge-sort/merge-sort-subtree.png">
-<meta property="og:image" content="http://yoursite.com/2018/12/01/merge-sort/bottom-up-merge.png">
-<meta property="og:image" content="http://yoursite.com/2018/12/01/merge-sort/decision-tree.png">
 <meta property="article:published_time" content="2018-12-01T02:51:23.000Z">
 <meta property="article:modified_time" content="2020-06-07T02:09:33.060Z">
 <meta property="article:author" content="Guohang Ma">
 <meta property="article:tag" content="technology software development blog">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/2018/12/01/merge-sort/merge-sort-call-trace.png">
 
 <link rel="canonical" href="http://yoursite.com/2018/12/01/merge-sort/">
 
@@ -225,9 +220,9 @@
 
 <h2 id="自顶向下归并"><a href="#自顶向下归并" class="headerlink" title="自顶向下归并"></a>自顶向下归并</h2><p>我们利用算法设计中的分治思想去设计归并排序，拿到一个无序数组，可以这样思考，将其左半边排序，右半边排序，然后将左右两侧归并，就可以实现整个数组的排序。这样将大的数组分为若干小数组，将其分别排序归并，最后形成有序的大数组，就可以实现我们的目的，这种通过递归实现的排序方法叫做自顶向下的归并排序。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Merge</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Comparable[] aux;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sort</span><span class="params">(Comparable[] a)</span> </span>&#123;</span><br><span class="line">        aux = <span class="keyword">new</span> Comparable[a.length];</span><br><span class="line">        sort(a, <span class="number">0</span>, a.length - <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sort</span><span class="params">(Comparable[] a, <span class="keyword">int</span> lo, <span class="keyword">int</span> hi)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(lo &gt;= hi) <span class="keyword">return</span>;</span><br><span class="line">        <span class="keyword">int</span> mid = lo + (hi - lo) / <span class="number">2</span>;</span><br><span class="line">        sort(a, lo, mid);</span><br><span class="line">        sort(a, mid + <span class="number">1</span>, hi);</span><br><span class="line">        merge(a, lo, mid, hi);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<img src="/2018/12/01/merge-sort/merge-sort-call-trace.png" class="">
+
 <p>sort()方法的作用就是安排merge方法调用的正确顺序。我们通过分析算法的比较次数来分析这个算法的复杂度，对于下面的树来说，我们有n层，自顶向下的第k层有2^k个子数组，每个数组长度为$2^(n-k)$，归并需要2$^(n-k)$次比较。因此每层的比较次数为$2^n$，并且这里我们有n层（$n=logn$)，所以为$NlogN$。</p>
-<img src="/2018/12/01/merge-sort/merge-sort-subtree.png" class="">
+
 
 <p>归并排序改进</p>
 <ul>
@@ -238,12 +233,12 @@
 </li>
 </ul>
 <h2 id="自底向上归并排序"><a href="#自底向上归并排序" class="headerlink" title="自底向上归并排序"></a>自底向上归并排序</h2><p>递归实现归并排序是分治算法的典型体现，我们将大问题分解为小问题，再逐个击破。另一种实现归并排序的思路是，我们通过$log N$轮的归并，设定一个sz值，这个sz值不断翻倍，先将小的sz为1的子数组归并为规模为2的有序数组，再将sz为2的有序数组归并，为sz为4的归并做准备，以此类推，我们将这种方法叫做自底向上的归并排序。需要注意的是，最后一个参与归并的子数组可能与前面参与归并的数组大小不一致，但我们的merge方法也能很好的处理这种情况。</p>
-<img src="/2018/12/01/merge-sort/bottom-up-merge.png" class="">
+
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MergeBU</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Comparable[] aux;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sort</span><span class="params">(Comparable[] a)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> N = a.length;</span><br><span class="line">        aux = <span class="keyword">new</span> Comprable[N];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> sz = <span class="number">1</span>; sz &lt; N; sz += sz)</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> lo = <span class="number">0</span>; lo &lt; N - sz; lo += lo)</span><br><span class="line">                merge(a, lo, lo + sz - <span class="number">1</span>, Math.min(lo + sz + sz - <span class="number">1</span>, N - <span class="number">1</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>自顶向下的归并排序和自底向上的归并排序都是一种很直观的实现，当我们遇到一个问题的时候，如果可以考虑用其中一种方法去解决，都应很自然的试试用另外一种方法去解决。</p>
 <h2 id="排序算法的复杂度"><a href="#排序算法的复杂度" class="headerlink" title="排序算法的复杂度"></a>排序算法的复杂度</h2><p>一个学习归并排序的重要原因是因为它是证明计算复杂性中一个重要结论的基础，即任何基于比较的排序算法，时间复杂度都不会低于$NlogN$。</p>
 <p>下面我们引入决策树这一数学模型去证明这个结论。决策树中只存在两种类型的节点，一种是叶子节点，一种是内部节点。内部节点表示一次比较，而叶子节点表明最终的排序序列。由排列组合知识可知，长度为$N$的序列最终的排序结果可能有$N!$种（假设不存在相等的键），那么决策树中的叶子节点就会是$N!$个，而对于一个完美二叉树来说，高度为n的这样的树会有$2^n$个叶子节点，这也是二叉树所能达到的最多的节点数量。所以我们有$N!&lt;=number of leaves&lt;=2^h$，h就是最坏情况下的比较次数。对两侧取对数运算，可知h至少是$lgN!$，根据斯特灵公式，可知$lgN ~ NlgN$。</p>
-<img src="/2018/12/01/merge-sort/decision-tree.png" class="">
+
 <p>结合归并排序最坏的时间复杂度为$NlgN$，以及任何基于比较的排序算法至少要$NlgN$，可得出下面的结论，归并排序是一种渐进最优的基于比较排序的算法。</p>
 
     </div>
@@ -366,7 +361,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">136</span>
+          <span class="site-state-item-count">138</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -377,7 +372,7 @@
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">38</span>
+        <span class="site-state-item-count">39</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

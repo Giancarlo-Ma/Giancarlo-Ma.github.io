@@ -29,19 +29,12 @@
 <meta property="og:site_name" content="Giancarlo&#39;s Blog">
 <meta property="og:description" content="IntroductionIn this homework, you will learn how to write and use packages, as well as get some hands-on practice with interfaces and abstract classes. We’ll also get an opportunity to implement a sim">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://yoursite.com/2018/10/10/cs61b-hw01/buffer.png">
-<meta property="og:image" content="http://yoursite.com/2018/10/10/cs61b-hw01/buffer1.png">
-<meta property="og:image" content="http://yoursite.com/2018/10/10/cs61b-hw01/buffer2.png">
-<meta property="og:image" content="http://yoursite.com/2018/10/10/cs61b-hw01/buffer3.png">
-<meta property="og:image" content="http://yoursite.com/2018/10/10/cs61b-hw01/buffer4.png">
-<meta property="og:image" content="http://yoursite.com/2018/10/10/cs61b-hw01/karplus-strong.png">
 <meta property="article:published_time" content="2018-10-10T07:33:27.000Z">
 <meta property="article:modified_time" content="2020-06-07T02:09:33.220Z">
 <meta property="article:author" content="Guohang Ma">
 <meta property="article:tag" content="java">
 <meta property="article:tag" content="data structure">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/2018/10/10/cs61b-hw01/buffer.png">
 
 <link rel="canonical" href="http://yoursite.com/2018/10/10/cs61b-hw01/">
 
@@ -256,19 +249,19 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">BoundedQueue x = <span class="keyword">new</span> NaiveArrayBoundedQueue(<span class="number">4</span>);</span><br><span class="line">x.enqueue(<span class="number">33.1</span>) <span class="comment">// 33.1 null null  null</span></span><br><span class="line">x.enqueue(<span class="number">44.8</span>) <span class="comment">// 33.1 44.8 null  null</span></span><br><span class="line">x.enqueue(<span class="number">62.3</span>) <span class="comment">// 33.1 44.8 62.3  null</span></span><br><span class="line">x.enqueue(-<span class="number">3.4</span>) <span class="comment">// 33.1 44.8 62.3 -3.4</span></span><br><span class="line">x.dequeue()     <span class="comment">// 44.8 62.3 -3.4  null (returns 33.1)</span></span><br></pre></td></tr></table></figure>
 <p>Note that in this setup, the call to <code>dequeue</code> is very slow as it requires moving every single item to the left. For larger arrays this would result in unacceptable performance.</p>
 <p>The ArrayRingBuffer will improve this runtime substantially by using the ‘ring buffer’ data structure, similar to the circular array from Project 1A. A ring buffer first starts empty and of some predefined length. For example, this is a 7-element buffer:</p>
-<img src="/2018/10/10/cs61b-hw01/buffer.png" class="">
+
 
 <p>Assume that a 1 is written into the middle of the buffer (the exact starting location does not matter in a ring buffer):</p>
-<img src="/2018/10/10/cs61b-hw01/buffer1.png" class="">
+
 
 <p>Then assume that two more elements are added — 2 and 3 — which get appended after the 1. Here, it is important that the 2 and 3 are placed in the exact order and places shown:</p>
-<img src="/2018/10/10/cs61b-hw01/buffer2.png" class="">
+
 
 <p>If two elements are then removed from the buffer, the oldest two values inside the buffer are removed. The two elements removed in this case are 1 and 2, leaving the buffer with just a 3:</p>
-<img src="/2018/10/10/cs61b-hw01/buffer3.png" class="">
+
 
 <p>If we then enqueue 4, 5, 6, 7, 8, and 9, the ring buffer is now as shown below:</p>
-<img src="/2018/10/10/cs61b-hw01/buffer4.png" class="">
+
 
 <p>Note that the 6 was enqueued at the leftmost entry of the array (i.e. the buffer wraps around, like a ring). At this point, the ring buffer is full, and if another enqueue() is performed, then an Exception will occur. You will manually throw this Exception. See the section labeled Iteration and Exceptions at the end of this HW for more.</p>
 <p>We recommend you maintain one integer instance variable <code>first</code> that stores the index of the least recently inserted item; maintain a second integer instance variable <code>last</code> that stores the index one beyond the most recently inserted item. To insert an item, put it at index <code>last</code> and increment <code>last</code>. To remove an item, take it from index <code>first</code> and increment <code>first</code>. When either index equals capacity, make it wrap-around by changing the index to 0. Our skeleton file provides starter code along these lines. You’re welcome to do something else if you’d like, since these variables are private and thus our tester will not be able to see them anyway.</p>
@@ -282,7 +275,7 @@
 <li>Remove the front double in the BoundedQueue and average it with the next double in the BQ (hint: use dequeue() and peek()) multiplied by an energy decay factor of 0.996.</li>
 <li>Play the double that you dequeued in step 2. Go back to step 2 (repeating forever).<br>Or visually, if the BoundedQueue is as shown on the top, we’d dequeue the 0.2, combine it with the 0.4 to form 0.2988, enqueue the 0.2988, and play the 0.2.</li>
 </ol>
-<img src="/2018/10/10/cs61b-hw01/karplus-strong.png" class="">
+
 
 <p>You can play a double value with the <code>StdAudio.play</code> method. For example <code>StdAudio.play(0.333)</code> will tell the diaphragm of your speaker to extend itself to 1/3rd of its total reach, <code>StdAudio.play(-0.9)</code> will tell it to stretch its little heart backwards almost as far as it can reach. Movement of the speaker diaphragm displaces air, and if you displace air in nice patterns, these disruptions will be intepreted by your consciousness as pleasing thanks to billions of years of evolution. See this page for more. If you simply do <code>StdAudio.play(0.9)</code> and never play anything again, the diaphragm shown in the image would just be sitting still 9/10ths of the way forwards.</p>
 <p>Rename <code>GuitarString.java.skeleton</code> to <code>GuitarString.java</code>. Complete <code>GuitarString.java</code> so that it implements steps 1 and 2 of the Karplus-Strong algorithm. Step 3 will be done by the client of the <code>GuitarString</code> class.</p>
@@ -438,7 +431,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">136</span>
+          <span class="site-state-item-count">138</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -449,7 +442,7 @@
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">38</span>
+        <span class="site-state-item-count">39</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

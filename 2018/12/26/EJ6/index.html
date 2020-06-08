@@ -29,13 +29,11 @@
 <meta property="og:site_name" content="Giancarlo&#39;s Blog">
 <meta property="og:description" content="对象的秘密生活第四章介绍了JS的对象。在编程文化中，我们有个叫做object-oriented programming的范式，也即是面向对象编程，就是将对象（和其相关概念）作为程序组织的中心原则。 即使没人同意它的定义，面向对象变成定形了许多编程语言的设计，包括JavaScript。这一章描述这些主意怎样被应用到JavaScript。">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://yoursite.com/2018/12/26/EJ6/rabbit.png">
 <meta property="article:published_time" content="2018-12-26T05:54:06.000Z">
 <meta property="article:modified_time" content="2020-06-07T02:09:33.230Z">
 <meta property="article:author" content="Guohang Ma">
 <meta property="article:tag" content="technology software development blog">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/2018/12/26/EJ6/rabbit.png">
 
 <link rel="canonical" href="http://yoursite.com/2018/12/26/EJ6/">
 
@@ -282,7 +280,7 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Rabbit.prototype.teeth = <span class="string">"small"</span>;</span><br><span class="line"><span class="built_in">console</span>.log(killerRabbit.teeth);</span><br><span class="line"><span class="comment">// → small</span></span><br><span class="line">killerRabbit.teeth = <span class="string">"long, sharp, and bloody"</span>;</span><br><span class="line"><span class="built_in">console</span>.log(killerRabbit.teeth);</span><br><span class="line"><span class="comment">// → long, sharp, and bloody</span></span><br><span class="line"><span class="built_in">console</span>.log(blackRabbit.teeth);</span><br><span class="line"><span class="comment">// → small</span></span><br><span class="line"><span class="built_in">console</span>.log(Rabbit.prototype.teeth);</span><br><span class="line"><span class="comment">// → small</span></span><br></pre></td></tr></table></figure>
 
 <p>下面的图片描绘了代码运行过后的情形。<code>Rabbit</code>和<code>Object</code>原型在killerRabbit后面作为一种背景，对象本身找不到的属性会被在这些原型中查找。</p>
-<img src="/2018/12/26/EJ6/rabbit.png" class="">
+
 
 <p>重写存在原型中的属性是个有用的事情。对于实例中出现的不寻常的对象的某个特定值，可以通过重写去隐藏掉原型上的值，而保持其他寻常的对象的值不变。</p>
 <p>重写也用于给一个函数和数组原型不同的<code>toString</code>方法，而不是基本的对象原型。</p>
@@ -513,7 +511,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">136</span>
+          <span class="site-state-item-count">138</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -524,7 +522,7 @@
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">38</span>
+        <span class="site-state-item-count">39</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

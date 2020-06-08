@@ -29,14 +29,12 @@
 <meta property="og:site_name" content="Giancarlo&#39;s Blog">
 <meta property="og:description" content="Q1: List IndexingFor each of the following lists, what is the list indexing expression that evaluates to 7? For example, if x &#x3D; [7], then the answer would be x[0]. You can use the interpreter or Pytho">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://yoursite.com/2018/10/08/cs61a-lab04/connect_4.gif">
 <meta property="article:published_time" content="2018-10-08T02:42:20.000Z">
 <meta property="article:modified_time" content="2020-06-07T02:09:32.620Z">
 <meta property="article:author" content="Guohang Ma">
 <meta property="article:tag" content="python">
 <meta property="article:tag" content="SICP">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/2018/10/08/cs61a-lab04/connect_4.gif">
 
 <link rel="canonical" href="http://yoursite.com/2018/10/08/cs61a-lab04/">
 
@@ -272,7 +270,7 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">merge</span><span class="params">(lst1, lst2)</span>:</span></span><br><span class="line">    <span class="string">"""Merges two sorted lists.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; merge([1, 3, 5], [2, 4, 6])</span></span><br><span class="line"><span class="string">    [1, 2, 3, 4, 5, 6]</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; merge([], [2, 4, 6])</span></span><br><span class="line"><span class="string">    [2, 4, 6]</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; merge([1, 2, 3], [])</span></span><br><span class="line"><span class="string">    [1, 2, 3]</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; merge([5, 7], [2, 4, 6])</span></span><br><span class="line"><span class="string">    [2, 4, 5, 6, 7]</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="string">"*** YOUR CODE HERE ***"</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> lst1:</span><br><span class="line">        <span class="keyword">return</span> lst2</span><br><span class="line">    <span class="keyword">elif</span> <span class="keyword">not</span> lst2:</span><br><span class="line">        <span class="keyword">return</span> lst1</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> lst1[<span class="number">0</span>] &lt; lst2[<span class="number">0</span>]:</span><br><span class="line">        <span class="keyword">return</span> [lst1[<span class="number">0</span>]] + merge(lst1[<span class="number">1</span>:], lst2)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> [lst2[<span class="number">0</span>]] + merge(lst2[<span class="number">1</span>:], lst1)</span><br></pre></td></tr></table></figure>
 
 <h1 id="Connect-N"><a href="#Connect-N" class="headerlink" title="Connect N"></a>Connect N</h1><p>You’ve probably heard of Connect 4, a two-player game where the players take turns dropping a colored piece from the top of a column in a grid. The piece ends at the last empty spot in this column - that is, as close to the bottom as possible. A player can only put pieces in columns with open spaces.</p>
-<img src="/2018/10/08/cs61a-lab04/connect_4.gif" class="">
+
 
 <p>The winner is the first player who gets N of their pieces next to each other - either horizontally, vertically or diagonally. The game ends at this point, or as soon as the board is full.</p>
 <p>We can generalize this game so that the goal is to connect N pieces instead of just 4. In this section, we will be implementing a command line version of Connect N!</p>
@@ -454,7 +452,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">136</span>
+          <span class="site-state-item-count">138</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -465,7 +463,7 @@
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">38</span>
+        <span class="site-state-item-count">39</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

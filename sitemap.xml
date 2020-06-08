@@ -2,9 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2020/06/08/thread-API/</loc>
+    
+    <lastmod>2020-06-08T16:22:19.288Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2020/06/08/threads/</loc>
+    
+    <lastmod>2020-06-08T14:59:59.188Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2020/06/07/locks/</loc>
     
-    <lastmod>2020-06-07T14:01:06.640Z</lastmod>
+    <lastmod>2020-06-07T17:29:22.570Z</lastmod>
     
   </url>
   

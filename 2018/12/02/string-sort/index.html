@@ -29,14 +29,11 @@
 <meta property="og:site_name" content="Giancarlo&#39;s Blog">
 <meta property="og:description" content="String in javajava中字符串的表示是不可变的定长char型数组，char型为16位无符号整数，采用Unicode编码，最多支持65536个字符。length以及charAt, substring方法为常数时间复杂度，substring只返回一个String的实例。而concat操作由于要创建新的char数组作为字符串返回，所以时间复杂度为concat的两个字符串的长度和。">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://yoursite.com/2018/12/02/string-sort/complexity.png">
-<meta property="og:image" content="http://yoursite.com/2018/12/02/string-sort/candidate.png">
 <meta property="article:published_time" content="2018-12-02T04:11:51.000Z">
 <meta property="article:modified_time" content="2020-06-07T02:09:32.720Z">
 <meta property="article:author" content="Guohang Ma">
 <meta property="article:tag" content="technology software development blog">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/2018/12/02/string-sort/complexity.png">
 
 <link rel="canonical" href="http://yoursite.com/2018/12/02/string-sort/">
 
@@ -226,10 +223,10 @@
 <p>上述这段代码运行时间是$1 + 2 + … + n$，为平方级别。所以我们引入java中另外一种字符串的表示，也就是StringBuilder类，如下是改进后的代码，运行时间为线性级别，StringBuilder底层为变长char型数组实现。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">reverse</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">    StringBuilder reverse = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = s.length - <span class="number">1</span>; s &gt;= <span class="number">0</span>; s--)</span><br><span class="line">        reverse.append(s.charAt(i));</span><br><span class="line">    <span class="keyword">return</span> reverse.toString();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>下图是String和StringBuilder的运行时间对比，可以看出，对于concat操作，StringBuilder明显更胜一筹，因为String每次都要新初始化一个String对象，而StringBuilder为变长数组，所以均摊时间为常数级别。但是对于substring操作，StringBuilder由于只有一个char变长数组，每次substring都要重新初始化一个StringBuilder对象，所以时间复杂度为线性级别，而对于String来说，只是返回一个String的实例而加以同的offset，所以开销很小，为常数级别。</p>
-<img src="/2018/12/02/string-sort/complexity.png" class="">
+
 
 <h2 id="键索引计数法"><a href="#键索引计数法" class="headerlink" title="键索引计数法"></a>键索引计数法</h2><p>考虑一个典型案例，班级中的每个学生对应一个section，我们的目的是将这些学生按照section排序，a[i].key()返回该学生的section。</p>
-<img src="/2018/12/02/string-sort/candidate.png" class="">
+
 
 <ol>
 <li>计算count数组，在这一步中，根据每个学生的学生section，加一后作为索引存放在count数组，代码如下</li>
@@ -369,7 +366,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">136</span>
+          <span class="site-state-item-count">138</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -380,7 +377,7 @@
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">38</span>
+        <span class="site-state-item-count">39</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

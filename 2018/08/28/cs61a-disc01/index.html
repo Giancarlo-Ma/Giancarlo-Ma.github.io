@@ -29,17 +29,12 @@
 <meta property="og:site_name" content="Giancarlo&#39;s Blog">
 <meta property="og:description" content="ControlIf statementAlfonso will only wear a jacket outside if it is below 60 degrees or it is raining.Write a function that takes in the current temperature and a boolean value tellingif it is raining">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://yoursite.com/2018/08/28/cs61a-disc01/environment.png">
-<meta property="og:image" content="http://yoursite.com/2018/08/28/cs61a-disc01/assignment.png">
-<meta property="og:image" content="http://yoursite.com/2018/08/28/cs61a-disc01/en1.png">
-<meta property="og:image" content="http://yoursite.com/2018/08/28/cs61a-disc01/en2.png">
 <meta property="article:published_time" content="2018-08-28T12:05:10.000Z">
 <meta property="article:modified_time" content="2020-06-07T02:09:33.330Z">
 <meta property="article:author" content="Guohang Ma">
 <meta property="article:tag" content="python">
 <meta property="article:tag" content="SICP">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/2018/08/28/cs61a-disc01/environment.png">
 
 <link rel="canonical" href="http://yoursite.com/2018/08/28/cs61a-disc01/">
 
@@ -233,7 +228,7 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> math <span class="keyword">import</span> sqrt</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">is_prime</span><span class="params">(n)</span>:</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string"><span class="meta">&gt;&gt;&gt; </span>is_prime(10)</span></span><br><span class="line"><span class="string">False</span></span><br><span class="line"><span class="string"><span class="meta">&gt;&gt;&gt; </span>is_prime(7)</span></span><br><span class="line"><span class="string">True</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line">    <span class="keyword">if</span> n == <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        k = <span class="number">2</span></span><br><span class="line">        <span class="keyword">while</span> k &lt;= sqrt(n):</span><br><span class="line">            <span class="keyword">if</span> n % k == <span class="number">0</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">            k += <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br></pre></td></tr></table></figure>
 <h1 id="Environment-diagram"><a href="#Environment-diagram" class="headerlink" title="Environment diagram"></a>Environment diagram</h1><p>An environment diagram keeps track of all the variables that have been defined<br>and the values they are bound to. We will be using this tool throughout the course<br>to understand complex programs involving several different objects and function<br>calls.</p>
 <p>Remember that programs are simply a set of statements, or instructions, so drawing<br>diagrams that represent these programs also involve following sets of instructions!<br>Let’s dive in.</p>
-<img src="/2018/08/28/cs61a-disc01/environment.png" class="">
+
 
 <h2 id="Assignment-Statement"><a href="#Assignment-Statement" class="headerlink" title="Assignment Statement"></a>Assignment Statement</h2><p>Assignment statements, such as x = 3, define variables in programs. To execute<br>one in an environment diagram, record the variable name and the value:</p>
 <ol>
@@ -242,7 +237,7 @@
 </ol>
 <p>Q1: Use these rules to draw a simple diagram for the assignment statements below.</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">x = <span class="number">10</span> % <span class="number">4</span></span><br><span class="line">y = x</span><br><span class="line">x **= <span class="number">2</span></span><br></pre></td></tr></table></figure>
-<img src="/2018/08/28/cs61a-disc01/assignment.png" class="">
+
 
 <h2 id="def-Statements"><a href="#def-Statements" class="headerlink" title="def Statements"></a>def Statements</h2><p>def statements create function objects and bind them to a name. To diagram def<br>statements, record the function name and bind the function object to the name.<br>It’s also important to write the parent frame of the function, which is where the<br>function is defined.</p>
 <ol>
@@ -267,11 +262,11 @@
 </ol>
 <p>Q3: Let’s put it all together! Draw an environment diagram for the following code.</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">double</span><span class="params">(x)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> x * <span class="number">2</span></span><br><span class="line">hmmm = double</span><br><span class="line">wow = double(<span class="number">3</span>)</span><br><span class="line">hmmm(wow)</span><br></pre></td></tr></table></figure>
-<img src="/2018/08/28/cs61a-disc01/en1.png" class="">
+
 
 <p>Q4: Draw the environment diagram that results from executing the code below. What<br>will be displayed when running the code (note this separately from the diagram)?</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> operator <span class="keyword">import</span> add</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sub</span><span class="params">(a, b)</span>:</span></span><br><span class="line">    sub = add</span><br><span class="line">    <span class="keyword">return</span> a - b</span><br><span class="line">add = sub</span><br><span class="line">sub = min</span><br><span class="line">print(add(<span class="number">2</span>, sub(<span class="number">2</span>, <span class="number">3</span>)))</span><br></pre></td></tr></table></figure>
-<img src="/2018/08/28/cs61a-disc01/en2.png" class="">
+
 <p>Print output: 0</p>
 
     </div>
@@ -398,7 +393,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">136</span>
+          <span class="site-state-item-count">138</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -409,7 +404,7 @@
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">38</span>
+        <span class="site-state-item-count">39</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

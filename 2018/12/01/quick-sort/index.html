@@ -29,13 +29,11 @@
 <meta property="og:site_name" content="Giancarlo&#39;s Blog">
 <meta property="og:description" content="基本算法快排是一种基于分治的算法，将数组分成两部分，将两部分独立排序，当两个子数组都有序时，整个数组也就有序了。 12345678910111213public class Quick &amp;#123;    public static void sort(Comparable[] a) &amp;#123;        StdRandom.shuffle(a); &#x2F;&#x2F; 打乱数组        sort(a">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://yoursite.com/2018/12/01/quick-sort/partition-trace.png">
 <meta property="article:published_time" content="2018-12-01T07:28:29.000Z">
 <meta property="article:modified_time" content="2020-06-07T02:09:33.780Z">
 <meta property="article:author" content="Guohang Ma">
 <meta property="article:tag" content="technology software development blog">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/2018/12/01/quick-sort/partition-trace.png">
 
 <link rel="canonical" href="http://yoursite.com/2018/12/01/quick-sort/">
 
@@ -222,7 +220,7 @@
 <p>实现算法的关键是partition方法，在这里，我们每次选用第一个元素作为partition元素，将他放在合适的位置，保证在他之前的元素都小于他，在他之后的元素都大于他。通过维护两个指针变量实现这个策略，代码如下。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">partition</span><span class="params">(Comparable[] a, <span class="keyword">int</span> lo, <span class="keyword">int</span> hi)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i = lo, j = hi + <span class="number">1</span>;</span><br><span class="line">    Comparable v = a[lo];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(<span class="keyword">true</span>) &#123;</span><br><span class="line">        <span class="keyword">while</span>(less(a[++i], v)) <span class="keyword">if</span>(i &gt; hi) <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">while</span>(less(v, a[--j])) <span class="keyword">if</span>(j &lt; lo) <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">if</span>(i &gt;= j) <span class="keyword">break</span>;</span><br><span class="line">        exch(a, i, j);</span><br><span class="line">    &#125;</span><br><span class="line">    exch(a, lo, j);</span><br><span class="line">    <span class="keyword">return</span> j;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<img src="/2018/12/01/quick-sort/partition-trace.png" class="">
+
 
 <h2 id="性能分析"><a href="#性能分析" class="headerlink" title="性能分析"></a>性能分析</h2><p>快排之所以快，是因为他的内循环特别短小，只将有限数量的元素和固定的值相比。而归并排序或者希尔排序，还要将元素进行移动。快排还快在只需少量的比较，快排的最佳情况是每次都将partition置于中间位置，如此一来，时间复杂度分析就类似归并排序，有$C(N) = 2C(N/2) + N$的递推关系，可知时间复杂度为$NlgN$。</p>
 <p>下面分析一下快速排序在平均情况下的时间复杂度，首先说明我们要证明的结论：快排在平均情况下需要$2NlnN$次比较（对$N$个不同键的元素排序）。$C(N)$表示排序$N$个不同的键所需要的比较次数。<br>$$C_N = N + 1 + (C_0 + C_1 + … + C_(N - 2) + C_(N - 1)) / N + (C_(N - 1) + C_(N - 2) + … + C_0) / N$$</p>
@@ -364,7 +362,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">136</span>
+          <span class="site-state-item-count">138</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -375,7 +373,7 @@
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">38</span>
+        <span class="site-state-item-count">39</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

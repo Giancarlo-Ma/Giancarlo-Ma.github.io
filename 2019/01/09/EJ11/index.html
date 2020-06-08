@@ -29,15 +29,11 @@
 <meta property="og:site_name" content="Giancarlo&#39;s Blog">
 <meta property="og:description" content="异步编程计算机的中心，也就是执行组成我们程序独立的步的部分叫做处理器。我们到目前为止所见的程序将会使处理器一直运转知道它们完成工作。修改数字的循环以多快的速度执行极度依赖处理器的速度。 但是许多程序与处理器外的东西交互。例如，它们可能通过计算机网络通讯或者从硬盘上请求数据，这些操作远比从内存中获取慢得多。 当这样的事情发生时，让处理器停转是一件遗憾的事情，存在可以同时做的一些其他的工作。在某种程度">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://yoursite.com/2019/01/09/EJ11/asyn.png">
-<meta property="og:image" content="http://yoursite.com/2019/01/09/EJ11/Hieres-sur-Amby.png">
-<meta property="og:image" content="http://yoursite.com/2019/01/09/EJ11/test.png">
 <meta property="article:published_time" content="2019-01-09T12:45:40.000Z">
 <meta property="article:modified_time" content="2020-06-07T02:09:33.790Z">
 <meta property="article:author" content="Guohang Ma">
 <meta property="article:tag" content="technology software development blog">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/2019/01/09/EJ11/asyn.png">
 
 <link rel="canonical" href="http://yoursite.com/2019/01/09/EJ11/">
 
@@ -229,7 +225,7 @@
 <p>在同步环境下，请求函数只在它完成工作后才可返回，最简单的做这个人物的方式是一个挨着另一个的发起请求。缺点在于第二个请求只有在第一个结束之后才可以发起。总时间至少是两次响应时间的和。</p>
 <p>这个问题的解，在一个同步系统中，是开一个额外的控制线程。一个线程（thread）是另一个运行的程序，通过操作系统，它的运行可能与其他程序交错进行，因为大多数现代计算机包含多个处理器，多个线程就可以同时在不同处理器运行。第二个线程可以发起第二个请求，然后两个线程等待响应，随后它们重新同步来组合结果。</p>
 <p>在下面的图中，粗线代表程序正常运行的时间，细线代表等待网络响应的时间。在同步模型中，花费在网络上的时间是给定控制线程的时间轴的一部分。在异步模型中，开始一个网络行为概念上导致时间轴上一个分叉。开启行为的程序继续运行，并且行为和它一同进行，当行为完成时通知程序。</p>
-<img src="/2019/01/09/EJ11/asyn.png" class="">
+
 
 <p>另一种描述区别的方式是，完成行为的等待在同步模型中是隐式的，而在异步模式中是显式的在我们控制下的。</p>
 <p>异步使得表达不适合直线模型的控制更简单，但是也能让表达直线程序更加尴尬。我们随后将会看一些解决这种尴尬性的方式。</p>
@@ -240,7 +236,7 @@
 <p>这些种群通常坐落于大的可长期居住的巢穴。鸟和昆虫一起工作，在鸟巢的树枝之间去建立一个球状粘土结构的网络，昆虫在里面生活和工作。</p>
 <p>为了和其他设备通信，这些机器使用光信号。乌鸦将一些反光材料嵌入到特殊的通信杆中，昆虫将这些材料用于反射另一个巢穴的光线，将数据编码为一个快速闪光序列。这意味着只有拥有完整视觉连接的巢穴才可以通信。</p>
 <p>我们的鸦科专家绘制了罗纳河岸上的amby村庄的乌鸦巢穴网络图，这张图展示了巢穴和他们之间的连接。</p>
-<img src="/2019/01/09/EJ11/Hieres-sur-Amby.png" class="">
+
 
 <p>在这个例子中，乌鸦计算机可以运行JS。在这一章中，我们将为他们写一些基本的网络功能。</p>
 <h2 id="回调"><a href="#回调" class="headerlink" title="回调"></a>回调</h2><p>一个异步编程的方法是让执行缓慢操作的函数接受一个额外的参数，一个回调函数。该操作被启动，当完成时，回调函数被用这个结果进行调用。</p>
@@ -312,7 +308,7 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义一种消息类型并指定其handler</span></span><br><span class="line"><span class="comment">// 接收到ping消息类型时，handler返回pong</span></span><br><span class="line">requestType(<span class="string">"ping"</span>, () =&gt; <span class="string">"pong"</span>);</span><br><span class="line"><span class="comment">// 这里我们要找到从某一巢穴可达的邻居集合，以数组形式体现</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">availableNeighbor</span>(<span class="params">nest</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> requests = nest.neighbors.map(<span class="function"><span class="params">neighbor</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> request(nest, neighbor, <span class="string">"ping"</span>)</span><br><span class="line">    .then(<span class="function"><span class="params">()</span> =&gt;</span> <span class="literal">true</span>, () =&gt; <span class="literal">false</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="comment">// requests是一个promise数组，并且promise状态都为resolved，只是值有的为true，有的为false</span></span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Promise</span>.all(requests).then(<span class="function"><span class="params">result</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> nest.neighbors.filter(<span class="function">(<span class="params">_, i</span>) =&gt;</span> result[i])</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><strong>非原文翻译</strong>：对上述代码进一步解释一下，首先nest.neighbors是响应巢穴的邻居数组，数组的map方法用于在数组上每个元素执行一个方法，并把得到的值替换到数组相应位置并返回这个新构造的数组。那么我们通过map方法构建了一个promise的数组，数组首先调用request函数，如果promise被resolve，那么我们调用then方法的第一个函数参数，否则调用then方法的第二个函数参数。结果就是产生了相应promise值为true或者false的promise对象，（<em>这里我查看了浏览器端promise对象包含的内容，发现promise对象由PromiseStatus和PromiseValue两部分组成，如图示</em>）这样我们获得了一个promise数组，并且对于不可达的也就是reject的位置我们将其promiseValue设置为false。这样是为了后面我们Promise.all方法不会fail，从而能成功调用then方法的第一个参数，所以我们利用filter的第二个参数是当前数组索引的事实，来成功筛选出那些promise含有值true的巢穴。</p>
-<img src="/2019/01/09/EJ11/test.png" class="">
+
 
 <p>当一个neighbor不可得时，我们不想要整个组合的promise fail因为那样我们仍然不知道任何东西。所以映射到邻居集合的函数将他们转换为请求promise关联的处理程序成功的返回true，失败的返回false。</p>
 <p>在组合的promise的处理函数中，filter被用于从邻居数组中移除那些对应值是false的元素。这利用了filter将当前元素的数组索引传递为第二个参数的事实（map,some和相似的高阶数组方法都是一样的）。</p>
@@ -521,7 +517,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">136</span>
+          <span class="site-state-item-count">138</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -532,7 +528,7 @@
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">38</span>
+        <span class="site-state-item-count">39</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

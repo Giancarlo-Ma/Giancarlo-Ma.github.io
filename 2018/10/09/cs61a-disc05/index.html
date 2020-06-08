@@ -29,14 +29,12 @@
 <meta property="og:site_name" content="Giancarlo&#39;s Blog">
 <meta property="og:description" content="1 MutationLet’s imagine you order a mushroom and cheese pizza from La Val’s, and that they represent your order as a list: 1&gt;&gt;&gt; pizza &#x3D; [&#39;cheese&#39;, mushrooms&#39;] A couple minute">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://yoursite.com/2018/10/09/cs61a-disc05/en.png">
 <meta property="article:published_time" content="2018-10-09T03:57:28.000Z">
 <meta property="article:modified_time" content="2020-06-07T02:09:33.380Z">
 <meta property="article:author" content="Guohang Ma">
 <meta property="article:tag" content="python">
 <meta property="article:tag" content="SICP">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/2018/10/09/cs61a-disc05/en.png">
 
 <link rel="canonical" href="http://yoursite.com/2018/10/09/cs61a-disc05/">
 
@@ -247,7 +245,7 @@ Although lists and dictionaries are mutable, many other objects, such as numeric
 </ul>
 <h2 id="Question-1"><a href="#Question-1" class="headerlink" title="Question"></a>Question</h2><p>2.1 Draw the environment diagram for the following code.</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">stepper</span><span class="params">(num)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">step</span><span class="params">()</span>:</span></span><br><span class="line">        <span class="keyword">nonlocal</span> num</span><br><span class="line">        num = num + <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> num</span><br><span class="line">    <span class="keyword">return</span> step</span><br><span class="line"></span><br><span class="line">s = stepper(<span class="number">3</span>)</span><br><span class="line">s()</span><br><span class="line">s()</span><br></pre></td></tr></table></figure>
-<img src="/2018/10/09/cs61a-disc05/en.png" class="">
+
 
 <p>2.2 The bathtub below simulates an epic battle between Finn and Kylo Ren over a populace of rubber duckies. Fill in the body of ducky so that all doctests pass.</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">bathtub</span><span class="params">(n)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; annihilator = bathtub(500) # the force awakens...</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; kylo_ren = annihilator(10)</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; kylo_ren()</span></span><br><span class="line"><span class="string">    490 rubber duckies left</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; rey = annihilator(-20)</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; rey()</span></span><br><span class="line"><span class="string">    510 rubber duckies left</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; kylo_ren()</span></span><br><span class="line"><span class="string">    500 rubber duckies left</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">ducky_annihilator</span><span class="params">(rate)</span>:</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">ducky</span><span class="params">()</span>:</span></span><br><span class="line">            <span class="keyword">nonlocal</span> n</span><br><span class="line">            n -= rate</span><br><span class="line">            print(n + <span class="string">" rubber duckies left"</span>)</span><br><span class="line">        <span class="keyword">return</span> ducky</span><br><span class="line">    <span class="keyword">return</span> ducky_annihilator</span><br></pre></td></tr></table></figure>
@@ -403,7 +401,7 @@ Although lists and dictionaries are mutable, many other objects, such as numeric
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">136</span>
+          <span class="site-state-item-count">138</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -414,7 +412,7 @@ Although lists and dictionaries are mutable, many other objects, such as numeric
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">38</span>
+        <span class="site-state-item-count">39</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

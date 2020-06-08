@@ -29,17 +29,12 @@
 <meta property="og:site_name" content="Giancarlo&#39;s Blog">
 <meta property="og:description" content="深入理解marginmargin负值的应用负margin可以增加元素宽度，典型应用为一列元素，每个元素都有一个margin-right，但是又不想最后那个元素的margin-right显示出来，在父元素和子元素中间增加一层元素来为它设置margin-right为负值，以此来增加父元素宽度，即可实现这种效果。">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://yoursite.com/2019/02/28/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3margin/negative_margin.png">
-<meta property="og:image" content="http://yoursite.com/2019/02/28/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3margin/shengbei1.png">
-<meta property="og:image" content="http://yoursite.com/2019/02/28/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3margin/shengbei2.png">
-<meta property="og:image" content="http://yoursite.com/2019/02/28/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3margin/shuangfeiyi.png">
 <meta property="article:published_time" content="2019-02-28T11:28:38.000Z">
 <meta property="article:modified_time" content="2020-06-07T02:09:33.290Z">
 <meta property="article:author" content="Guohang Ma">
 <meta property="article:tag" content="layout">
 <meta property="article:tag" content="margin">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/2019/02/28/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3margin/negative_margin.png">
 
 <link rel="canonical" href="http://yoursite.com/2019/02/28/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3margin/">
 
@@ -227,7 +222,7 @@
 
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.box</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">960px</span>;</span><br><span class="line">  <span class="attribute">margin</span>: auto;</span><br><span class="line">  <span class="attribute">background</span>: orange;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.ul</span> &#123;</span><br><span class="line">  <span class="attribute">overflow</span>: hidden;</span><br><span class="line">  <span class="attribute">margin-right</span>: -<span class="number">10px</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.li</span> &#123;</span><br><span class="line">  <span class="attribute">float</span>: left;</span><br><span class="line">  <span class="attribute">background</span>: green;</span><br><span class="line">  <span class="attribute">margin-right</span>: <span class="number">10px</span>;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">313.33px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">200px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<img src="/2019/02/28/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3margin/negative_margin.png" class="">
+
 
 <p>我们先确定item的margin-right，然后设置ul的margin-right刚好为这个值的相反数，用box元素的宽度加上这个margin-right，再减去三个margin-right的值，计算出的数值除以3，则得到每个元素的宽度数值。</p>
 <h3 id="圣杯布局"><a href="#圣杯布局" class="headerlink" title="圣杯布局"></a>圣杯布局</h3><p>margin的百分比基于父元素计算，对于浮动元素的margin-left，如果为-100%，则会到上一行，因为走完了一整个父元素盒子，而后面的元素也会因为这个元素的移动而改变布局。</p>
@@ -235,10 +230,10 @@
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">article</span> <span class="attr">class</span>=<span class="string">"container"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"center"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h2</span>&gt;</span>圣杯布局<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"left"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"right"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">article</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>首先center，left和right都设置为左浮动，设置center宽度为100%，实现宽度自适应。如此一来，left和right就会掉在center下面，因为center占据了全部的空间。</p>
-<img src="/2019/02/28/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3margin/shengbei1.png" class="">
+
 
 <p>然后将left的margin-left设置为-100%，right的margin-left设置为自身长度的相反数，就可以将left左移到上一行的起始位置，而right刚好左移到上一行的末尾</p>
-<img src="/2019/02/28/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3margin/shengbei2.png" class="">
+
 
 <p>设置父容器的padding-left和padding-right，让他们给left和right腾出空间，可以稍微设置的大一点，在此设置为220px。而left和right的宽度为200px，这样我们就能再下面移动left和right到对应的位置后可以和center有20px间距。</p>
 <p>下面我们对left和right设置相对定位，注意相对定位是相对于原来所在的位置，将left的left值设置为预留的padding的相反数，而right的right值设置为预留的padding的相反数，保证了二者向正确的方向移动。</p>
@@ -253,7 +248,7 @@
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">article</span> <span class="attr">class</span>=<span class="string">"container"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"center"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"inner"</span>&gt;</span>双飞翼布局<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"left"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"right"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">article</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.container</span> &#123;</span><br><span class="line">    min-width: 600px;//确保中间内容可以显示出来，两倍left宽+right宽</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.left</span> &#123;</span><br><span class="line">    <span class="attribute">float</span>: left;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">200px</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">400px</span>;</span><br><span class="line">    <span class="attribute">background</span>: red;</span><br><span class="line">    <span class="attribute">margin-left</span>: -<span class="number">100%</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.center</span> &#123;</span><br><span class="line">    <span class="attribute">float</span>: left;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">500px</span>;</span><br><span class="line">    <span class="attribute">background</span>: yellow;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.center</span> <span class="selector-class">.inner</span> &#123;</span><br><span class="line">    margin: 0 200px; //新增部分</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.right</span> &#123;</span><br><span class="line">    <span class="attribute">float</span>: left;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">200px</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">400px</span>;</span><br><span class="line">    <span class="attribute">background</span>: blue;</span><br><span class="line">    <span class="attribute">margin-left</span>: -<span class="number">200px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<img src="/2019/02/28/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3margin/shuangfeiyi.png" class="">
+
 
     </div>
 
@@ -379,7 +374,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">136</span>
+          <span class="site-state-item-count">138</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -390,7 +385,7 @@
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">38</span>
+        <span class="site-state-item-count">39</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
