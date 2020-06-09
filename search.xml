@@ -662,22 +662,6 @@
       </categories>
   </entry>
   <entry>
-    <title>EJ15</title>
-    <url>/2019/01/15/EJ15/</url>
-    <content><![CDATA[<h1 id="处理事件"><a href="#处理事件" class="headerlink" title="处理事件"></a>处理事件</h1><p>一些程序和直接的用户输入打交道，如鼠标和键盘行为。那种类型的输入不能作为一个组织良好的数据结构获得——它实时的一块接一块的到来，并且程序被期望随时响应。</p>
-<h2 id="事件处理器"><a href="#事件处理器" class="headerlink" title="事件处理器"></a>事件处理器</h2><p>想象一个接口，其中唯一的检测是否键盘上某一按键被按下的方式就是读取那个键的当前状态。为了能够响应按键，你必须持续读取那个键的状态，如此一来你就能在它释放之前捕捉到它。执行其他时间密集型的计算是危险的因为你可能错过按键。</p>
-<p>一些基本的机器确实像这样处理输入。从这一步开始，硬件或者操作系统注意到按键操作并将其放到一个队列。程序就可以为新事件周期性检查队列并对发现的事情作出反应。</p>
-<p>当然，它必须记住查看队列，并且经常这样做，因为在按键被按下和程序注意到事件之间的任何时间，都将导致软件感觉没有响应。这种方法叫做轮询。大多数的开发人员倾向于避免它。</p>
-<p>一个更好的机制就是当事件发生的时候，系统主动通知我们的代码。浏览器通过允许我们将函数注册为特定事件的处理器来实现这个。</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Click this document to activate the handler.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">  <span class="built_in">window</span>.addEventListener(<span class="string">"click"</span>, () =&gt; &#123;</span></span><br><span class="line"><span class="javascript">    <span class="built_in">console</span>.log(<span class="string">"You knocked?"</span>);</span></span><br><span class="line">  &#125;);</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>window绑定指的是浏览器提供的内建对象。它代表了包含文档的浏览器窗口。调用它的<code>addEventListener</code>方法使得第一个参数事件发生的时候，第二个参数被调用。</p>
-<h2 id="事件和DOM节点"><a href="#事件和DOM节点" class="headerlink" title="事件和DOM节点"></a>事件和DOM节点</h2><p>每个浏览器事件处理器都在上下文中注册。在前面的例子中，我们在<code>window</code>对象上调用<code>addEventListener</code>来为整个窗口注册一个处理器。这样的方法也能在DOM元素和其它类型的对象上发现。事件监听器只在事件发生在所注册对象的上下文中发生时才会调用。</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">button</span>&gt;</span>Click me<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>No handler here.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">  <span class="keyword">let</span> button = <span class="built_in">document</span>.querySelector(<span class="string">"button"</span>);</span></span><br><span class="line"><span class="actionscript">  button.addEventListener(<span class="string">"click"</span>, () =&gt; &#123;</span></span><br><span class="line"><span class="javascript">    <span class="built_in">console</span>.log(<span class="string">"Button clicked."</span>);</span></span><br><span class="line">  &#125;);</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>Eloquent JavaScript</category>
-      </categories>
-  </entry>
-  <entry>
     <title>EJ2</title>
     <url>/2018/12/19/EJ2/</url>
     <content><![CDATA[<h1 id="程序结构"><a href="#程序结构" class="headerlink" title="程序结构"></a>程序结构</h1><h2 id="表达式和语句"><a href="#表达式和语句" class="headerlink" title="表达式和语句"></a>表达式和语句</h2><p>一个产生值的代码片段叫做表达式，字面量也可以看作是一种表达式，表达式还可以嵌套表达式构成新的表达式。如果将表达式比喻为句子片段，那么语句就是能表达完整意思的一句话。语句的组合构成了一个程序，程序的意义在于改变“世界”，要么可以在屏幕上打印点什么东西，要么改变某种状态，以影响后面的程序，否则，程序将是无意义的。</p>
@@ -758,6 +742,22 @@
 <h2 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h2><h3 id="循环三角形"><a href="#循环三角形" class="headerlink" title="循环三角形"></a>循环三角形</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">1</span>; i &lt;= <span class="number">7</span>; i++) </span><br><span class="line">    <span class="keyword">let</span> temp = <span class="string">""</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> j = <span class="number">0</span>; j &lt; i; j++) </span><br><span class="line">        temp += <span class="string">"#"</span>;</span><br><span class="line">    <span class="built_in">console</span>.log(temp + <span class="string">"/n"</span>);</span><br></pre></td></tr></table></figure>
 <h3 id="FIZZBUZZ"><a href="#FIZZBUZZ" class="headerlink" title="FIZZBUZZ"></a>FIZZBUZZ</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span>(int i = <span class="number">1</span>; i &lt;= <span class="number">100</span>; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span>(i % <span class="number">3</span> == <span class="number">0</span> &amp;&amp; i % <span class="number">5</span> == <span class="number">0</span>) <span class="built_in">console</span>.log(<span class="string">"FizzBuzz"</span>);</span><br><span class="line">    <span class="keyword">if</span>(i % <span class="number">3</span> == <span class="number">0</span>) <span class="built_in">console</span>.log(<span class="string">'Fizz'</span>);</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(i % <span class="number">5</span> == <span class="number">0</span>) <span class="built_in">console</span>.log(<span class="string">"Buzz"</span>);</span><br><span class="line">    <span class="keyword">else</span> <span class="built_in">console</span>.log(i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="棋盘"><a href="#棋盘" class="headerlink" title="棋盘"></a>棋盘</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> flag = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span>(int i = <span class="number">0</span>; i &lt; size; i++) &#123;</span><br><span class="line">    <span class="keyword">let</span> s = <span class="string">""</span>;</span><br><span class="line">    <span class="keyword">for</span>(int j = <span class="number">0</span>; j &lt; size; j++) &#123;</span><br><span class="line">        <span class="keyword">if</span>((i + j) % <span class="number">2</span> == <span class="number">0</span>) s += <span class="string">" "</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>((i + j) % <span class="number">2</span> == <span class="number">1</span>) s += <span class="string">"#"</span>; </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">console</span>.log(s + <span class="string">"/n"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Eloquent JavaScript</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>EJ15</title>
+    <url>/2019/01/15/EJ15/</url>
+    <content><![CDATA[<h1 id="处理事件"><a href="#处理事件" class="headerlink" title="处理事件"></a>处理事件</h1><p>一些程序和直接的用户输入打交道，如鼠标和键盘行为。那种类型的输入不能作为一个组织良好的数据结构获得——它实时的一块接一块的到来，并且程序被期望随时响应。</p>
+<h2 id="事件处理器"><a href="#事件处理器" class="headerlink" title="事件处理器"></a>事件处理器</h2><p>想象一个接口，其中唯一的检测是否键盘上某一按键被按下的方式就是读取那个键的当前状态。为了能够响应按键，你必须持续读取那个键的状态，如此一来你就能在它释放之前捕捉到它。执行其他时间密集型的计算是危险的因为你可能错过按键。</p>
+<p>一些基本的机器确实像这样处理输入。从这一步开始，硬件或者操作系统注意到按键操作并将其放到一个队列。程序就可以为新事件周期性检查队列并对发现的事情作出反应。</p>
+<p>当然，它必须记住查看队列，并且经常这样做，因为在按键被按下和程序注意到事件之间的任何时间，都将导致软件感觉没有响应。这种方法叫做轮询。大多数的开发人员倾向于避免它。</p>
+<p>一个更好的机制就是当事件发生的时候，系统主动通知我们的代码。浏览器通过允许我们将函数注册为特定事件的处理器来实现这个。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Click this document to activate the handler.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">  <span class="built_in">window</span>.addEventListener(<span class="string">"click"</span>, () =&gt; &#123;</span></span><br><span class="line"><span class="javascript">    <span class="built_in">console</span>.log(<span class="string">"You knocked?"</span>);</span></span><br><span class="line">  &#125;);</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>window绑定指的是浏览器提供的内建对象。它代表了包含文档的浏览器窗口。调用它的<code>addEventListener</code>方法使得第一个参数事件发生的时候，第二个参数被调用。</p>
+<h2 id="事件和DOM节点"><a href="#事件和DOM节点" class="headerlink" title="事件和DOM节点"></a>事件和DOM节点</h2><p>每个浏览器事件处理器都在上下文中注册。在前面的例子中，我们在<code>window</code>对象上调用<code>addEventListener</code>来为整个窗口注册一个处理器。这样的方法也能在DOM元素和其它类型的对象上发现。事件监听器只在事件发生在所注册对象的上下文中发生时才会调用。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">button</span>&gt;</span>Click me<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>No handler here.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">  <span class="keyword">let</span> button = <span class="built_in">document</span>.querySelector(<span class="string">"button"</span>);</span></span><br><span class="line"><span class="actionscript">  button.addEventListener(<span class="string">"click"</span>, () =&gt; &#123;</span></span><br><span class="line"><span class="javascript">    <span class="built_in">console</span>.log(<span class="string">"Button clicked."</span>);</span></span><br><span class="line">  &#125;);</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>Eloquent JavaScript</category>
       </categories>
@@ -4312,6 +4312,29 @@ Use a list. When you add, just insert to the back of the list. When computing th
       </tags>
   </entry>
   <entry>
+    <title>cs61c-hw02</title>
+    <url>/2018/10/13/cs61c-hw02/</url>
+    <content><![CDATA[<h1 id="Goals"><a href="#Goals" class="headerlink" title="Goals"></a>Goals</h1><p>The objective of this assignment is to get you familiar with string/pointer manipulation and C code. You’ll also likely get lots of good experience debugging with cgdb (or enhance your ability to use print statements).</p>
+<h1 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h1><p>grep is a UNIX utility that is used to search for patterns in text files. It’s a powerful and versatile tool, and in this assignment you will implement a version that, while simplified, should still be useful.</p>
+<p>Your assignment is to complete the implementation of rgrep, our simplified version of grep. rgrep is “restricted” in the sense that the patterns it matches only support a few regular operators (the easier ones). The way rgrep is used is that a pattern is specified on the command line. rgrep then reads lines from its standard input and prints them out on its standard output if and only if the pattern “matches” the line or some subsection of it. For example, we can use rgrep to search for lines that contain filenames that are at least 3 characters long (plus the “.txt”) as follows:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># show the contents of test_file.in:</span><br><span class="line">$ cat test_file.in</span><br><span class="line"></span><br><span class="line">fine.txt</span><br><span class="line">reallylong.txt</span><br><span class="line">abc.txt</span><br><span class="line">s.txt</span><br><span class="line">nope.pdf</span><br><span class="line"></span><br><span class="line">$ .&#x2F;rgrep &#39;...+\.txt&#39; &lt; test_file.in</span><br><span class="line"></span><br><span class="line">fine.txt</span><br><span class="line">reallylong.txt</span><br><span class="line">abc.txt</span><br></pre></td></tr></table></figure>
+<p>What’s going on here? rgrep was given the pattern “…+.txt”; it printed only the lines from its standard input (the contents of test_file.in) that matched this pattern. How can you tell if a line matches the pattern? A line matches a pattern iff the pattern “appears” somewhere inside the line. In the absence of any special operators, seeing if a line matches a pattern reduces to seeing if the pattern occurs as a substring anywhere in the line. So for most characters, their meaning in a pattern is just to match themselves in the target string. However, there are a few special clauses you must implement:</p>
+
+
+<p>So, here are some examples of patterns and the kind of lines they match:</p>
+
+
+<p>These are the only special characters you have to handle. With the exception of the null character that terminates a string, you should not have to handle other characters in any special way. You may assume that your code will not be run against patterns that don’t make sense.</p>
+]]></content>
+      <categories>
+        <category>CS61C</category>
+      </categories>
+      <tags>
+        <tag>Machine Structure</tag>
+        <tag>C</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>cs61c-lab01</title>
     <url>/2018/09/25/cs61c-lab01/</url>
     <content><![CDATA[<h1 id="Compiling-and-Running-a-C-Program"><a href="#Compiling-and-Running-a-C-Program" class="headerlink" title="Compiling and Running a C Program"></a>Compiling and Running a C Program</h1><p>In this lab, we will be using the command line program gcc to compile programs in C. The simplest way to run gcc is as follows (note that there is no file called program.c given in the lab files, this is just an example for your information).</p>
@@ -4451,29 +4474,6 @@ Use a list. When you add, just insert to the back of the list. When computing th
       </tags>
   </entry>
   <entry>
-    <title>cs61c-hw02</title>
-    <url>/2018/10/13/cs61c-hw02/</url>
-    <content><![CDATA[<h1 id="Goals"><a href="#Goals" class="headerlink" title="Goals"></a>Goals</h1><p>The objective of this assignment is to get you familiar with string/pointer manipulation and C code. You’ll also likely get lots of good experience debugging with cgdb (or enhance your ability to use print statements).</p>
-<h1 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h1><p>grep is a UNIX utility that is used to search for patterns in text files. It’s a powerful and versatile tool, and in this assignment you will implement a version that, while simplified, should still be useful.</p>
-<p>Your assignment is to complete the implementation of rgrep, our simplified version of grep. rgrep is “restricted” in the sense that the patterns it matches only support a few regular operators (the easier ones). The way rgrep is used is that a pattern is specified on the command line. rgrep then reads lines from its standard input and prints them out on its standard output if and only if the pattern “matches” the line or some subsection of it. For example, we can use rgrep to search for lines that contain filenames that are at least 3 characters long (plus the “.txt”) as follows:</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># show the contents of test_file.in:</span><br><span class="line">$ cat test_file.in</span><br><span class="line"></span><br><span class="line">fine.txt</span><br><span class="line">reallylong.txt</span><br><span class="line">abc.txt</span><br><span class="line">s.txt</span><br><span class="line">nope.pdf</span><br><span class="line"></span><br><span class="line">$ .&#x2F;rgrep &#39;...+\.txt&#39; &lt; test_file.in</span><br><span class="line"></span><br><span class="line">fine.txt</span><br><span class="line">reallylong.txt</span><br><span class="line">abc.txt</span><br></pre></td></tr></table></figure>
-<p>What’s going on here? rgrep was given the pattern “…+.txt”; it printed only the lines from its standard input (the contents of test_file.in) that matched this pattern. How can you tell if a line matches the pattern? A line matches a pattern iff the pattern “appears” somewhere inside the line. In the absence of any special operators, seeing if a line matches a pattern reduces to seeing if the pattern occurs as a substring anywhere in the line. So for most characters, their meaning in a pattern is just to match themselves in the target string. However, there are a few special clauses you must implement:</p>
-
-
-<p>So, here are some examples of patterns and the kind of lines they match:</p>
-
-
-<p>These are the only special characters you have to handle. With the exception of the null character that terminates a string, you should not have to handle other characters in any special way. You may assume that your code will not be run against patterns that don’t make sense.</p>
-]]></content>
-      <categories>
-        <category>CS61C</category>
-      </categories>
-      <tags>
-        <tag>Machine Structure</tag>
-        <tag>C</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>CS70-disc00a</title>
     <url>/2018/10/03/cs70-disc00a/</url>
     <content><![CDATA[<h1 id="Writting-in-Propositional-Logic"><a href="#Writting-in-Propositional-Logic" class="headerlink" title="Writting in Propositional Logic"></a>Writting in Propositional Logic</h1><p>For rach of the following sentences,translate the sentence into propositional logic using the notation introduced in class,and write its negation.</p>
@@ -4545,6 +4545,31 @@ Use a list. When you add, just insert to the back of the list. When computing th
       </tags>
   </entry>
   <entry>
+    <title>cs70-disc01a</title>
+    <url>/2018/10/04/cs70-disc01a/</url>
+    <content><![CDATA[<h1 id="Induction"><a href="#Induction" class="headerlink" title="Induction"></a>Induction</h1><p>Prove the following using induction:<br>(a) For all natural numbers $n&gt;2,2^n&gt;2n+1$.</p>
+<p>We proceed by induction on the variable $n$.<br>Base case$(n=3)$:$8&gt;7$, which is correct.<br>Inductive Hypothesis:For arbitrary $n=m&gt;2$, assume that $2^m&gt;2m+1$.<br>Inductive Step: Because $m$ is positive number, then we have $2m&gt;1$, so:<br>$$2^{m+1}=2\cdot 2^m &gt; 2 \cdot (2m+1) = 4m+2 =2m+2m+2&gt;2m+3$$<br>So we have $2^{m+1}&gt;2(m+1)+1$,which completes the inductive step.</p>
+<a id="more"></a>
+<p>(b) For all positive integers $n$, $1^3+3^3+5^3+…+(2n-1)^3=n^2(2n^2-1)$.</p>
+<p>For $n=1$, the statement is $1=1$, which is true. Assume that it holds for $n=m$. Then,<br>$$<br>\begin{align}<br>\sum_{k=1}^{m+1} (2k-1)^3 &amp; = \sum_{k=1}^{m} (2k-1)^3 + (2m+1)^3=m^2(2m^2-1)+(2m+1)^3 \<br>&amp; = 2m^4+8m^3+11m^2+6m+1=(m+1)^2(2(m+1)^2-1)<br>\end{align}<br>$$</p>
+<p>(c) For all positive natural numbers $n$,$\frac 5 4 \cdot 8^n+3^{3n-1}$ is divisible by 19.</p>
+<p>For $n=1$, the statement is true because of 19 is divisible by 19. Assume that the statement holds for $n=m$, such that $\frac 5 4 \cdot 8^m + 3^{3m-1}$ is divisible by 19. Then we have<br>$$<br>\begin{align}<br>\frac 5 4 \cdot 8^{m+1} + 3^{3(m+1)-1} &amp; = 8 \cdot \frac 5 4 8^m + 3^{3m-1+3} \<br>&amp; = 8\cdot (\frac 5 4 \cdot 8^m + 3^{3m-1}) + 19\cdot 3^{3m-1}<br>\end{align}<br>$$<br>The first term is divisible by 19 because of induction hypothesis, and the second term is clearly divisible by 19.This completes our proof, as we have shown the statement holds for $m+1$.</p>
+<h1 id="Make-It-Stronger"><a href="#Make-It-Stronger" class="headerlink" title="Make It Stronger"></a>Make It Stronger</h1><p>Suppose that the sequence $$a_1$$,$$a_2$$,$$…$$ is defined by $$a_1=1$$ and $a_{n+1}=3a_n^2$ for $n \ge 1$. We want to prove that $a_n \le 3^{2^n}$ for every positive integer $n$.</p>
+<p>(a) Suppose that we want to prove this statement using induction, can we let our induction hypothesis be simply $a_n \le 3^{2^n}$? Show why this does not work.</p>
+<p>Try to prove for every $n\ge 1$, we have $a_n\le 3^{2^n}$ using induction.<br>Base case: For $n=1$, we have $a_1=1 \le 3^{2^1}=9$.<br>Inductive hypothesis: For $n&gt;1$, assume that $a_n\le 3^{2^n}$.<br>Inductive step:<br>$$<br>\begin{align}<br>a_{n+1}\le 3\cdot (3^{2^n})^2 &amp; =3\cdot 3^{2^{n+1}} \<br>&amp; = 3^{2^{n+1}+1}<br>\end{align}<br>$$<br>However, what we wanted to prove is $a_{n+1} \le 3^{2^{n+1}}$. There is an extra +1 in the exponent of what we derived.</p>
+<p>(b) Try to instead prove the statement $a_n\le 3^{2^n-1}$ using induction. Does this statement imply what you tried to prove in the previous part?</p>
+<p>Base case: $n=1, a_1=1 \le 3^{2^1 - 1}=3$<br>Inductive hypothesis: For every $n&gt;1$, assume that $a_n \le 3^{2^n-1}$<br>Inductive step:<br>$$<br>\begin{align}<br>a_{n+1} \le 3\cdot (3^{2^n -1})^2 &amp; = 3\cdot 3^{2^{n+1}-2} \<br>&amp; = 3^{2^{n+1}-1}<br>\end{align}<br>$$<br>This is exactly the induction hypothesis for $n+1$. Note that for every $n\ge 1$, we have $2^n-1\le2^n$ and therefore $3^{2^n-1}\le3^{2^n}$. This means that our modified hypothesis which we proved here is indeed imply what we wanted to prove in the previous part. This is called “strengthening” the induction hypothesis because we proved a stronger statement and by proving this statement to be true, we proved the original statement to be true as well.</p>
+<h1 id="Bit-String"><a href="#Bit-String" class="headerlink" title="Bit String"></a>Bit String</h1><p>Prove that every positive integer $n$ can be written with a string of 0s and 1s. In other words, prove that we can write<br>$$n = c_k\cdot 2^k + c_{k-1}\cdot 2^{k-1}+…+c_1\cdot 2^1+c_0\cdot 2^0$$<br>where $k \in \Bbb{N}$ and $c_k \in {0,1}$.</p>
+<p>Base case: $n=1$ can be written as $1 = 1 \times 2^0$<br>Inductive hypothesis: Assume that the statement holds for all $1\le k\le n$<br>Inductive step: There are two kinds of possibilities for $n+1$. If $n+1$ is even, then we can apply our inductive hypothesis to $(n+1)/2$ and use its representation to express $n+1$ in the desired form.<br>$$<br>\begin{align}<br>(n+1)/2 &amp; = c_k\cdot 2^k + c_{k-1}\cdot 2^{k-1}+…+c_1\cdot 2^1+c_0\cdot 2^0 \<br>n + 1 = 2\cdot (n+1) / 2 &amp; = c_k\cdot 2^{k+1} + c_{k-1}\cdot 2^{k}+…+c_1\cdot 2^2+c_0\cdot 2^1<br>\end{align}<br>$$<br>Otherwise, $n$ must be even and have $c_0=0$. We can obtain the representation of $n+1$ from $n$.<br>$$<br>\begin{align}<br>n &amp; =c_k\cdot 2^k + c_{k-1}\cdot 2^{k-1}+…+c_1\cdot 2^1+0\cdot 2^0 \<br>n+1 &amp; = c_k\cdot 2^k + c_{k-1}\cdot 2^{k-1}+…+c_1\cdot 2^1+1\cdot 2^0<br>\end{align}<br>$$<br>Therefore, the statement is true.</p>
+]]></content>
+      <categories>
+        <category>CS70</category>
+      </categories>
+      <tags>
+        <tag>math</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>cs70-disc01b</title>
     <url>/2018/10/05/cs70-disc01b/</url>
     <content><![CDATA[<h1 id="Stable-Marriage"><a href="#Stable-Marriage" class="headerlink" title="Stable Marriage"></a>Stable Marriage</h1><p>Consider the set of men $M={1,2,3}$ and the set of women $W={A,B,C}$ with the following preferences.</p>
@@ -4580,31 +4605,6 @@ Use a list. When you add, just insert to the back of the list. When computing th
 <p><em>Hint: Recall that a male-optimal matching always exists and can be generated using TMA. By reversing the roles of TMA, what other matching can we generate?</em></p>
 <p>In class, you were given the traditional propose-and-reject algorithm, which was guaranteed to produce a male-optimal matching. By switching men’s and women’s roles, you would be guaranteed to produce a female-optimal matching, which, by a lemma from class, would also be malepessimal. By the very fact that these algorithms exist and have been proven to work in this way, you’re guaranteed that a male-optimal and a male-pessimal matching always exist.</p>
 <p>Since there are only three matchings in this particular stable matching instance, we thus know that one of them must be male-optimal and one must be male-pessimal. Since $m1$ prefers $S1$ above the other stable matchings, only that one can be male-optimal by definition of male-optimality. Similarly, since $m1$ prefers $S3$ the least, it must be the male-pessimal. Therefore, again from<br>definitions of optimality/pessimality, since each men have different matches in the three stable matchings, they must strictly prefer $S1$ to both of the others, and they must like $S3$ strictly less than both of the others. Thus, each man’s preference order of stable matchings must be $S1,S2,S3$.</p>
-]]></content>
-      <categories>
-        <category>CS70</category>
-      </categories>
-      <tags>
-        <tag>math</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>cs70-disc01a</title>
-    <url>/2018/10/04/cs70-disc01a/</url>
-    <content><![CDATA[<h1 id="Induction"><a href="#Induction" class="headerlink" title="Induction"></a>Induction</h1><p>Prove the following using induction:<br>(a) For all natural numbers $n&gt;2,2^n&gt;2n+1$.</p>
-<p>We proceed by induction on the variable $n$.<br>Base case$(n=3)$:$8&gt;7$, which is correct.<br>Inductive Hypothesis:For arbitrary $n=m&gt;2$, assume that $2^m&gt;2m+1$.<br>Inductive Step: Because $m$ is positive number, then we have $2m&gt;1$, so:<br>$$2^{m+1}=2\cdot 2^m &gt; 2 \cdot (2m+1) = 4m+2 =2m+2m+2&gt;2m+3$$<br>So we have $2^{m+1}&gt;2(m+1)+1$,which completes the inductive step.</p>
-<a id="more"></a>
-<p>(b) For all positive integers $n$, $1^3+3^3+5^3+…+(2n-1)^3=n^2(2n^2-1)$.</p>
-<p>For $n=1$, the statement is $1=1$, which is true. Assume that it holds for $n=m$. Then,<br>$$<br>\begin{align}<br>\sum_{k=1}^{m+1} (2k-1)^3 &amp; = \sum_{k=1}^{m} (2k-1)^3 + (2m+1)^3=m^2(2m^2-1)+(2m+1)^3 \<br>&amp; = 2m^4+8m^3+11m^2+6m+1=(m+1)^2(2(m+1)^2-1)<br>\end{align}<br>$$</p>
-<p>(c) For all positive natural numbers $n$,$\frac 5 4 \cdot 8^n+3^{3n-1}$ is divisible by 19.</p>
-<p>For $n=1$, the statement is true because of 19 is divisible by 19. Assume that the statement holds for $n=m$, such that $\frac 5 4 \cdot 8^m + 3^{3m-1}$ is divisible by 19. Then we have<br>$$<br>\begin{align}<br>\frac 5 4 \cdot 8^{m+1} + 3^{3(m+1)-1} &amp; = 8 \cdot \frac 5 4 8^m + 3^{3m-1+3} \<br>&amp; = 8\cdot (\frac 5 4 \cdot 8^m + 3^{3m-1}) + 19\cdot 3^{3m-1}<br>\end{align}<br>$$<br>The first term is divisible by 19 because of induction hypothesis, and the second term is clearly divisible by 19.This completes our proof, as we have shown the statement holds for $m+1$.</p>
-<h1 id="Make-It-Stronger"><a href="#Make-It-Stronger" class="headerlink" title="Make It Stronger"></a>Make It Stronger</h1><p>Suppose that the sequence $$a_1$$,$$a_2$$,$$…$$ is defined by $$a_1=1$$ and $a_{n+1}=3a_n^2$ for $n \ge 1$. We want to prove that $a_n \le 3^{2^n}$ for every positive integer $n$.</p>
-<p>(a) Suppose that we want to prove this statement using induction, can we let our induction hypothesis be simply $a_n \le 3^{2^n}$? Show why this does not work.</p>
-<p>Try to prove for every $n\ge 1$, we have $a_n\le 3^{2^n}$ using induction.<br>Base case: For $n=1$, we have $a_1=1 \le 3^{2^1}=9$.<br>Inductive hypothesis: For $n&gt;1$, assume that $a_n\le 3^{2^n}$.<br>Inductive step:<br>$$<br>\begin{align}<br>a_{n+1}\le 3\cdot (3^{2^n})^2 &amp; =3\cdot 3^{2^{n+1}} \<br>&amp; = 3^{2^{n+1}+1}<br>\end{align}<br>$$<br>However, what we wanted to prove is $a_{n+1} \le 3^{2^{n+1}}$. There is an extra +1 in the exponent of what we derived.</p>
-<p>(b) Try to instead prove the statement $a_n\le 3^{2^n-1}$ using induction. Does this statement imply what you tried to prove in the previous part?</p>
-<p>Base case: $n=1, a_1=1 \le 3^{2^1 - 1}=3$<br>Inductive hypothesis: For every $n&gt;1$, assume that $a_n \le 3^{2^n-1}$<br>Inductive step:<br>$$<br>\begin{align}<br>a_{n+1} \le 3\cdot (3^{2^n -1})^2 &amp; = 3\cdot 3^{2^{n+1}-2} \<br>&amp; = 3^{2^{n+1}-1}<br>\end{align}<br>$$<br>This is exactly the induction hypothesis for $n+1$. Note that for every $n\ge 1$, we have $2^n-1\le2^n$ and therefore $3^{2^n-1}\le3^{2^n}$. This means that our modified hypothesis which we proved here is indeed imply what we wanted to prove in the previous part. This is called “strengthening” the induction hypothesis because we proved a stronger statement and by proving this statement to be true, we proved the original statement to be true as well.</p>
-<h1 id="Bit-String"><a href="#Bit-String" class="headerlink" title="Bit String"></a>Bit String</h1><p>Prove that every positive integer $n$ can be written with a string of 0s and 1s. In other words, prove that we can write<br>$$n = c_k\cdot 2^k + c_{k-1}\cdot 2^{k-1}+…+c_1\cdot 2^1+c_0\cdot 2^0$$<br>where $k \in \Bbb{N}$ and $c_k \in {0,1}$.</p>
-<p>Base case: $n=1$ can be written as $1 = 1 \times 2^0$<br>Inductive hypothesis: Assume that the statement holds for all $1\le k\le n$<br>Inductive step: There are two kinds of possibilities for $n+1$. If $n+1$ is even, then we can apply our inductive hypothesis to $(n+1)/2$ and use its representation to express $n+1$ in the desired form.<br>$$<br>\begin{align}<br>(n+1)/2 &amp; = c_k\cdot 2^k + c_{k-1}\cdot 2^{k-1}+…+c_1\cdot 2^1+c_0\cdot 2^0 \<br>n + 1 = 2\cdot (n+1) / 2 &amp; = c_k\cdot 2^{k+1} + c_{k-1}\cdot 2^{k}+…+c_1\cdot 2^2+c_0\cdot 2^1<br>\end{align}<br>$$<br>Otherwise, $n$ must be even and have $c_0=0$. We can obtain the representation of $n+1$ from $n$.<br>$$<br>\begin{align}<br>n &amp; =c_k\cdot 2^k + c_{k-1}\cdot 2^{k-1}+…+c_1\cdot 2^1+0\cdot 2^0 \<br>n+1 &amp; = c_k\cdot 2^k + c_{k-1}\cdot 2^{k-1}+…+c_1\cdot 2^1+1\cdot 2^0<br>\end{align}<br>$$<br>Therefore, the statement is true.</p>
 ]]></content>
       <categories>
         <category>CS70</category>
@@ -5315,6 +5315,32 @@ Use a list. When you add, just insert to the back of the list. When computing th
       </tags>
   </entry>
   <entry>
+    <title>leetcode-841</title>
+    <url>/2018/12/13/leetcode-841/</url>
+    <content><![CDATA[<h1 id="Keys-and-rooms"><a href="#Keys-and-rooms" class="headerlink" title="Keys and rooms"></a>Keys and rooms</h1><p>There are N rooms and you start in room 0.  Each room has a distinct number in 0, 1, 2, …, N-1, and each room may have some keys to access the next room. </p>
+<p>Formally, each room i has a list of keys rooms[i], and each key rooms[i][j] is an integer in [0, 1, …, N-1] where N = rooms.length.  A key rooms[i][j] = v opens the room with number v.</p>
+<p>Initially, all the rooms start locked (except for room 0). </p>
+<p>You can walk back and forth between rooms freely.</p>
+<p>Return true if and only if you can enter every room.</p>
+<p>Example 1:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Input: [[1],[2],[3],[]]</span><br><span class="line">Output: true</span><br><span class="line">Explanation:  </span><br><span class="line">We start in room 0, and pick up key 1.</span><br><span class="line">We then go to room 1, and pick up key 2.</span><br><span class="line">We then go to room 2, and pick up key 3.</span><br><span class="line">We then go to room 3.  Since we were able to go to every room, we return true.</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">Input: [[1,3],[3,0,1],[2],[0]]</span><br><span class="line">Output: false</span><br><span class="line">Explanation: We can&#39;t enter the room with number 2.</span><br></pre></td></tr></table></figure>
+<p>Note:</p>
+<ul>
+<li>1 &lt;= rooms.length &lt;= 1000</li>
+<li>0 &lt;= rooms[i].length &lt;= 1000</li>
+<li>The number of keys in all rooms combined is at most 3000.</li>
+</ul>
+<h2 id="题意分析"><a href="#题意分析" class="headerlink" title="题意分析"></a>题意分析</h2><p>该题是检查可达性问题的形式相对简单的一道题。在有向图中，从0出发，检查是否可以到达任意结点。我们维护的唯一的数据结构是set，我们每到达一个结点，都将其添加到set中，然后dfs相邻结点，完成一次完整的从0开始的dfs遍历后，若set的大小和rooms的大小一致，则说明可达所有结点，否则，返回false。</p>
+<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    Set&lt;Integer&gt; s = <span class="keyword">new</span> HashSet&lt;&gt;();</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">canVisitAllRooms</span><span class="params">(List&lt;List&lt;Integer&gt;&gt; rooms)</span> </span>&#123;</span><br><span class="line">        dfs(rooms, <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">return</span> s.size() == rooms.size();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">dfs</span><span class="params">(List&lt;List&lt;Integer&gt;&gt; rooms, <span class="keyword">int</span> i)</span> </span>&#123;</span><br><span class="line">        s.add(i);</span><br><span class="line">        List&lt;Integer&gt; keys = rooms.get(i);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> key : keys) &#123;</span><br><span class="line">            <span class="keyword">if</span>(!s.contains(key))</span><br><span class="line">                dfs(rooms, key);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>leetcode</category>
+      </categories>
+      <tags>
+        <tag>graph</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>leetcode-839</title>
     <url>/2018/12/14/leetcode-839/</url>
     <content><![CDATA[<h1 id="Similar-String-Groups"><a href="#Similar-String-Groups" class="headerlink" title="Similar String Groups"></a>Similar String Groups</h1><p>Two strings X and Y are similar if we can swap two letters (in different positions) of X, so that it equals Y.</p>
@@ -5339,32 +5365,6 @@ Use a list. When you add, just insert to the back of the list. When computing th
       <tags>
         <tag>graph</tag>
         <tag>union find</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>leetcode-841</title>
-    <url>/2018/12/13/leetcode-841/</url>
-    <content><![CDATA[<h1 id="Keys-and-rooms"><a href="#Keys-and-rooms" class="headerlink" title="Keys and rooms"></a>Keys and rooms</h1><p>There are N rooms and you start in room 0.  Each room has a distinct number in 0, 1, 2, …, N-1, and each room may have some keys to access the next room. </p>
-<p>Formally, each room i has a list of keys rooms[i], and each key rooms[i][j] is an integer in [0, 1, …, N-1] where N = rooms.length.  A key rooms[i][j] = v opens the room with number v.</p>
-<p>Initially, all the rooms start locked (except for room 0). </p>
-<p>You can walk back and forth between rooms freely.</p>
-<p>Return true if and only if you can enter every room.</p>
-<p>Example 1:</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Input: [[1],[2],[3],[]]</span><br><span class="line">Output: true</span><br><span class="line">Explanation:  </span><br><span class="line">We start in room 0, and pick up key 1.</span><br><span class="line">We then go to room 1, and pick up key 2.</span><br><span class="line">We then go to room 2, and pick up key 3.</span><br><span class="line">We then go to room 3.  Since we were able to go to every room, we return true.</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">Input: [[1,3],[3,0,1],[2],[0]]</span><br><span class="line">Output: false</span><br><span class="line">Explanation: We can&#39;t enter the room with number 2.</span><br></pre></td></tr></table></figure>
-<p>Note:</p>
-<ul>
-<li>1 &lt;= rooms.length &lt;= 1000</li>
-<li>0 &lt;= rooms[i].length &lt;= 1000</li>
-<li>The number of keys in all rooms combined is at most 3000.</li>
-</ul>
-<h2 id="题意分析"><a href="#题意分析" class="headerlink" title="题意分析"></a>题意分析</h2><p>该题是检查可达性问题的形式相对简单的一道题。在有向图中，从0出发，检查是否可以到达任意结点。我们维护的唯一的数据结构是set，我们每到达一个结点，都将其添加到set中，然后dfs相邻结点，完成一次完整的从0开始的dfs遍历后，若set的大小和rooms的大小一致，则说明可达所有结点，否则，返回false。</p>
-<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    Set&lt;Integer&gt; s = <span class="keyword">new</span> HashSet&lt;&gt;();</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">canVisitAllRooms</span><span class="params">(List&lt;List&lt;Integer&gt;&gt; rooms)</span> </span>&#123;</span><br><span class="line">        dfs(rooms, <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">return</span> s.size() == rooms.size();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">dfs</span><span class="params">(List&lt;List&lt;Integer&gt;&gt; rooms, <span class="keyword">int</span> i)</span> </span>&#123;</span><br><span class="line">        s.add(i);</span><br><span class="line">        List&lt;Integer&gt; keys = rooms.get(i);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> key : keys) &#123;</span><br><span class="line">            <span class="keyword">if</span>(!s.contains(key))</span><br><span class="line">                dfs(rooms, key);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>leetcode</category>
-      </categories>
-      <tags>
-        <tag>graph</tag>
       </tags>
   </entry>
   <entry>
